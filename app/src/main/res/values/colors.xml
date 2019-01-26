@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
+
+    <!--found out how to do this at https://stackoverflow.com/questions
+    /7378636/setting-background-colour-of-android-layout-element-->
+    <color name="blue">#3366ff</color>
+    <color name="green">#00cc00</color>
+    <color name="yellow">#ffd900</color>
+    <color name="red">#cc0000</color>
+    <color name="gray">#a2a2a9</color>
+    <color name="black">#000000</color>
+
 </resources>

@@ -10,6 +10,7 @@
         android:id="@+id/mainLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+
         android:orientation="horizontal">
 
         <LinearLayout
@@ -25,6 +26,7 @@
                 android:layout_height="match_parent"
                 android:textSize = "14dp"
                 android:layout_weight="1"
+                android:background="#000000"
                 android:orientation="vertical">
 
                 <TextView
@@ -34,6 +36,8 @@
                     android:layout_weight="1"
                     android:gravity="center_vertical|center_horizontal"
                     android:text="BLOKUS"
+                    android:textColor = "#ffd633"
+                    android:textColorLink="@color/yellow"
                     android:textSize="35dp"
                     android:textStyle="bold" />
             </LinearLayout>
@@ -43,13 +47,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:gravity="center_vertical|center_horizontal"
                 android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/scoreLabelTV"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Scores:" />
+                    android:gravity="center_vertical|center_horizontal"
+                    android:text="Scores:"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
             </LinearLayout>
 
             <LinearLayout
@@ -66,9 +74,11 @@
                     android:orientation="horizontal">
 
                     <LinearLayout
+                        android:id="@+id/redScoreLayout"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
+                        android:background="@color/red"
                         android:orientation="horizontal">
 
                         <TextView
@@ -77,13 +87,17 @@
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:gravity="center_vertical|center_horizontal"
-                            android:text="redScore" />
+                            android:text="22"
+                            android:textSize="24dp"
+                            android:textStyle="bold" />
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/blueScoreLayout"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
+                        android:background="@color/blue"
                         android:orientation="horizontal">
 
                         <TextView
@@ -92,7 +106,9 @@
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:gravity="center_vertical|center_horizontal"
-                            android:text="blueScore" />
+                            android:text="9"
+                            android:textSize="24dp"
+                            android:textStyle="bold" />
                     </LinearLayout>
                 </LinearLayout>
 
@@ -103,9 +119,11 @@
                     android:orientation="horizontal">
 
                     <LinearLayout
+                        android:id="@+id/greenScoreLayout"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
+                        android:background="@color/green"
                         android:orientation="horizontal">
 
                         <TextView
@@ -114,13 +132,17 @@
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:gravity="center_vertical|center_horizontal"
-                            android:text="greenScore" />
+                            android:text="3"
+                            android:textSize="24dp"
+                            android:textStyle="bold" />
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/yellowScoreLayout"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
+                        android:background="@color/yellow"
                         android:orientation="horizontal">
 
                         <TextView
@@ -129,7 +151,9 @@
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:gravity="center_vertical|center_horizontal"
-                            android:text="yellowScore" />
+                            android:text="13"
+                            android:textSize="24dp"
+                            android:textStyle="bold" />
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
@@ -146,7 +170,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center_vertical|center_horizontal"
-                    android:text="Pieces Remaining:" />
+                    android:text="Pieces Remaining:"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
             </LinearLayout>
 
             <LinearLayout
@@ -160,6 +186,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:background="@color/red"
                     android:orientation="horizontal">
 
                     <TextView
@@ -168,7 +195,9 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center_vertical|center_horizontal"
-                        android:text="redPieces" />
+                        android:text="4"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -176,6 +205,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:background="@color/green"
                     android:orientation="horizontal">
 
                     <TextView
@@ -184,7 +214,9 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center_vertical|center_horizontal"
-                        android:text="greenPieces" />
+                        android:text="2"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -192,6 +224,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:background="@color/yellow"
                     android:orientation="horizontal">
 
                     <TextView
@@ -199,8 +232,11 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
+                        android:background="#ffd900"
                         android:gravity="center_vertical|center_horizontal"
-                        android:text="yellowPieces" />
+                        android:text="5"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -208,6 +244,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:background="@color/blue"
                     android:orientation="horizontal">
 
                     <TextView
@@ -216,7 +253,9 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center_vertical|center_horizontal"
-                        android:text="bluePieces" />
+                        android:text="6"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
@@ -226,6 +265,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:background="@color/gray"
             android:orientation="horizontal">
 
         </LinearLayout>
@@ -247,6 +287,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:background="@color/colorPrimaryDark"
                     android:orientation="horizontal">
 
                     <Button
@@ -254,7 +295,10 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:text="Place Piece" />
+                        android:text="Place Piece"
+                        android:background="#2d862d"
+                        android:textSize="24sp"
+                        android:textStyle="bold" />
                 </LinearLayout>
 
                 <LinearLayout
