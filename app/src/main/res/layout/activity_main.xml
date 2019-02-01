@@ -12,7 +12,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
 
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="16dp">
 
         <LinearLayout
             android:id="@+id/leftLayout"
@@ -25,29 +27,25 @@
                 android:id="@+id/blokusLabelLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
+                android:layout_weight="2.5"
                 android:background="#000000"
                 android:orientation="vertical"
                 android:textSize="14dp">
 
-                <TextView
-                    android:id="@+id/blokusTV"
+                <ImageView
+                    android:id="@+id/imageView"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center_vertical|center_horizontal"
-                    android:text="BLOKUS"
-                    android:textColor="#ffd633"
-                    android:textColorLink="@color/yellow"
-                    android:textSize="35dp"
-                    android:textStyle="bold" />
+                    android:layout_height="151dp"
+                    android:layout_weight="3"
+                    app:srcCompat="@drawable/BlokusLogo" />
+
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/scoresLabelLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
+                android:layout_weight="3.1"
                 android:gravity="center_vertical|center_horizontal"
                 android:orientation="vertical">
 
@@ -66,7 +64,7 @@
                 android:id="@+id/scoreLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
+                android:layout_weight="2.5"
                 android:orientation="vertical">
 
                 <LinearLayout
@@ -168,7 +166,7 @@
                 android:id="@+id/piecesRemainingLabelLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
+                android:layout_weight="3.2"
                 android:orientation="vertical">
 
                 <TextView
@@ -178,7 +176,7 @@
                     android:gravity="center_vertical|center_horizontal"
                     android:text="Pieces Remaining:"
                     android:textColor="@color/black"
-                    android:textSize="30sp"
+                    android:textSize="20sp"
                     android:textStyle="bold" />
             </LinearLayout>
 
@@ -186,7 +184,7 @@
                 android:id="@+id/piecesRemainingLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
+                android:layout_weight="2.5"
                 android:orientation="horizontal">
 
                 <LinearLayout
@@ -356,7 +354,15 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="4"
-                    android:orientation="horizontal"></LinearLayout>
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/helpButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:text="Help" />
+                </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
