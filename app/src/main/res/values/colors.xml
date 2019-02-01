@@ -3,11 +3,11 @@
 
     <!--found out how to do this at https://stackoverflow.com/questions
     /7378636/setting-background-colour-of-android-layout-element-->
-    <color name="blue">#3366ff</color>
-    <color name="green">#00cc00</color>
-    <color name="yellow">#ffd900</color>
-    <color name="red">#cc0000</color>
+    <color name="blue">#3366FF</color>
+    <color name="green">#00CC00</color>
+    <color name="yellow">#FFD900</color>
+    <color name="red">#F40000</color>
     <color name="gray">#a2a2a9</color>
     <color name="black">#000000</color>
-
+    <color name="grayBackground">#363535</color>
 </resources>
