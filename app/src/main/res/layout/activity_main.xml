@@ -90,7 +90,7 @@
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:gravity="center_vertical|center_horizontal"
-                            android:text="22"
+                            android:text="5"
                             android:textColor="@color/black"
                             android:textSize="24dp"
                             android:textStyle="bold" />
@@ -110,7 +110,7 @@
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:gravity="center_vertical|center_horizontal"
-                            android:text="9"
+                            android:text="5"
                             android:textColor="@color/black"
                             android:textSize="24dp"
                             android:textStyle="bold" />
@@ -137,7 +137,7 @@
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:gravity="center_vertical|center_horizontal"
-                            android:text="3"
+                            android:text="5"
                             android:textColor="@color/black"
                             android:textSize="24dp"
                             android:textStyle="bold" />
@@ -157,7 +157,7 @@
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:gravity="center_vertical|center_horizontal"
-                            android:text="13"
+                            android:text="5"
                             android:textColor="@color/black"
                             android:textSize="24dp"
                             android:textStyle="bold" />
@@ -217,7 +217,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
-                            android:text="10"
+                            android:text="20"
                             android:textColor="@color/red"
                             android:textSize="24sp" />
                     </LinearLayout>
@@ -243,7 +243,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
-                            android:text="15"
+                            android:text="20"
                             android:textColor="@color/blue"
                             android:textSize="24sp" />
                     </LinearLayout>
@@ -269,13 +269,13 @@
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
-                            android:text="19"
+                            android:text="20"
                             android:textColor="@color/green"
                             android:textSize="24sp" />
                     </LinearLayout>
 
                     <LinearLayout
-                        android:id="@+id/yelllowPiecesRemaining"
+                        android:id="@+id/yellowPiecesRemaining"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -295,7 +295,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
-                            android:text="14"
+                            android:text="20"
                             android:textColor="@color/yellow"
                             android:textSize="24sp" />
                     </LinearLayout>
@@ -311,15 +311,80 @@
             android:layout_weight="1"
             android:background="@color/gray"
             android:orientation="vertical">
-
-            <ImageButton
-                android:id="@+id/board"
+            /**
+            External Citation
+            Date: 3 February 2019
+            Problem: Could not get the piece image buttons to stack on the board's image button.
+            Resource:
+            https://stackoverflow.com/questions/16575546/how-do-i-create-stackable-images-in-android
+            Solution: I followed the XML file layout to apply nested image buttons in a frame layout.
+                    Also used padding to make sure pieces fit on the board.
+            */
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="0"
-                android:background="@color/grayBackground"
-                android:scaleType="fitCenter"
-                app:srcCompat="@drawable/blokus_board" />
+                android:layout_height="match_parent">
+                <ImageButton
+                    android:id="@+id/board"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0"
+                    android:background="@color/grayBackground"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/blokus_board" />
+                /**
+                External Citation
+                Date: 3 February 2019
+                Problem: Could not get the piece image buttons to be transparent while stacked on the board.
+                https://stackoverflow.com/questions/1492554/set-transparent-background-of-an-imageview-on-android/37323776
+                Solution: I used the example code to apply it to the pieces placed on the board.
+                */
+                /**
+                External Citation
+                Date: 3 February 2019
+                Problem: Could not get the piece images inside the image buttons to adjust size while maintaining aspect ratio.
+                https://stackoverflow.com/questions/43033447/increase-the-size-of-the-image-inside-the-imageview
+                Solution: I used the example code to apply it to the pieces placed on the board.
+                */
+                <ImageButton
+                    android:id="@+id/cBluePiecePlaced"
+                    android:layout_width="65dp"
+                    android:layout_height="110dp"
+                    android:background="@android:color/transparent"
+                    android:layout_gravity="left"
+                    android:paddingTop="10dp"
+                    android:scaleType="fitXY"
+                    app:srcCompat="@drawable/c_blue"/>
+
+                <ImageButton
+                    android:id="@+id/fYellowPiecePlaced"
+                    android:layout_width="95dp"
+                    android:layout_height="110dp"
+                    android:background="@android:color/transparent"
+                    android:layout_gravity="right"
+                    android:paddingTop="10dp"
+                    android:scaleType="fitXY"
+                    app:srcCompat="@drawable/f_yellow"/>
+
+                <ImageButton
+                    android:id="@+id/mGreenPiecePlaced"
+                    android:layout_width="95dp"
+                    android:layout_height="110dp"
+                    android:background="@android:color/transparent"
+                    android:layout_gravity="bottom|left"
+                    android:paddingBottom="10dp"
+                    android:scaleType="fitXY"
+                    app:srcCompat="@drawable/m_green"/>
+
+                <ImageButton
+                    android:id="@+id/yRedPiecePlaced"
+                    android:layout_width="130dp"
+                    android:layout_height="75dp"
+                    android:layout_gravity="bottom|right"
+                    android:background="@android:color/transparent"
+                    android:paddingBottom="10dp"
+                    android:scaleType="fitXY"
+                    app:srcCompat="@drawable/y_red" />
+            </FrameLayout>
         </LinearLayout>
 
         <LinearLayout
