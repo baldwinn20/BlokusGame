@@ -58,7 +58,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical|center_horizontal"
                     android:text="Scores:"
-                    android:textColor="@color/black"
+                    android:textColor="@android:color/white"
                     android:textSize="30sp"
                     android:textStyle="bold" />
             </LinearLayout>
@@ -129,6 +129,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:background="@color/green"
+                        android:gravity="bottom"
                         android:orientation="horizontal">
 
                         <TextView
@@ -178,7 +179,7 @@
                     android:layout_height="match_parent"
                     android:gravity="center_vertical|center_horizontal"
                     android:text="Pieces Remaining:"
-                    android:textColor="@color/black"
+                    android:textColor="@color/white"
                     android:textSize="20sp"
                     android:textStyle="bold" />
             </LinearLayout>
@@ -209,6 +210,7 @@
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:text="Player 1 :"
+                            android:textAlignment="center"
                             android:textColor="@color/red"
                             android:textSize="24sp" />
 
@@ -218,6 +220,7 @@
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:text="20"
+                            android:textAlignment="center"
                             android:textColor="@color/red"
                             android:textSize="24sp" />
                     </LinearLayout>
@@ -235,6 +238,7 @@
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:text="Player 2:"
+                            android:textAlignment="center"
                             android:textColor="@color/blue"
                             android:textSize="24sp" />
 
@@ -244,6 +248,7 @@
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:text="20"
+                            android:textAlignment="center"
                             android:textColor="@color/blue"
                             android:textSize="24sp" />
                     </LinearLayout>
@@ -261,6 +266,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="Player 3:"
+                            android:textAlignment="center"
                             android:textColor="@color/green"
                             android:textSize="24sp" />
 
@@ -270,6 +276,7 @@
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:text="20"
+                            android:textAlignment="center"
                             android:textColor="@color/green"
                             android:textSize="24sp" />
                     </LinearLayout>
@@ -287,6 +294,7 @@
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:text="Player 4:"
+                            android:textAlignment="center"
                             android:textColor="@color/yellow"
                             android:textSize="24sp" />
 
@@ -296,6 +304,7 @@
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:text="20"
+                            android:textAlignment="center"
                             android:textColor="@color/yellow"
                             android:textSize="24sp" />
                     </LinearLayout>
@@ -308,7 +317,7 @@
             android:id="@+id/boardLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_weight="1.2"
             android:background="@color/gray"
             android:orientation="vertical">
             /**
@@ -317,74 +326,29 @@
             Problem: Could not get the piece image buttons to stack on the board's image button.
             Resource:
             https://stackoverflow.com/questions/16575546/how-do-i-create-stackable-images-in-android
-            Solution: I followed the XML file layout to apply nested image buttons in a frame layout.
-                    Also used padding to make sure pieces fit on the board.
+            Solution: I followed the XML file layout to apply nested image buttons in a frame
+            layout.
+            Also used padding to make sure pieces fit on the board.
             */
-            <FrameLayout
+
+            <TextView
+                android:id="@+id/messageTV"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
-                <ImageButton
-                    android:id="@+id/board"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0"
-                    android:background="@color/grayBackground"
-                    android:scaleType="fitCenter"
-                    app:srcCompat="@drawable/blokus_board" />
-                /**
-                External Citation
-                Date: 3 February 2019
-                Problem: Could not get the piece image buttons to be transparent while stacked on the board.
-                https://stackoverflow.com/questions/1492554/set-transparent-background-of-an-imageview-on-android/37323776
-                Solution: I used the example code to apply it to the pieces placed on the board.
-                */
-                /**
-                External Citation
-                Date: 3 February 2019
-                Problem: Could not get the piece images inside the image buttons to adjust size while maintaining aspect ratio.
-                https://stackoverflow.com/questions/43033447/increase-the-size-of-the-image-inside-the-imageview
-                Solution: I used the example code to apply it to the pieces placed on the board.
-                */
-                <ImageButton
-                    android:id="@+id/cBluePiecePlaced"
-                    android:layout_width="65dp"
-                    android:layout_height="110dp"
-                    android:background="@android:color/transparent"
-                    android:layout_gravity="left"
-                    android:paddingTop="10dp"
-                    android:scaleType="fitXY"
-                    app:srcCompat="@drawable/c_blue"/>
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Messages"
+                android:textAlignment="center"
+                android:textSize="18sp" />
 
-                <ImageButton
-                    android:id="@+id/fYellowPiecePlaced"
-                    android:layout_width="95dp"
-                    android:layout_height="110dp"
-                    android:background="@android:color/transparent"
-                    android:layout_gravity="right"
-                    android:paddingTop="10dp"
-                    android:scaleType="fitXY"
-                    app:srcCompat="@drawable/f_yellow"/>
+            <ImageButton
+                android:id="@+id/board"
+                android:layout_width="match_parent"
+                android:layout_height="414dp"
+                android:layout_weight="0"
+                android:background="@color/grayBackground"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/blokus_board" />
 
-                <ImageButton
-                    android:id="@+id/mGreenPiecePlaced"
-                    android:layout_width="95dp"
-                    android:layout_height="110dp"
-                    android:background="@android:color/transparent"
-                    android:layout_gravity="bottom|left"
-                    android:paddingBottom="10dp"
-                    android:scaleType="fitXY"
-                    app:srcCompat="@drawable/m_green"/>
-
-                <ImageButton
-                    android:id="@+id/yRedPiecePlaced"
-                    android:layout_width="130dp"
-                    android:layout_height="75dp"
-                    android:layout_gravity="bottom|right"
-                    android:background="@android:color/transparent"
-                    android:paddingBottom="10dp"
-                    android:scaleType="fitXY"
-                    app:srcCompat="@drawable/y_red" />
-            </FrameLayout>
         </LinearLayout>
 
         <LinearLayout
@@ -411,7 +375,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:background="#2d862d"
+                        android:backgroundTint="#2d862d"
                         android:text="Place Piece"
                         android:textSize="24sp"
                         android:textStyle="bold" />
@@ -429,7 +393,11 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:text="Help" />
+                        android:padding="10dp"
+                        android:backgroundTint="@color/yellow"
+                        android:text="Help"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
                 </LinearLayout>
             </LinearLayout>
 
