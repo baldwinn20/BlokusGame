@@ -6,6 +6,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
+import com.example.nicholasbaldwin.mockupgui.game.config.GameConfig;
+import com.example.nicholasbaldwin.mockupgui.game.util.GameMainActivity;
+import com.example.nicholasbaldwin.mockupgui.game.util.LocalGame;
+
 /**
  * <!-- class MainActivity-->
  *
@@ -19,8 +23,19 @@ import android.widget.ImageButton;
  * @author <Dylan Pascua>
  * @author <Nicholas Baldwin>
  */
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends GameMainActivity {
     private ImageButton fPieceButton;
+
+    @Override
+    public GameConfig createDefaultConfig() {
+        return null;
+    }
+
+    @Override
+    public LocalGame createLocalGame() {
+        return null;
+    }
+
     /**
      * onCreate
      *Sets up graphical user interface to respond
