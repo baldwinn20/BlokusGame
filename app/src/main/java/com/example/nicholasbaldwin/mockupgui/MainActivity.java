@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 
 /**
  * <!-- class MainActivity-->
@@ -19,8 +20,7 @@ import android.widget.EditText;
  * @author <Nicholas Baldwin>
  */
 public class MainActivity extends AppCompatActivity {
-    private EditText gameStateDisplay;
-    private Button testButton;
+    private ImageButton fPieceButton;
     /**
      * onCreate
      *Sets up graphical user interface to respond
@@ -37,7 +37,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        fPieceButton = findViewById(R.id.fPiece);
     }
+
+
 
 }
