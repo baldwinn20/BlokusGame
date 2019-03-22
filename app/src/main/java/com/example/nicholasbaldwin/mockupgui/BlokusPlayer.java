@@ -55,49 +55,7 @@ public class BlokusPlayer {
         playerScore = INITIAL_SCORE;
         playerID = initID;
 
-        //Add the 21 default pieces into a player's inventory
-        Piece one = new Piece("one", 1 , playerColor);
-        piecesInventory.add(one);
-        Piece two = new Piece("two",2, playerColor);
-        piecesInventory.add(two);
-        Piece vThree = new Piece("VThree", 3, playerColor);
-        piecesInventory.add(vThree);
-        Piece lThree = new Piece("LThree",3,playerColor);
-        piecesInventory.add(lThree);
-        Piece tFour = new Piece("TFour",4,playerColor);
-        piecesInventory.add(tFour);
-        Piece o = new Piece("O",4,playerColor);
-        piecesInventory.add(o);
-        Piece LFour = new Piece("LFour",4,playerColor);
-        piecesInventory.add(LFour);
-        Piece lFour = new Piece("lFour",4,playerColor);
-        piecesInventory.add(lFour);
-        Piece zFour = new Piece("zFour",4,playerColor);
-        piecesInventory.add(zFour);
-        Piece f = new Piece("F",5,playerColor);
-        piecesInventory.add(f);
-        Piece x = new Piece("X",5,playerColor);
-        piecesInventory.add(x);
-        Piece p = new Piece("P",5,playerColor);
-        piecesInventory.add(p);
-        Piece w = new Piece("W",5,playerColor);
-        piecesInventory.add(w);
-        Piece zFive = new Piece("ZFive",5,playerColor);
-        piecesInventory.add(zFive);
-        Piece y = new Piece("Y",5,playerColor);
-        piecesInventory.add(y);
-        Piece LFive = new Piece("LFive",5,playerColor);
-        piecesInventory.add(LFive);
-        Piece u = new Piece("U",5,playerColor);
-        piecesInventory.add(u);
-        Piece tFive = new Piece("TFive",5,playerColor);
-        piecesInventory.add(tFive);
-        Piece vFive = new Piece("VFive",5,playerColor);
-        piecesInventory.add(vFive);
-        Piece n = new Piece("N",5,playerColor);
-        piecesInventory.add(n);
-        Piece lFive = new Piece("lFive",5,playerColor);
-        piecesInventory.add(lFive);
+
 
     }
 

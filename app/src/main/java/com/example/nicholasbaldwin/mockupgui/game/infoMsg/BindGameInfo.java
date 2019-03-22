@@ -1,6 +1,7 @@
 package com.example.nicholasbaldwin.mockupgui.game.infoMsg;
 
-import edu.up.cs301.game.Game;
+
+import com.example.nicholasbaldwin.mockupgui.game.util.Game;
 
 /**
  * A message from the game to a player that tells the player:

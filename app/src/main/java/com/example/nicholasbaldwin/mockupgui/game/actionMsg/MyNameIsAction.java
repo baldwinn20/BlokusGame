@@ -1,6 +1,6 @@
 package com.example.nicholasbaldwin.mockupgui.game.actionMsg;
 
-import edu.up.cs301.game.GamePlayer;
+import com.example.nicholasbaldwin.mockupgui.game.util.GamePlayer;
 
 /**
  * An action by which the player tells the game its name

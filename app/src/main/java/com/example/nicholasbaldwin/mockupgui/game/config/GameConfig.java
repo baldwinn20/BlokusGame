@@ -11,9 +11,9 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
-import edu.up.cs301.game.GameMainActivity;
-import edu.up.cs301.game.GamePlayer;
-import edu.up.cs301.game.ProxyPlayer;
+import com.example.nicholasbaldwin.mockupgui.game.util.GameMainActivity;
+import com.example.nicholasbaldwin.mockupgui.game.util.GamePlayer;
+import com.example.nicholasbaldwin.mockupgui.game.util.ProxyPlayer;
 
 /**
  * GameConfig class

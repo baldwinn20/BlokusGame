@@ -1,6 +1,6 @@
 package com.example.nicholasbaldwin.mockupgui.game.config;
 
-import edu.up.cs301.game.GamePlayer;
+import com.example.nicholasbaldwin.mockupgui.game.util.GamePlayer;
 
 /**
  * class GamePlayerType

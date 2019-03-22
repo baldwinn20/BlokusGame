@@ -2,7 +2,7 @@ package com.example.nicholasbaldwin.mockupgui.game.actionMsg;
 
 import java.io.Serializable;
 
-import edu.up.cs301.game.GamePlayer;
+import com.example.nicholasbaldwin.mockupgui.game.util.GamePlayer;
 
 /**
  * An action for a generic game.  A game action is something that a player

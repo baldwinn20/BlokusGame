@@ -310,6 +310,52 @@ public class BlokusGameState {
         }
         return false;
     }
+    
+    public void initializeInventories(BlokusPlayer bp){
+        //Add the 21 default pieces into a player's inventory
+        Piece one = new Piece("one", 1 , bp.playerColor);
+        bp.piecesInventory.add(one);
+        Piece two = new Piece("two",2, bp.playerColor);
+        bp.piecesInventory.add(two);
+        Piece vThree = new Piece("VThree", 3, bp.playerColor);
+        bp.piecesInventory.add(vThree);
+        Piece lThree = new Piece("LThree",3,bp.playerColor);
+        bp.piecesInventory.add(lThree);
+        Piece tFour = new Piece("TFour",4,bp.playerColor);
+        bp.piecesInventory.add(tFour);
+        Piece o = new Piece("O",4,bp.playerColor);
+        bp.piecesInventory.add(o);
+        Piece LFour = new Piece("LFour",4,bp.playerColor);
+        bp.piecesInventory.add(LFour);
+        Piece lFour = new Piece("lFour",4,bp.playerColor);
+        bp.piecesInventory.add(lFour);
+        Piece zFour = new Piece("zFour",4,bp.playerColor);
+        bp.piecesInventory.add(zFour);
+        Piece f = new Piece("F",5,bp.playerColor);
+        bp.piecesInventory.add(f);
+        Piece x = new Piece("X",5,bp.playerColor);
+        bp.piecesInventory.add(x);
+        Piece p = new Piece("P",5,bp.playerColor);
+        bp.piecesInventory.add(p);
+        Piece w = new Piece("W",5,bp.playerColor);
+        bp.piecesInventory.add(w);
+        Piece zFive = new Piece("ZFive",5,bp.playerColor);
+        bp.piecesInventory.add(zFive);
+        Piece y = new Piece("Y",5,bp.playerColor);
+        bp.piecesInventory.add(y);
+        Piece LFive = new Piece("LFive",5,bp.playerColor);
+        bp.piecesInventory.add(LFive);
+        Piece u = new Piece("U",5,bp.playerColor);
+        bp.piecesInventory.add(u);
+        Piece tFive = new Piece("TFive",5,bp.playerColor);
+        bp.piecesInventory.add(tFive);
+        Piece vFive = new Piece("VFive",5,bp.playerColor);
+        bp.piecesInventory.add(vFive);
+        Piece n = new Piece("N",5,bp.playerColor);
+        bp.piecesInventory.add(n);
+        Piece lFive = new Piece("lFive",5,bp.playerColor);
+        bp.piecesInventory.add(lFive);
+    }
 }
 /**
  External Citation

@@ -1,6 +1,7 @@
 package com.example.nicholasbaldwin.mockupgui.game.infoMsg;
 
-import edu.up.cs301.game.util.GameTimer;
+
+import com.example.nicholasbaldwin.mockupgui.game.util.GameTimer;
 
 /**
  * The a message from to a player (typically sent by a timer) that the timer's
