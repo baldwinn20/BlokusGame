@@ -23,7 +23,7 @@ import com.example.nicholasbaldwin.mockupgui.game.util.LocalGame;
  * @author <Dylan Pascua>
  * @author <Nicholas Baldwin>
  */
-public class MainActivity extends GameMainActivity {
+public class BlokusMainActivity extends GameMainActivity {
     private ImageButton fPieceButton;
 
     @Override
@@ -55,6 +55,12 @@ public class MainActivity extends GameMainActivity {
         fPieceButton = findViewById(R.id.fPiece);
     }
 
+    public LocalGame createBlokusLocalGame(){
+        return null;
+    }
 
+    @Override
+    public void onClick(View v) {
 
+    }
 }
