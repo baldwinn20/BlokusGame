@@ -340,14 +340,11 @@
                 android:textAlignment="center"
                 android:textSize="18sp" />
 
-            <ImageButton
-                android:id="@+id/board"
+            <com.example.nicholasbaldwin.mockupgui.BlokusBoard
+                android:id="@+id/blokusBoard"
                 android:layout_width="match_parent"
-                android:layout_height="414dp"
-                android:layout_weight="0"
-                android:background="@color/grayBackground"
-                android:scaleType="fitCenter"
-                app:srcCompat="@drawable/blokus_board" />
+                android:layout_height="wrap_content"
+                android:layout_weight="4" />
 
         </LinearLayout>
 
