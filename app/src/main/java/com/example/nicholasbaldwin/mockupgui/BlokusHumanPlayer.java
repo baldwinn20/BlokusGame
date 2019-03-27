@@ -19,7 +19,7 @@ public class BlokusHumanPlayer extends GameHumanPlayer {
     private int stage;
     private int playerID;
     private Piece currentPiece;
-    private ArrayList<Piece> piecesInventory;
+    //TODO Remove instnace varprivate ArrayList<Piece> piecesInventory;
     public int INITIAL_PIECES_rEMAINING = 21;
     public int INITIAL_SCORE = 89;
 

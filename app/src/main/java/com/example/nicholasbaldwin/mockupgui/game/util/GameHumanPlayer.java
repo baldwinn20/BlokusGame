@@ -7,14 +7,15 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 
-import edu.up.cs301.game.actionMsg.GameOverAckAction;
-import edu.up.cs301.game.actionMsg.MyNameIsAction;
-import edu.up.cs301.game.actionMsg.ReadyAction;
-import edu.up.cs301.game.infoMsg.BindGameInfo;
-import edu.up.cs301.game.infoMsg.GameInfo;
-import edu.up.cs301.game.infoMsg.GameOverInfo;
-import edu.up.cs301.game.infoMsg.StartGameInfo;
-import edu.up.cs301.game.infoMsg.TimerInfo;
+import com.example.nicholasbaldwin.mockupgui.game.actionMsg.GameOverAckAction;
+import com.example.nicholasbaldwin.mockupgui.game.actionMsg.MyNameIsAction;
+import com.example.nicholasbaldwin.mockupgui.game.actionMsg.ReadyAction;
+import com.example.nicholasbaldwin.mockupgui.game.infoMsg.BindGameInfo;
+import com.example.nicholasbaldwin.mockupgui.game.infoMsg.GameInfo;
+import com.example.nicholasbaldwin.mockupgui.game.infoMsg.GameOverInfo;
+import com.example.nicholasbaldwin.mockupgui.game.infoMsg.StartGameInfo;
+import com.example.nicholasbaldwin.mockupgui.game.infoMsg.TimerInfo;
+
 
 /**
  * class GameHumanPlayer

@@ -62,7 +62,7 @@ public class BlokusGameState {
         players.add(player4);
 
         for (BlokusPlayer p : players) {
-            allPieceInventory.add(p.getPiecesInventory());
+            allPieceInventory.add(initializeInventories(p));
         }
         //When the game starts, the first player will be able to place a piece on the board
         stage = 0;
@@ -311,7 +311,7 @@ public class BlokusGameState {
         return false;
     }
     
-    public void initializeInventories(BlokusPlayer bp){
+    public ArrayList<Piece> initializeInventories(BlokusPlayer bp){
         //Add the 21 default pieces into a player's inventory
         Piece one = new Piece("one", 1 , bp.playerColor);
         bp.piecesInventory.add(one);
@@ -355,6 +355,14 @@ public class BlokusGameState {
         bp.piecesInventory.add(n);
         Piece lFive = new Piece("lFive",5,bp.playerColor);
         bp.piecesInventory.add(lFive);
+        return bp.piecesInventory;
+    }
+
+    public ArrayList<BlokusPlayer> getPlayers(){
+        return players;
+    }
+    public void setPlayerTurn(BlokusPlayer p){
+        this.playerToMove = p.playerID;
     }
 }
 /**
