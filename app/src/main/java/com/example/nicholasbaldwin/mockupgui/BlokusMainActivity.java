@@ -85,9 +85,4 @@ public class BlokusMainActivity extends GameMainActivity {
     public LocalGame createLocalGame() {
         return new BlokusLocalGame();
     }
-
-    @Override
-    public void onClick(View v) {
-
-    }
 }

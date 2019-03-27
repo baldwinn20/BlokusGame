@@ -35,7 +35,7 @@ public class BlokusHumanPlayer extends GameHumanPlayer {
 
     @Override
     public void setAsGui(GameMainActivity activity) {
-
+        activity.setContentView(R.layout.activity_main);
     }
 
     @Override
