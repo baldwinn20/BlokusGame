@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.util.AttributeSet;
 import android.view.SurfaceView;
 
 import com.example.nicholasbaldwin.mockupgui.game.util.FlashSurfaceView;
@@ -33,6 +34,15 @@ protected float fullSquare; // the size of the surfaceView
 
     public BlokusBoard(Context context) {
         super(context);
+        init();
+    }
+    public BlokusBoard(Context context, AttributeSet attrs){
+        super(context,attrs);
+        init();
+    }
+
+    public BlokusBoard(Context context, AttributeSet attrs, int defStyleAttr){
+        super(context,attrs,defStyleAttr);
         init();
     }
 
