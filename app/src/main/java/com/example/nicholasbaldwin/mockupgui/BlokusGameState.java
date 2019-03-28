@@ -559,6 +559,7 @@ public class BlokusGameState {
     public void setPlayerTurn(BlokusPlayer p){
         this.playerToMove = p.playerID;
     }
+    public int[][] getBoard(){return  board;}
 }
 /**
  External Citation
