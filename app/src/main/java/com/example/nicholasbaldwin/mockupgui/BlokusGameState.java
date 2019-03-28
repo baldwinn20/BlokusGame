@@ -354,8 +354,8 @@ public class BlokusGameState {
                 tFourPieceArr[i][j] = 1;
             }
         }
-        vThreePieceArr[0][0] = 0;
-        vThreePieceArr[0][2] = 0;
+        tFourPieceArr[0][0] = 0;
+        tFourPieceArr[0][2] = 0;
         bp.piecesInventory.add(tFour);
 
         //done
