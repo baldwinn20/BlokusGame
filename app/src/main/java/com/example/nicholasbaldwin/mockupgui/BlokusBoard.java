@@ -70,19 +70,27 @@ protected float fullSquare; // the size of the surfaceView
 
     @Override
     protected void onDraw(Canvas canvas){
-        Paint bgColor = new Paint();
-        bgColor.setColor(Color.GRAY);
+        //this allows the message widget to have more space
+        this.getHolder().setFixedSize(canvas.getWidth(), 100);
+
+
+        updateDimensions(canvas);
+        Paint dividerColor = new Paint();
+        dividerColor.setColor(Color.GRAY);
+
+        canvas.drawRect(hLocation(0),vLocation(0), hLocation(0.2f)
+                , vLocation(100), dividerColor);
+
         //paints the horizontal and vertical lines
-        for(int i = 0; i < BOARD_LENGTH; i++){
+        for(int i = -1; i < BOARD_LENGTH; i++){
             float left = TILE_SIZE_PERCENT + (i * TILE_TOTAL_PERCENTAGE);
             float right = left + DIVIDER_PRCENTAGE;
             float top = 0;
             float bottom = 100;
             canvas.drawRect(hLocation(left),vLocation(top), hLocation(right)
-                    , vLocation(bottom), bgColor);
-            //the inverse to draw the vertical lines
+                    , vLocation(bottom), dividerColor);
             canvas.drawRect(hLocation(top),vLocation(left), hLocation(bottom)
-                    , vLocation(right), bgColor);
+                    , vLocation(right), dividerColor);
         }
 
     }
