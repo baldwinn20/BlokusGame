@@ -310,53 +310,248 @@ public class BlokusGameState {
         }
         return false;
     }
-    
+
     public ArrayList<Piece> initializeInventories(BlokusPlayer bp){
+
         //Add the 21 default pieces into a player's inventory
         Piece one = new Piece("one", 1 , bp.playerColor);
+        int[][] onePieceArr = new int[1][1];
+        onePieceArr[0][0] = 1;
         bp.piecesInventory.add(one);
+
+        //done
         Piece two = new Piece("two",2, bp.playerColor);
+        int[][] twoPieceArr = new int[1][2];
+        for (int i = 0; i < twoPieceArr.length; i++) {
+            twoPieceArr[0][i] = 1;
+        }
         bp.piecesInventory.add(two);
+
+        //done
         Piece vThree = new Piece("VThree", 3, bp.playerColor);
+        int[][] vThreePieceArr = new int[1][2];
+        for (int i = 0; i < vThreePieceArr.length; i++) {
+            for(int j = 0; j < vThreePieceArr.length; j++) {
+                vThreePieceArr[i][j] = 1;
+            }
+        }
+        vThreePieceArr[0][1] = 0;
         bp.piecesInventory.add(vThree);
-        Piece lThree = new Piece("LThree",3,bp.playerColor);
-        bp.piecesInventory.add(lThree);
+
+        //done
+        Piece IThree = new Piece("IThree",3,bp.playerColor);
+        int[][] IThreePieceArr = new int[1][3];
+        for (int i = 0; i < IThreePieceArr.length; i++) {
+            IThreePieceArr[0][i] = 1;
+        }
+        bp.piecesInventory.add(IThree);
+
+        //done
         Piece tFour = new Piece("TFour",4,bp.playerColor);
+        int[][] tFourPieceArr = new int[2][3];
+        for (int i = 0; i < tFourPieceArr.length; i++) {
+            for(int j = 0; j < tFourPieceArr.length; j++) {
+                tFourPieceArr[i][j] = 1;
+            }
+        }
+        vThreePieceArr[0][0] = 0;
+        vThreePieceArr[0][2] = 0;
         bp.piecesInventory.add(tFour);
+
+        //done
         Piece o = new Piece("O",4,bp.playerColor);
+        int[][] oPieceArr = new int[2][2];
+        for (int i = 0; i < oPieceArr.length; i++) {
+            for(int j = 0; j < oPieceArr.length; j++) {
+                oPieceArr[i][j] = 1;
+            }
+        }
         bp.piecesInventory.add(o);
+
+        //done
         Piece LFour = new Piece("LFour",4,bp.playerColor);
+        int[][] LFourPieceArr = new int[2][3];
+        for (int i = 0; i < LFourPieceArr.length; i++) {
+            for(int j = 0; j < LFourPieceArr.length; j++) {
+                LFourPieceArr[i][j] = 1;
+            }
+        }
+        LFourPieceArr[0][1] = 0;
+        LFourPieceArr[0][2] = 0;
         bp.piecesInventory.add(LFour);
-        Piece lFour = new Piece("lFour",4,bp.playerColor);
-        bp.piecesInventory.add(lFour);
+
+        //done
+        Piece IFour = new Piece("IFour",4,bp.playerColor);
+        int[][] IFourPieceArr = new int[1][4];
+        for (int i = 0; i < IFourPieceArr.length; i++) {
+            IFourPieceArr[0][i] = 1;
+        }
+        bp.piecesInventory.add(IFour);
+
+        //done
         Piece zFour = new Piece("zFour",4,bp.playerColor);
+        int[][] zFourPieceArr = new int[2][3];
+        for (int i = 0; i < zFourPieceArr.length; i++) {
+            for(int j = 0; j < zFourPieceArr.length; j++) {
+                zFourPieceArr[i][j] = 1;
+            }
+        }
+        zFourPieceArr[0][0] = 0;
+        zFourPieceArr[1][2] = 0;
         bp.piecesInventory.add(zFour);
+
+        //done
         Piece f = new Piece("F",5,bp.playerColor);
+        int[][] fPieceArr = new int[3][3];
+        for (int i = 0; i < fPieceArr.length; i++) {
+            for(int j = 0; j < fPieceArr.length; j++) {
+                fPieceArr[i][j] = 1;
+            }
+        }
+        fPieceArr[0][0] = 0;
+        fPieceArr[0][2] = 0;
+        fPieceArr[2][1] = 0;
+        fPieceArr[2][2] = 0;
         bp.piecesInventory.add(f);
+
         Piece x = new Piece("X",5,bp.playerColor);
+        int[][] xPieceArr = new int[3][3];
+        for (int i = 0; i < xPieceArr.length; i++) {
+            for(int j = 0; j < xPieceArr.length; j++) {
+                xPieceArr[i][j] = 1;
+            }
+        }
+        xPieceArr[0][0] = 0;
+        xPieceArr[0][2] = 0;
+        xPieceArr[2][0] = 0;
+        xPieceArr[2][2] = 0;
         bp.piecesInventory.add(x);
+
+        //done
         Piece p = new Piece("P",5,bp.playerColor);
+        int[][] pPieceArr = new int[2][3];
+        for (int i = 0; i < pPieceArr.length; i++) {
+            for(int j = 0; j < pPieceArr.length; j++) {
+                pPieceArr[i][j] = 1;
+            }
+        }
+        pPieceArr[1][0] = 0;
         bp.piecesInventory.add(p);
+
+        //done
         Piece w = new Piece("W",5,bp.playerColor);
+        int[][] wPieceArr = new int[3][3];
+        for (int i = 0; i < wPieceArr.length; i++) {
+            for(int j = 0; j < wPieceArr.length; j++) {
+                wPieceArr[i][j] = 1;
+            }
+        }
+        wPieceArr[0][1] = 0;
+        wPieceArr[0][2] = 0;
+        wPieceArr[1][2] = 0;
+        wPieceArr[2][0] = 0;
         bp.piecesInventory.add(w);
+
+        //done
         Piece zFive = new Piece("ZFive",5,bp.playerColor);
+        int[][] zFivePieceArr = new int[3][3];
+        for (int i = 0; i < zFivePieceArr.length; i++) {
+            for(int j = 0; j < zFivePieceArr.length; j++) {
+                zFivePieceArr[i][j] = 1;
+            }
+        }
+        zFivePieceArr[0][1] = 0;
+        zFivePieceArr[0][2] = 0;
+        zFivePieceArr[2][0] = 0;
+        zFivePieceArr[2][1] = 0;
         bp.piecesInventory.add(zFive);
+
+        //done
         Piece y = new Piece("Y",5,bp.playerColor);
+        int[][] yPieceArr = new int[2][4];
+        for (int i = 0; i < yPieceArr.length; i++) {
+            for(int j = 0; j < yPieceArr.length; j++) {
+                yPieceArr[i][j] = 1;
+            }
+        }
+        yPieceArr[1][0] = 0;
+        yPieceArr[1][2] = 0;
+        yPieceArr[1][3] = 0;
         bp.piecesInventory.add(y);
+
+        //done
         Piece LFive = new Piece("LFive",5,bp.playerColor);
+        int[][] LFivePieceArr = new int[2][4];
+        for (int i = 0; i < LFivePieceArr.length; i++) {
+            for(int j = 0; j < LFivePieceArr.length; j++) {
+                LFivePieceArr[i][j] = 1;
+            }
+        }
+        LFivePieceArr[0][1] = 0;
+        LFivePieceArr[0][2] = 0;
+        LFivePieceArr[0][3] = 0;
         bp.piecesInventory.add(LFive);
+
+        //done
         Piece u = new Piece("U",5,bp.playerColor);
+        int[][] uPieceArr = new int[2][3];
+        for (int i = 0; i < uPieceArr.length; i++) {
+            for(int j = 0; j < uPieceArr.length; j++) {
+                uPieceArr[i][j] = 1;
+            }
+        }
+        uPieceArr[1][1] = 0;
         bp.piecesInventory.add(u);
+
+        //done
         Piece tFive = new Piece("TFive",5,bp.playerColor);
+        int[][] tFivePieceArr = new int[3][3];
+        for (int i = 0; i < tFivePieceArr.length; i++) {
+            for(int j = 0; j < tFivePieceArr.length; j++) {
+                tFivePieceArr[i][j] = 1;
+            }
+        }
+        tFivePieceArr[0][0] = 0;
+        tFivePieceArr[0][2] = 0;
+        tFivePieceArr[1][0] = 0;
+        tFivePieceArr[1][2] = 0;
         bp.piecesInventory.add(tFive);
+
+        //done
         Piece vFive = new Piece("VFive",5,bp.playerColor);
+        int[][] vFivePieceArr = new int[3][3];
+        for (int i = 0; i < vFivePieceArr.length; i++) {
+            for(int j = 0; j < vFivePieceArr.length; j++) {
+                vFivePieceArr[i][j] = 1;
+            }
+        }
+        vFivePieceArr[0][1] = 0;
+        vFivePieceArr[0][2] = 0;
+        vFivePieceArr[1][1] = 0;
+        vFivePieceArr[1][2] = 0;
         bp.piecesInventory.add(vFive);
+
+        //done
         Piece n = new Piece("N",5,bp.playerColor);
+        int[][] nPieceArr = new int[2][4];
+        for (int i = 0; i < nPieceArr.length; i++) {
+            for(int j = 0; j < nPieceArr.length; j++) {
+                nPieceArr[i][j] = 1;
+            }
+        }
+        nPieceArr[0][0] = 0;
+        nPieceArr[1][2] = 0;
+        nPieceArr[1][3] = 0;
         bp.piecesInventory.add(n);
-        Piece lFive = new Piece("lFive",5,bp.playerColor);
-        bp.piecesInventory.add(lFive);
+
+        Piece IFive = new Piece("IFive",5,bp.playerColor);
+        int[][] IFivePieceArr = new int[1][5];
+        for (int i = 0; i < IFivePieceArr.length; i++) {
+            IFivePieceArr[0][i] = 1;
+        }
+        bp.piecesInventory.add(IFive);
         return bp.piecesInventory;
-    }
+    } //contains all the piece arrays
 
     public ArrayList<BlokusPlayer> getPlayers(){
         return players;
