@@ -16,10 +16,10 @@ public class BlokusBoard extends SurfaceView {
  */
 private final int BOARD_LENGTH  = 20; // how many tiles are in a board
 private final float TILE_SIZE_PERCENT = 4.5f;// size of each of the tiles
-private final float DIVIDER_PERCENTAGE = .5f;//thickness of the dividers
-private final float TILE_TOTAL_PERCENTAGE = TILE_SIZE_PERCENT
-        + DIVIDER_PERCENTAGE;
-private final float LEFT_BOARDER_PERCENTAGE = 0.5f;
+private final float DIVIDER_PERCENT = .5f;//thickness of the dividers
+private final float TILE_TOTAL_PERCENT = TILE_SIZE_PERCENT
+        + DIVIDER_PERCENT;
+private final float LEFT_BOARDER_PERCENT = 0.5f;
 
 /*  instance variables that are used to create the board
  */
@@ -28,7 +28,7 @@ protected BlokusGameState state; // the current games state
     protected float hBase;
     protected float vBase;
 protected float fullSquare; // the size of the surfaceView
-
+protected int[][] boardCopy = new int[20][20];
 
     public BlokusBoard(Context context) {
         super(context);
@@ -76,42 +76,48 @@ protected float fullSquare; // the size of the surfaceView
         Paint dividerColor = new Paint();
         dividerColor.setColor(Color.GRAY);
 
+        /**the current state of the board THIS DOESNT WORK **/
+        //boardCopy = state.getBoard();
+
+//        this is used to test the update board algorythm
+        for(int a = 0; a < BOARD_LENGTH; a++){
+            for(int b =0; b < BOARD_LENGTH; b++){
+                boardCopy[a][b] = -1;
+            }
+        }
+
+        for(int k = 0; k < BOARD_LENGTH; k++){
+            for (int h = 0; h < BOARD_LENGTH; h++){
+                if(k == 5 && h == 5){
+                    boardCopy[k][h] = 0; // the tile that should be colored
+                }
+                // everything else should be the same
+            }
+        }
+
+        //this updates the board based on what the board has in the game state
+        for(int i = 0; i < BOARD_LENGTH; i++){
+            for(int j = 0; j < BOARD_LENGTH; j++){
+                if(boardCopy[i][j] != -1){
+                    drawTile(i,j,boardCopy[i][j], canvas);
+                }
+            }
+        }
+
         //this is the very left most vertical boarder
         canvas.drawRect(hLocation(0),vLocation(0), hLocation(0.2f)
                 , vLocation(100), dividerColor);
 
         //paints the horizontal and vertical lines
         for(int i = -1; i < BOARD_LENGTH; i++){
-            float left = TILE_SIZE_PERCENT + (i * TILE_TOTAL_PERCENTAGE);
-            float right = left + DIVIDER_PERCENTAGE;
+            float left = TILE_SIZE_PERCENT + (i * TILE_TOTAL_PERCENT);
+            float right = left + DIVIDER_PERCENT;
             float top = 0;
             float bottom = 100;
             canvas.drawRect(hLocation(left),vLocation(top), hLocation(right)
                     , vLocation(bottom), dividerColor);
             canvas.drawRect(hLocation(top),vLocation(left), hLocation(bottom)
                     , vLocation(right), dividerColor);
-        }
-
-
-        //updates the board based on the pieces found in BlokusGameState
-        int[][] boardCopy = state.getBoard();
-
-        //this is used to test the update board algorythm
-        for(int k = 0; k < BOARD_LENGTH; k++){
-            for (int h = 0; h < BOARD_LENGTH; h++){
-                if(k == 5 && h == 5){
-                    boardCopy[k][h] = 0; // the tile that should be colored
-                }
-                boardCopy[k][h]= -1;// everything else should be the same 
-            }
-        }
-
-        for(int i = 0; i < BOARD_LENGTH; i++){
-            for(int j = 0; j < BOARD_LENGTH; j++){
-                if(boardCopy[i][j] != 0){
-                    drawTile(i,j,boardCopy[i][j], canvas);
-                }
-            }
         }
 
     }
@@ -133,10 +139,11 @@ protected float fullSquare; // the size of the surfaceView
         }
 
         //draw one tile based on the location
-        float left = LEFT_BOARDER_PERCENTAGE + (xPosition * TILE_TOTAL_PERCENTAGE);
-        float right = TILE_SIZE_PERCENT;
-        float top = DIVIDER_PERCENTAGE + (yPosition * TILE_TOTAL_PERCENTAGE);
-        float bottom = 100 - ((20-yPosition) * TILE_TOTAL_PERCENTAGE );
+        float left = LEFT_BOARDER_PERCENT + (xPosition * TILE_TOTAL_PERCENT);
+        float right = 100-LEFT_BOARDER_PERCENT - ((19-xPosition) * TILE_TOTAL_PERCENT) ;
+        float top = DIVIDER_PERCENT + (yPosition * TILE_TOTAL_PERCENT) ;
+        float bottom = 100 - ((19- yPosition) * TILE_TOTAL_PERCENT);
+
         canvas.drawRect(hLocation(left),vLocation(top), hLocation(right)
                 , vLocation(bottom),  tilePaint);
 
