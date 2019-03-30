@@ -79,21 +79,51 @@ protected int[][] boardCopy = new int[20][20];
         /**the current state of the board THIS DOESNT WORK **/
         //boardCopy = state.getBoard();
 
-//        this is used to test the update board algorythm
+        //this is used to test the update board algorythm
         for(int a = 0; a < BOARD_LENGTH; a++){
             for(int b =0; b < BOARD_LENGTH; b++){
                 boardCopy[a][b] = -1;
             }
         }
 
-        for(int k = 0; k < BOARD_LENGTH; k++){
-            for (int h = 0; h < BOARD_LENGTH; h++){
-                if(k == 5 && h == 5){
-                    boardCopy[k][h] = 0; // the tile that should be colored
-                }
-                // everything else should be the same
-            }
-        }
+//        for(int k = 0; k < BOARD_LENGTH; k++){
+//            for (int h = 0; h < BOARD_LENGTH; h++){
+//                if(k == 0 && h == 0){
+//                    boardCopy[k][h] = 0; // the tile that should be colored
+//                }
+//                if(k == 19 && h == 0){
+//                    boardCopy[k][h] = 1;
+//                }
+//                if(k == 0 && h == 19){
+//                    boardCopy[k][h] = 2;
+//                }
+//                if(k == 19 && h == 19){
+//                    boardCopy[k][h] = 3;
+//                }
+//            }
+//        }
+        //this draws the starting points for each respective color
+        Paint startingColor = new Paint();
+        float sLeft = LEFT_BOARDER_PERCENT - 0.5f;
+        float sRight = 99.5f ;
+        float sTop = DIVIDER_PERCENT - 0.5f;
+        float sBottom = 99.5f;
+        startingColor.setColor(Color.RED);
+        canvas.drawRect(hLocation(sLeft + 1.5f),vLocation(sTop + 1.4f),
+                hLocation(sRight-(19*TILE_TOTAL_PERCENT)-1.4f),
+                vLocation(sBottom-(19*TILE_TOTAL_PERCENT)-1.4f),startingColor);
+        startingColor.setColor(Color.BLUE);
+        canvas.drawRect(hLocation(sLeft + 1.5f + (19* TILE_TOTAL_PERCENT) ),vLocation(sTop + 1.4f),
+                hLocation(sRight-1.4f),
+                vLocation(sBottom-(19*TILE_TOTAL_PERCENT)-1.4f),startingColor);
+        startingColor.setColor(Color.GREEN);
+        canvas.drawRect(hLocation(sLeft + 1.5f ),vLocation(sTop + 1.4f + (19* TILE_TOTAL_PERCENT)),
+                hLocation(sRight-(19*TILE_TOTAL_PERCENT)-1.4f),
+                vLocation(sBottom-1.4f),startingColor);
+        startingColor.setColor(Color.YELLOW);
+        canvas.drawRect(hLocation(sLeft + 1.5f + (19*TILE_TOTAL_PERCENT) ),
+                vLocation(sTop + 1.4f + (19* TILE_TOTAL_PERCENT)), hLocation(sRight-1.4f),
+                vLocation(sBottom-1.4f),startingColor);
 
         //this updates the board based on what the board has in the game state
         for(int i = 0; i < BOARD_LENGTH; i++){
@@ -124,6 +154,7 @@ protected int[][] boardCopy = new int[20][20];
 
     protected void drawTile(int xPosition, int yPosition, int playerID, Canvas canvas){
         Paint tilePaint = new Paint();
+
         //chooses the color based on the playersID
         if(playerID == 0){
             tilePaint.setColor(Color.RED);
@@ -134,20 +165,23 @@ protected int[][] boardCopy = new int[20][20];
         else if(playerID == 2){
             tilePaint.setColor(Color.YELLOW);
         }
-        else if (playerID == 2){
+        else if (playerID == 3){
             tilePaint.setColor(Color.GREEN);
+        }
+        else{
+
         }
 
         //draw one tile based on the location
-        float left = LEFT_BOARDER_PERCENT + (xPosition * TILE_TOTAL_PERCENT);
-        float right = 100-LEFT_BOARDER_PERCENT - ((19-xPosition) * TILE_TOTAL_PERCENT) ;
-        float top = DIVIDER_PERCENT + (yPosition * TILE_TOTAL_PERCENT) ;
-        float bottom = 100 - ((19- yPosition) * TILE_TOTAL_PERCENT);
+        float left = LEFT_BOARDER_PERCENT - 0.5f + (xPosition * TILE_TOTAL_PERCENT);
+        float right = 99.5f - ((19-xPosition) * TILE_TOTAL_PERCENT) ;
+        float top = DIVIDER_PERCENT - 0.5f + (yPosition * TILE_TOTAL_PERCENT) ;
+        float bottom = 99.5f - ((19- yPosition) * TILE_TOTAL_PERCENT);
 
         canvas.drawRect(hLocation(left),vLocation(top), hLocation(right)
                 , vLocation(bottom),  tilePaint);
-
     }
+
     /*
     Helper methods to convert the percentages to both horizontal
     pixel location (hLocation) and vertical pixel location

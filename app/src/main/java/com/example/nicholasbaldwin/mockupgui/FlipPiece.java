@@ -13,7 +13,7 @@ public class FlipPiece extends GameAction {
      *
      * @param player the player who created the action
      */
-    public FlipPiece(GamePlayer player) {
+    public FlipPiece(GamePlayer player, int[][] playedPieceLayout) {
         super(player);
     }
 }
