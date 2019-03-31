@@ -13,7 +13,24 @@ public class Rotate90 extends GameAction {
      *
      * @param player the player who created the action
      */
-    public Rotate90(GamePlayer player) {
+    public Rotate90(GamePlayer player, Piece p) {
         super(player);
+
+        pieceLayout = p.getPieceLayout();
+
+        //I DONT KNOW IF THIS ACTUALLY WORKS 
+        for(int i= 0; i < pieceLayout.length; i++){
+            for(int j = pieceLayout.length -1; j > 0; j--){
+                pieceLayout[i][j] = pieceLayout[j][i];
+            }
+        }
     }
+
+    /**
+     External Citation:
+     Date: 30 March 2019
+     Problem: I didn't know the algorythm for rotating things in
+     a 2D array
+     Source:https://stackoverflow.com/questions/2799755/rotate-array-clockwise
+     */
 }

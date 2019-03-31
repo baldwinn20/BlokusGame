@@ -13,7 +13,18 @@ public class FlipPiece extends GameAction {
      *
      * @param player the player who created the action
      */
-    public FlipPiece(GamePlayer player, int[][] playedPieceLayout) {
+    public FlipPiece(GamePlayer player, Piece p) {
         super(player);
+
+        pieceLayout = p.getPieceLayout();
+
+        for(int i= 0; i < pieceLayout.length; i++){
+            for(int j = 0; j < pieceLayout.length / 2; j++){
+                //swaps values across the center line
+                int temp = pieceLayout[i][j];
+                pieceLayout[i][j] = pieceLayout[i][pieceLayout.length - j - 1];
+                pieceLayout[i][pieceLayout.length - j - 1] = temp;
+            }
+        }
     }
 }

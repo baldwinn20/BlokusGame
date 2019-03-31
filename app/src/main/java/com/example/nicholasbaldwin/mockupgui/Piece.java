@@ -195,6 +195,8 @@ public class Piece {
     public int getPieceValue() {return pieceValue;}
     public int getPieceColor() {return pieceColor;}
     public int getXPosition(){return xPosition;}
+    public int[][] getPieceLayout(){return pieceLayout;}
+    public void setPieceLayout(int[][] layout){this.pieceLayout = layout;}
     public void setxPosition(int xPosition){this.xPosition = xPosition;}
     public void setyPosition(int yPosition) {this.yPosition = yPosition;}
     public int getYPosition(){return yPosition;}
