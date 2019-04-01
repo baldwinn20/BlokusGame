@@ -29,7 +29,7 @@ public class BlokusGameState extends GameState {
     private int[] allPlayerScores = new int[4];
 
     //0 for placement stage, 1 for waiting stage (Will be used with Network/AI)
-    private int stage;
+    private int stage; //TODO Remove reduncant?
 
     //An integer array will help differentiate whose pieces are on the board.
     private int[][] board = new int[20][20];
@@ -58,6 +58,8 @@ public class BlokusGameState extends GameState {
 
         for (int i = 0; i < 4; i++) {
             allPieceInventory.add(initializeInventories(i));
+            allPiecesRemaining[i] = 20;
+            allPlayerScores[i] = 0;
         }
         //When the game starts, the first player will be able to place a piece on the board
         stage = 0;
@@ -179,6 +181,23 @@ public class BlokusGameState extends GameState {
                         pc.isOnBoard = true;
                         pc.setxPosition(row);
                         pc.setyPosition(col);
+                        //TODO need to further implement inserting piece array onto board
+                        switch (pc.getPieceColor()){
+                            case Color.RED:
+                                this.board[row][col] = 0;
+                                break;
+                            case Color.BLUE:
+                                this.board[row][col] = 1;
+                                break;
+                            case Color.GREEN:
+                                this.board[row][col] = 2;
+                                break;
+                            case Color.YELLOW:
+                                this.board[row][col] = 3;
+                                break;
+                            default:
+                                break;
+                        }
                         ret = true;
                     }
                 }
@@ -293,15 +312,11 @@ public class BlokusGameState extends GameState {
     }
 
     public void updatePiecesRemaining(){
+        --allPiecesRemaining[playerToMove];
+    } // What if AI player can't move
 
-    }
-
-    public void updatePlayerScores(){
-
-    }
-
-    public Piece getSelectedPiece(Piece cp){
-        return cp;
+    public void updatePlayerScores(Piece curPiece){
+        allPlayerScores[playerToMove] += curPiece.getPieceValue();
     }
 
     public void setPlayerTurn(int curTurn){
@@ -323,6 +338,7 @@ public class BlokusGameState extends GameState {
         }
     }
     public int getPlayerTurn(){return this.playerToMove;}
+    public int [][] getBoard(){return this.board; };
 }
 /**
  External Citation

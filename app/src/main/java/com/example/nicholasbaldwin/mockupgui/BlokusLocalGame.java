@@ -70,7 +70,12 @@ public class BlokusLocalGame extends LocalGame {
      */
     @Override
     protected String checkIfGameOver() {
-        return null;
+        //TODO check who has the highest score if no one can move
+        //TODO check who has pieceRemaining = 0 and win the game
+
+
+        int winner = 0;
+        return playerNames[winner]+" is the winner.";
     }
 
     /**
@@ -91,7 +96,9 @@ public class BlokusLocalGame extends LocalGame {
             return false;
         }
 
-        mainState.placePiece(row, col, mainState.getSelectedPiece(pp.getCurrentPiece()));
+        mainState.placePiece(row, col, pp.getCurrentPiece());
+        mainState.updatePiecesRemaining();
+        mainState.updatePlayerScores(pp.getCurrentPiece());
         mainState.setPlayerTurn(mainState.getPlayerTurn());
 
         return true;
