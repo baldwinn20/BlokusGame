@@ -5,48 +5,54 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
 import android.view.SurfaceView;
+import android.view.View;
 
-public class BlokusBoard extends SurfaceView {
+public class BlokusBoard extends SurfaceView implements SurfaceView.OnTouchListener {
 
-/*variables for creating the board
-  Each tile on the board is worth 4% of the surface view
-  if you include the dividing lines it is 5%. A standard
-  board has 20x20 tiles so 5x22 = %100 of the view
- */
-private final int BOARD_LENGTH  = 20; // how many tiles are in a board
-private final float TILE_SIZE_PERCENT = 4.5f;// size of each of the tiles
-private final float DIVIDER_PERCENT = .5f;//thickness of the dividers
-private final float TILE_TOTAL_PERCENT = TILE_SIZE_PERCENT
-        + DIVIDER_PERCENT;
-private final float LEFT_BOARDER_PERCENT = 0.5f;
+    /*variables for creating the board
+      Each tile on the board is worth 4% of the surface view
+      if you include the dividing lines it is 5%. A standard
+      board has 20x20 tiles so 5x22 = %100 of the view
+     */
+    private final int BOARD_LENGTH = 20; // how many tiles are in a board
+    private final float TILE_SIZE_PERCENT = 4.5f;// size of each of the tiles
+    private final float DIVIDER_PERCENT = .5f;//thickness of the dividers
+    private final float TILE_TOTAL_PERCENT = TILE_SIZE_PERCENT
+            + DIVIDER_PERCENT;
+    private final float LEFT_BOARDER_PERCENT = 0.5f;
+    private int xTouch, yTouch;
 
-/*  instance variables that are used to create the board
- */
-protected BlokusGameState state; // the current games state
+    /*  instance variables that are used to create the board
+     */
+    protected BlokusGameState state; // the current games state
     //the offset from the left and top to the beginning of the board
     protected float hBase;
     protected float vBase;
-protected float fullSquare; // the size of the surfaceView
-protected int[][] boardCopy = new int[20][20];
+    protected float fullSquare; // the size of the surfaceView
+    protected int[][] boardCopy = new int[20][20];
 
     public BlokusBoard(Context context) {
         super(context);
         init();
     }
-    public BlokusBoard(Context context, AttributeSet attrs){
-        super(context,attrs);
+
+    public BlokusBoard(Context context, AttributeSet attrs) {
+        super(context, attrs);
         init();
     }
 
-    public BlokusBoard(Context context, AttributeSet attrs, int defStyleAttr){
-        super(context,attrs,defStyleAttr);
+    public BlokusBoard(Context context, AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
         init();
     }
 
-    private void init(){setBackgroundColor(Color.DKGRAY);}
+    private void init() {
+        setBackgroundColor(Color.DKGRAY);
+    }
 
-    private void updateDimensions(Canvas canvas){
+    private void updateDimensions(Canvas canvas) {
         int width = canvas.getWidth();
         int height = canvas.getHeight();
 
@@ -54,20 +60,41 @@ protected int[][] boardCopy = new int[20][20];
         the height and the width of the surface view
          */
 
-        if(width> height){
+        if (width > height) {
             fullSquare = height;
             vBase = 0;
-            hBase = (width - height)/(float) 2.0;
-        }
-        else{
+            hBase = (width - height) / (float) 2.0;
+        } else {
             fullSquare = width;
             hBase = 0;
-            vBase = (height - width)/ (float) 2.0;
+            vBase = (height - width) / (float) 2.0;
         }
     }
 
     @Override
-    protected void onDraw(Canvas canvas){
+    public boolean onTouch(View v, MotionEvent event) {
+        xTouch = (int) event.getX();
+        yTouch = (int) event.getY();
+        return true;
+    }
+
+    @Override
+    protected void onDraw(Canvas canvas) {
+
+        //Test to see if board registers touch.
+        //Selected square should turn yellow
+        Paint yellowPaint = new Paint();
+        yellowPaint.setColor(0xffffff00);
+        int squareSideLength = ((canvas.getWidth()) / 20);
+        if (xTouch % 10 != 0) {
+            xTouch = (xTouch - (xTouch % 10));
+        }
+        if (yTouch % 10 != 0) {
+            yTouch = (yTouch - (yTouch % 10));
+        }
+        canvas.drawRect(xTouch, yTouch, xTouch + squareSideLength,
+                yTouch + squareSideLength, yellowPaint);
+
         //this allows the message widget to have more space
         this.getHolder().setFixedSize(canvas.getWidth(), 100);
 
@@ -80,8 +107,8 @@ protected int[][] boardCopy = new int[20][20];
         //boardCopy = state.getBoard();
 
         //this is used to test the update board algorythm
-        for(int a = 0; a < BOARD_LENGTH; a++){
-            for(int b =0; b < BOARD_LENGTH; b++){
+        for (int a = 0; a < BOARD_LENGTH; a++) {
+            for (int b = 0; b < BOARD_LENGTH; b++) {
                 boardCopy[a][b] = -1;
             }
         }
@@ -105,81 +132,78 @@ protected int[][] boardCopy = new int[20][20];
         //this draws the starting points for each respective color
         Paint startingColor = new Paint();
         float sLeft = LEFT_BOARDER_PERCENT - 0.5f;
-        float sRight = 99.5f ;
+        float sRight = 99.5f;
         float sTop = DIVIDER_PERCENT - 0.5f;
         float sBottom = 99.5f;
         startingColor.setColor(Color.RED);
-        canvas.drawRect(hLocation(sLeft + 1.5f),vLocation(sTop + 1.4f),
-                hLocation(sRight-(19*TILE_TOTAL_PERCENT)-1.4f),
-                vLocation(sBottom-(19*TILE_TOTAL_PERCENT)-1.4f),startingColor);
+        canvas.drawRect(hLocation(sLeft + 1.5f), vLocation(sTop + 1.4f),
+                hLocation(sRight - (19 * TILE_TOTAL_PERCENT) - 1.4f),
+                vLocation(sBottom - (19 * TILE_TOTAL_PERCENT) - 1.4f), startingColor);
         startingColor.setColor(Color.BLUE);
-        canvas.drawRect(hLocation(sLeft + 1.5f + (19* TILE_TOTAL_PERCENT) ),vLocation(sTop + 1.4f),
-                hLocation(sRight-1.4f),
-                vLocation(sBottom-(19*TILE_TOTAL_PERCENT)-1.4f),startingColor);
+        canvas.drawRect(hLocation(sLeft + 1.5f + (19 * TILE_TOTAL_PERCENT)), vLocation(sTop + 1.4f),
+                hLocation(sRight - 1.4f),
+                vLocation(sBottom - (19 * TILE_TOTAL_PERCENT) - 1.4f), startingColor);
         startingColor.setColor(Color.GREEN);
-        canvas.drawRect(hLocation(sLeft + 1.5f ),vLocation(sTop + 1.4f + (19* TILE_TOTAL_PERCENT)),
-                hLocation(sRight-(19*TILE_TOTAL_PERCENT)-1.4f),
-                vLocation(sBottom-1.4f),startingColor);
+        canvas.drawRect(hLocation(sLeft + 1.5f), vLocation(sTop + 1.4f + (19 * TILE_TOTAL_PERCENT)),
+                hLocation(sRight - (19 * TILE_TOTAL_PERCENT) - 1.4f),
+                vLocation(sBottom - 1.4f), startingColor);
         startingColor.setColor(Color.YELLOW);
-        canvas.drawRect(hLocation(sLeft + 1.5f + (19*TILE_TOTAL_PERCENT) ),
-                vLocation(sTop + 1.4f + (19* TILE_TOTAL_PERCENT)), hLocation(sRight-1.4f),
-                vLocation(sBottom-1.4f),startingColor);
+        canvas.drawRect(hLocation(sLeft + 1.5f + (19 * TILE_TOTAL_PERCENT)),
+                vLocation(sTop + 1.4f + (19 * TILE_TOTAL_PERCENT)), hLocation(sRight - 1.4f),
+                vLocation(sBottom - 1.4f), startingColor);
 
         //this updates the board based on what the board has in the game state
-        for(int i = 0; i < BOARD_LENGTH; i++){
-            for(int j = 0; j < BOARD_LENGTH; j++){
-                if(boardCopy[i][j] != -1){
-                    drawTile(i,j,boardCopy[i][j], canvas);
+        for (int i = 0; i < BOARD_LENGTH; i++) {
+            for (int j = 0; j < BOARD_LENGTH; j++) {
+                if (boardCopy[i][j] != -1) {
+                    drawTile(i, j, boardCopy[i][j], canvas);
                 }
             }
         }
 
         //this is the very left most vertical boarder
-        canvas.drawRect(hLocation(0),vLocation(0), hLocation(0.2f)
+        canvas.drawRect(hLocation(0), vLocation(0), hLocation(0.2f)
                 , vLocation(100), dividerColor);
 
         //paints the horizontal and vertical lines
-        for(int i = -1; i < BOARD_LENGTH; i++){
+        for (int i = -1; i < BOARD_LENGTH; i++) {
             float left = TILE_SIZE_PERCENT + (i * TILE_TOTAL_PERCENT);
             float right = left + DIVIDER_PERCENT;
             float top = 0;
             float bottom = 100;
-            canvas.drawRect(hLocation(left),vLocation(top), hLocation(right)
+            canvas.drawRect(hLocation(left), vLocation(top), hLocation(right)
                     , vLocation(bottom), dividerColor);
-            canvas.drawRect(hLocation(top),vLocation(left), hLocation(bottom)
+            canvas.drawRect(hLocation(top), vLocation(left), hLocation(bottom)
                     , vLocation(right), dividerColor);
         }
 
+
     }
 
-    protected void drawTile(int xPosition, int yPosition, int playerID, Canvas canvas){
+    protected void drawTile(int xPosition, int yPosition, int playerID, Canvas canvas) {
         Paint tilePaint = new Paint();
 
         //chooses the color based on the playersID
-        if(playerID == 0){
+        if (playerID == 0) {
             tilePaint.setColor(Color.RED);
-        }
-        else if(playerID == 1){
+        } else if (playerID == 1) {
             tilePaint.setColor(Color.BLUE);
-        }
-        else if(playerID == 2){
+        } else if (playerID == 2) {
             tilePaint.setColor(Color.YELLOW);
-        }
-        else if (playerID == 3){
+        } else if (playerID == 3) {
             tilePaint.setColor(Color.GREEN);
-        }
-        else{
+        } else {
 
         }
 
         //draw one tile based on the location
         float left = LEFT_BOARDER_PERCENT - 0.5f + (xPosition * TILE_TOTAL_PERCENT);
-        float right = 99.5f - ((19-xPosition) * TILE_TOTAL_PERCENT) ;
-        float top = DIVIDER_PERCENT - 0.5f + (yPosition * TILE_TOTAL_PERCENT) ;
-        float bottom = 99.5f - ((19- yPosition) * TILE_TOTAL_PERCENT);
+        float right = 99.5f - ((19 - xPosition) * TILE_TOTAL_PERCENT);
+        float top = DIVIDER_PERCENT - 0.5f + (yPosition * TILE_TOTAL_PERCENT);
+        float bottom = 99.5f - ((19 - yPosition) * TILE_TOTAL_PERCENT);
 
-        canvas.drawRect(hLocation(left),vLocation(top), hLocation(right)
-                , vLocation(bottom),  tilePaint);
+        canvas.drawRect(hLocation(left), vLocation(top), hLocation(right)
+                , vLocation(bottom), tilePaint);
     }
 
     /*
@@ -187,16 +211,13 @@ protected int[][] boardCopy = new int[20][20];
     pixel location (hLocation) and vertical pixel location
     (vLocation)
      */
-    private float hLocation(float percent){
+    private float hLocation(float percent) {
         return hBase + percent * fullSquare / 100;
     }
-    private float vLocation(float percent){
+
+    private float vLocation(float percent) {
         return vBase + percent * fullSquare / 100;
     }
-
-
-
-
 
 
 }
