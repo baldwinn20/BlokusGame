@@ -25,6 +25,9 @@ public class BlokusGameState extends GameState {
     //for easier access to specific player pieces
     private ArrayList<ArrayList<Piece>> allPieceInventory = new ArrayList<>();
 
+    private int[] allPiecesRemaining = new int[4];
+    private int[] allPlayerScores = new int[4];
+
     //0 for placement stage, 1 for waiting stage (Will be used with Network/AI)
     private int stage;
 
@@ -83,34 +86,18 @@ public class BlokusGameState extends GameState {
         //Makes deep copies of the original game state's player immutable variables
         //This will allow players to see modified versions of the game state
         //and prevent cheating
-        for (int i = 0; i < bgs.players.size(); i++) {
-            this.players.add(new BlokusPlayer(bgs.players.get(i).playerName,
-                    bgs.players.get(i).playerColor, bgs.players.get(i).playerType,
-                    bgs.players.get(i).playerID));
-            this.players.get(i).playerName = bgs.players.get(i).playerName;
-            this.players.get(i).playerColor = bgs.players.get(i).playerColor;
-            this.players.get(i).piecesRemaining = bgs.players.get(i).piecesRemaining;
-            this.players.get(i).playerType = bgs.players.get(i).playerType;
-            this.players.get(i).playerScore = bgs.players.get(i).playerScore;
-            this.players.get(i).playerID = bgs.players.get(i).playerID;
-
-            for (Piece p : this.players.get(i).piecesInventory) {
-                for (Piece o : bgs.players.get(i).piecesInventory) {
-                    p.xPosition = o.xPosition;
-                    p.yPosition = o.yPosition;
-                    p.isOnBoard = o.isOnBoard;
-                    p.orientationVal = o.orientationVal;
-                }
-            }
-            for (int k = 0; k < bgs.board.length; k++) {
-                for (int j = 0; j < bgs.board.length; j++) {
-                    this.board[k][j] = bgs.board[k][j];
-                }
-            }
-            this.stage = 0;
-            this.playerToMove = bgs.playerToMove;
+        for (int i = 0; i < 4; i++) {
+            this.allPiecesRemaining[i] = bgs.allPiecesRemaining[i];
+            this.allPlayerScores[i] = bgs.allPlayerScores[i];
 
         }
+        for (int k = 0; k < bgs.board.length; k++) {
+            for (int j = 0; j < bgs.board.length; j++) {
+                this.board[k][j] = bgs.board[k][j];
+            }
+        }
+        this.stage = 0;
+        this.playerToMove = bgs.playerToMove;
 
     }
 
@@ -122,11 +109,7 @@ public class BlokusGameState extends GameState {
      *
      * @return true if it is that specific player's turn and false otherwise
      */
-    public boolean rotate90(int pID ,int pieceLocation){
-        BlokusPlayer p = this.players.get(pID);
-        //For testing purposes,the LFive piece will be rotated in this method called
-        //from the MainActivity class
-        Piece pc = p.getPiecesInventory().get(pieceLocation);
+    public boolean rotate90(Piece pc){
         if (pc.getOrientationVal() == 0) {
             pc.setOrientationVal(1);
         } else if (pc.getOrientationVal() == 1) {
@@ -146,10 +129,8 @@ public class BlokusGameState extends GameState {
      *
      * @return true if it is that specific player's turn and false otherwise
      */
-    public boolean flip(int pID, int pieceLocation){
-        BlokusPlayer p = this.players.get(pID);
+    public boolean flip(Piece pc){
         //For testing purposes, the player's X piece will be flipped;
-        Piece pc = p.getPiecesInventory().get(pieceLocation);
         if (pc.getOrientationVal() == 0) {
             pc.setOrientationVal(2);
         } else if (pc.getOrientationVal() == 1) {
@@ -176,10 +157,9 @@ public class BlokusGameState extends GameState {
      *
      * @return true if it is that specific player's turn and false otherwise
      */
-    public boolean placePiece(int pId, int row, int col, int pieceLocation) {
+    public boolean placePiece(int row, int col, Piece pc) {
         //ret is needed because the method will not recognize boolean
         //return values inside the 'if' statements
-        Piece pc = allPieceInventory.get(playerToMove).get();
         boolean ret = true;
 
         //will equal the # of columns and rows in
@@ -312,8 +292,35 @@ public class BlokusGameState extends GameState {
         return inv;
     }
 
-    public void setPlayerTurn(BlokusPlayer p){
-        this.playerToMove = p.playerID;
+    public void updatePiecesRemaining(){
+
+    }
+
+    public void updatePlayerScores(){
+
+    }
+
+    public Piece getSelectedPiece(Piece cp){
+        return cp;
+    }
+
+    public void setPlayerTurn(int curTurn){
+        switch (curTurn){
+            case 0:
+                this.playerToMove = 1;
+                break;
+            case 1:
+                this.playerToMove = 2;
+                break;
+            case 2:
+                this.playerToMove = 3;
+                break;
+            case 3:
+                this.playerToMove = 0;
+                break;
+            default:
+                break;
+        }
     }
     public int getPlayerTurn(){return this.playerToMove;}
 }
