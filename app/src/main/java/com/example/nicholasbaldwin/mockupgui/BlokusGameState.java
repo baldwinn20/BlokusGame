@@ -1,5 +1,9 @@
 package com.example.nicholasbaldwin.mockupgui;
 import android.graphics.Color;
+
+import com.example.nicholasbaldwin.mockupgui.game.infoMsg.GameState;
+import com.example.nicholasbaldwin.mockupgui.game.util.GamePlayer;
+
 import java.util.ArrayList;
 
 /**
@@ -15,9 +19,7 @@ import java.util.ArrayList;
  * @author <Nicholas Baldwin>
  */
 
-public class BlokusGameState {
-
-    private ArrayList<BlokusPlayer> players = new ArrayList<>();
+public class BlokusGameState extends GameState {
 
     //Every player's piece inventory will be stored in one encompassing inventory
     //for easier access to specific player pieces
@@ -50,19 +52,9 @@ public class BlokusGameState {
             }
         }
 
-        //Initializes the players to keep track of their variables throughout the game
-        BlokusPlayer player1 = new BlokusPlayer("Human Player", Color.RED, 0, 0);
-        BlokusPlayer player2 = new BlokusPlayer("Dumb AI", Color.BLUE, 1, 1);
-        BlokusPlayer player3 = new BlokusPlayer("Smart AI", Color.YELLOW, 2, 2);
-        BlokusPlayer player4 = new BlokusPlayer("Network Player", Color.GREEN, 3, 3);
 
-        players.add(player1);
-        players.add(player2);
-        players.add(player3);
-        players.add(player4);
-
-        for (BlokusPlayer p : players) {
-            allPieceInventory.add(initializeInventories(p));
+        for (int i = 0; i < 4; i++) {
+            allPieceInventory.add(initializeInventories(i));
         }
         //When the game starts, the first player will be able to place a piece on the board
         stage = 0;
@@ -122,72 +114,7 @@ public class BlokusGameState {
 
     }
 
-    /**
-     * toString
-     *
-     * Converts the data of a BlokusGameState instance into strings to be displayed
-     *
-     * @return playerData + inventoryData to show a record of individual player properties
-     *                                    and what pieces they have in their inventories.
-     */
-    @Override
-    public String toString() {
-        /**
-         External Citation
-         Date: 26 February 2019
-         Problem: Needed to find a way to convert variables into strings
-         Resource:
-            https://stackoverflow.com/questions/4842532/how-to-convert-an-integer-value-to-string
-         Solution: I used the example code from this post to improve my understanding
-         */
-        String playerData = "\tPlayer Data: \n";
-        String inventoryData = "\tInventory: \n";
-        for (int i = 0; i < this.players.size(); i++) {
-            playerData += "\t\t"+this.players.get(i).getPlayerName() +
-                    "\n" +
-                    "\t\t\tColor:" +
-                    String.valueOf(this.players.get(i).getPlayerColor()) +
-                    "\n" +
-                    "\t\t\tPieces Rem:" +
-                    String.valueOf(this.players.get(i).getPiecesRemaining()) +
-                    "\n" +
-                    "\t\t\tPlayer Type:" +
-                    String.valueOf(this.players.get(i).getPlayerType()) +
-                    "\n " +
-                    "\t\t\tPlayer Score:" +
-                    String.valueOf(this.players.get(i).getPlayerScore()) +
-                    "\n";
 
-            inventoryData += "\t\t"+this.players.get(i).getPlayerName()
-                    + "'s Inventory: \n";
-            for(Piece p : this.players.get(i).piecesInventory){
-                inventoryData += "\t\t\t" + "Piece Name: "+p.getName() + " " +
-                        "Piece Color: " + p.getPieceColor() + " " +
-                       "Is on Board: " + String.valueOf(p.isOnBoard) + " " +
-                        "X Position: " + String.valueOf(p.xPosition) + " " +
-                        "Y Position: " + String.valueOf(p.yPosition) + " " +
-                        "Orientation Value: "+
-                        String.valueOf(p.orientationVal) + "\n";
-            }
-
-        }
-        return playerData + inventoryData;
-    }
-
-    /**
-     * isTurn
-     *
-     * Makes sure that it is the correct player's turn
-     *
-     * @return true if it is that specific player's turn and false otherwise
-     */
-    public boolean isTurn(BlokusPlayer p) {
-        if (this.playerToMove == p.playerID) {
-            return true;
-        } else {
-            return false;
-        }
-    }
     /**
      * rotate90
      *
@@ -197,23 +124,19 @@ public class BlokusGameState {
      */
     public boolean rotate90(int pID ,int pieceLocation){
         BlokusPlayer p = this.players.get(pID);
-        if(isTurn(p)) {
-            //For testing purposes,the LFive piece will be rotated in this method called
-            //from the MainActivity class
-            Piece pc = p.getPiecesInventory().get(pieceLocation);
-            if (pc.getOrientationVal() == 0) {
-                pc.setOrientationVal(1);
-            } else if (pc.getOrientationVal() == 1) {
-                pc.setOrientationVal(2);
-            } else if (pc.getOrientationVal() == 2) {
-                pc.setOrientationVal(3);
-            } else {
-                pc.setOrientationVal(0);
-            }
-            return true;
+        //For testing purposes,the LFive piece will be rotated in this method called
+        //from the MainActivity class
+        Piece pc = p.getPiecesInventory().get(pieceLocation);
+        if (pc.getOrientationVal() == 0) {
+            pc.setOrientationVal(1);
+        } else if (pc.getOrientationVal() == 1) {
+            pc.setOrientationVal(2);
+        } else if (pc.getOrientationVal() == 2) {
+            pc.setOrientationVal(3);
+        } else {
+            pc.setOrientationVal(0);
         }
-        return false;
-
+        return true;
     }
 
     /**
@@ -225,21 +148,18 @@ public class BlokusGameState {
      */
     public boolean flip(int pID, int pieceLocation){
         BlokusPlayer p = this.players.get(pID);
-        if(isTurn(p)){
-            //For testing purposes, the player's X piece will be flipped;
-            Piece pc = p.getPiecesInventory().get(pieceLocation);
-            if (pc.getOrientationVal() == 0) {
-                pc.setOrientationVal(2);
-            } else if (pc.getOrientationVal() == 1) {
-                pc.setOrientationVal(3);
-            } else if (pc.getOrientationVal() == 2) {
-                pc.setOrientationVal(0);
-            } else {
-                pc.setOrientationVal(1);
-            }
-            return true;
+        //For testing purposes, the player's X piece will be flipped;
+        Piece pc = p.getPiecesInventory().get(pieceLocation);
+        if (pc.getOrientationVal() == 0) {
+            pc.setOrientationVal(2);
+        } else if (pc.getOrientationVal() == 1) {
+            pc.setOrientationVal(3);
+        } else if (pc.getOrientationVal() == 2) {
+            pc.setOrientationVal(0);
+        } else {
+            pc.setOrientationVal(1);
         }
-        return false;
+        return true;
     }
 
     /**
@@ -259,32 +179,27 @@ public class BlokusGameState {
     public boolean placePiece(int pId, int row, int col, int pieceLocation) {
         //ret is needed because the method will not recognize boolean
         //return values inside the 'if' statements
-        BlokusPlayer p = this.players.get(pId);
-        Piece pc = p.getPiecesInventory().get(pieceLocation);
+        Piece pc = allPieceInventory.get(playerToMove).get();
         boolean ret = true;
 
         //will equal the # of columns and rows in
         //the piece's 2D array, respectively
         int x = pc.pieceWidth;
         int y = pc.pieceWidth;
-        if (!isTurn(p)) {
-            ret = false;
-        } else if (isTurn(p) && pc.isOnBoard) {
+        if (pc.isOnBoard) {
             ret = false;
         } else {
-            { //if is
-                for (int i = 0; i < x; i++) {
-                    for (int j = 0; j < y; j++) {
-                        //if a square on the board is not empty,
-                        //place the piece and hide it from the inventory.
-                        if (this.board[row + i][col + j] != -1) {
-                            ret = false;
-                        } else {
-                            pc.isOnBoard = true;
-                            pc.setxPosition(row);
-                            pc.setyPosition(col);
-                            ret = true;
-                        }
+            for (int i = 0; i < x; i++) {
+                for (int j = 0; j < y; j++) {
+                    //if a square on the board is not empty,
+                    //place the piece and hide it from the inventory.
+                    if (this.board[row + i][col + j] != -1) {
+                        ret = false;
+                    } else {
+                        pc.isOnBoard = true;
+                        pc.setxPosition(row);
+                        pc.setyPosition(col);
+                        ret = true;
                     }
                 }
             }
@@ -292,115 +207,115 @@ public class BlokusGameState {
         return ret;
     }
 
-    /**
-     * setName
-     *
-     *
-     * Sets the name of a certain player
-     *
-     * @return true if it the passed in ID matches that of a specific player
-     *              and false otherwise
-     */
-    public boolean setName(String name, int pID) {
-        for (BlokusPlayer p : this.players) {
-            if (p.getPlayerID() == pID) {
-                p.setPlayerName(name);
-                return true;
-            }
-        }
-        return false;
-    }
 
-    public ArrayList<Piece> initializeInventories(BlokusPlayer bp){
-
+    public ArrayList<Piece> initializeInventories(int pIndex){
         //Add the 21 default pieces into a player's inventory
-        Piece one = new Piece("one", 1 , bp.playerColor);
-        bp.piecesInventory.add(one);
 
-        //done
-        Piece two = new Piece("two",2, bp.playerColor);
-        bp.piecesInventory.add(two);
+        ArrayList<Piece> inv = new ArrayList<>();
 
-        //done
-        Piece vThree = new Piece("VThree", 3, bp.playerColor);
-        bp.piecesInventory.add(vThree);
-
-        //done
-        Piece IThree = new Piece("IThree",3,bp.playerColor);
-        bp.piecesInventory.add(IThree);
-
-        //done
-        Piece tFour = new Piece("TFour",4,bp.playerColor);
-        bp.piecesInventory.add(tFour);
-
-        //done
-        Piece o = new Piece("O",4,bp.playerColor);
-        bp.piecesInventory.add(o);
-
-        //done
-        Piece LFour = new Piece("LFour",4,bp.playerColor);
-        bp.piecesInventory.add(LFour);
-
-        //done
-        Piece zFour = new Piece("ZFour",4,bp.playerColor);
-        bp.piecesInventory.add(zFour);
-
-        //done
-        Piece f = new Piece("F",5,bp.playerColor);
-        bp.piecesInventory.add(f);
-
-
-        Piece x = new Piece("X",5,bp.playerColor);
-        bp.piecesInventory.add(x);
-
-        //done
-        Piece p = new Piece("P",5,bp.playerColor);
-        bp.piecesInventory.add(p);
-
-        //done
-        Piece w = new Piece("W",5,bp.playerColor);
-        bp.piecesInventory.add(w);
-
-        //done
-        Piece zFive = new Piece("ZFive",5,bp.playerColor);
-        bp.piecesInventory.add(zFive);
-
-        //done
-        Piece y = new Piece("Y",5,bp.playerColor);
-        bp.piecesInventory.add(y);
-
-        //done
-        Piece LFive = new Piece("LFive",5,bp.playerColor);
-        bp.piecesInventory.add(LFive);
-
-        //done
-        Piece u = new Piece("U",5,bp.playerColor);
-        bp.piecesInventory.add(u);
-
-        //done
-        Piece tFive = new Piece("TFive",5,bp.playerColor);
-        bp.piecesInventory.add(tFive);
-
-        //done
-        Piece vFive = new Piece("VFive",5,bp.playerColor);
-        bp.piecesInventory.add(vFive);
-
-        //done
-        Piece n = new Piece("N",5,bp.playerColor);
-        bp.piecesInventory.add(n);
-
-        Piece IFive = new Piece("IFive",5,bp.playerColor);
-        bp.piecesInventory.add(IFive);
-        return bp.piecesInventory;
-    } //contains all the piece arrays
-
-    public ArrayList<BlokusPlayer> getPlayers(){
-        return players;
+        switch(pIndex) {
+            case 0:
+                inv.add(new Piece("one", 1, Color.RED));
+                inv.add(new Piece("two", 2, Color.RED));
+                inv.add(new Piece("VThree", 3, Color.RED));
+                inv.add(new Piece("LThree", 3, Color.RED));
+                inv.add(new Piece("TFour", 4, Color.RED));
+                inv.add(new Piece("O", 4, Color.RED));
+                inv.add(new Piece("LFour", 4, Color.RED));
+                inv.add(new Piece("lFour", 4, Color.RED));
+                inv.add(new Piece("zFour", 4, Color.RED));
+                inv.add(new Piece("F", 5, Color.RED));
+                inv.add(new Piece("X", 5, Color.RED));
+                inv.add(new Piece("P", 5, Color.RED));
+                inv.add(new Piece("W", 5, Color.RED));
+                inv.add(new Piece("ZFive", 5, Color.RED));
+                inv.add(new Piece("Y", 5, Color.RED));
+                inv.add(new Piece("LFive", 5, Color.RED));
+                inv.add(new Piece("U", 5, Color.RED));
+                inv.add(new Piece("TFive", 5, Color.RED));
+                inv.add(new Piece("VFive", 5, Color.RED));
+                inv.add(new Piece("N", 5, Color.RED));
+                inv.add(new Piece("lFive", 5, Color.RED));
+                break;
+            case 1:
+                inv.add(new Piece("one", 1, Color.BLUE));
+                inv.add(new Piece("two", 2, Color.BLUE));
+                inv.add(new Piece("VThree", 3, Color.BLUE));
+                inv.add(new Piece("LThree", 3, Color.BLUE));
+                inv.add(new Piece("TFour", 4, Color.BLUE));
+                inv.add(new Piece("O", 4, Color.BLUE));
+                inv.add(new Piece("LFour", 4, Color.BLUE));
+                inv.add(new Piece("lFour", 4, Color.BLUE));
+                inv.add(new Piece("zFour", 4, Color.BLUE));
+                inv.add(new Piece("F", 5, Color.BLUE));
+                inv.add(new Piece("X", 5, Color.BLUE));
+                inv.add(new Piece("P", 5, Color.BLUE));
+                inv.add(new Piece("W", 5, Color.BLUE));
+                inv.add(new Piece("ZFive", 5, Color.BLUE));
+                inv.add(new Piece("Y", 5, Color.BLUE));
+                inv.add(new Piece("LFive", 5, Color.BLUE));
+                inv.add(new Piece("U", 5, Color.BLUE));
+                inv.add(new Piece("TFive", 5, Color.BLUE));
+                inv.add(new Piece("VFive", 5, Color.BLUE));
+                inv.add(new Piece("N", 5, Color.BLUE));
+                inv.add(new Piece("lFive", 5, Color.BLUE));
+                break;
+            case 2:
+                inv.add(new Piece("one", 1, Color.GREEN));
+                inv.add(new Piece("two", 2, Color.GREEN));
+                inv.add(new Piece("VThree", 3, Color.GREEN));
+                inv.add(new Piece("LThree", 3, Color.GREEN));
+                inv.add(new Piece("TFour", 4, Color.GREEN));
+                inv.add(new Piece("O", 4, Color.GREEN));
+                inv.add(new Piece("LFour", 4, Color.GREEN));
+                inv.add(new Piece("lFour", 4, Color.GREEN));
+                inv.add(new Piece("zFour", 4, Color.GREEN));
+                inv.add(new Piece("F", 5, Color.GREEN));
+                inv.add(new Piece("X", 5, Color.GREEN));
+                inv.add(new Piece("P", 5, Color.GREEN));
+                inv.add(new Piece("W", 5, Color.GREEN));
+                inv.add(new Piece("ZFive", 5, Color.GREEN));
+                inv.add(new Piece("Y", 5, Color.GREEN));
+                inv.add(new Piece("LFive", 5, Color.GREEN));
+                inv.add(new Piece("U", 5, Color.GREEN));
+                inv.add(new Piece("TFive", 5, Color.GREEN));
+                inv.add(new Piece("VFive", 5, Color.GREEN));
+                inv.add(new Piece("N", 5, Color.GREEN));
+                inv.add(new Piece("lFive", 5, Color.GREEN));
+                break;
+            case 3:
+                inv.add(new Piece("one", 1, Color.YELLOW));
+                inv.add(new Piece("two", 2, Color.YELLOW));
+                inv.add(new Piece("VThree", 3, Color.YELLOW));
+                inv.add(new Piece("LThree", 3, Color.YELLOW));
+                inv.add(new Piece("TFour", 4, Color.YELLOW));
+                inv.add(new Piece("O", 4, Color.YELLOW));
+                inv.add(new Piece("LFour", 4, Color.YELLOW));
+                inv.add(new Piece("lFour", 4, Color.YELLOW));
+                inv.add(new Piece("zFour", 4, Color.YELLOW));
+                inv.add(new Piece("F", 5, Color.YELLOW));
+                inv.add(new Piece("X", 5, Color.YELLOW));
+                inv.add(new Piece("P", 5, Color.YELLOW));
+                inv.add(new Piece("W", 5, Color.YELLOW));
+                inv.add(new Piece("ZFive", 5, Color.YELLOW));
+                inv.add(new Piece("Y", 5, Color.YELLOW));
+                inv.add(new Piece("LFive", 5, Color.YELLOW));
+                inv.add(new Piece("U", 5, Color.YELLOW));
+                inv.add(new Piece("TFive", 5, Color.YELLOW));
+                inv.add(new Piece("VFive", 5, Color.YELLOW));
+                inv.add(new Piece("N", 5, Color.YELLOW));
+                inv.add(new Piece("lFive", 5, Color.YELLOW));
+                break;
+            default:
+                break;
+        }
+        return inv;
     }
+
     public void setPlayerTurn(BlokusPlayer p){
         this.playerToMove = p.playerID;
     }
-    public int[][] getBoard(){return  board;}
+    public int getPlayerTurn(){return this.playerToMove;}
 }
 /**
  External Citation
