@@ -349,6 +349,7 @@ public class BlokusGameState {
         Piece f = new Piece("F",5,bp.playerColor);
         bp.piecesInventory.add(f);
 
+
         Piece x = new Piece("X",5,bp.playerColor);
         bp.piecesInventory.add(x);
 

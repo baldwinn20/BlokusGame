@@ -18,12 +18,14 @@ public class Rotate90 extends GameAction {
 
         pieceLayout = p.getPieceLayout();
 
-        //I DONT KNOW IF THIS ACTUALLY WORKS 
+        //I DONT KNOW IF THIS ACTUALLY WORKS
         for(int i= 0; i < pieceLayout.length; i++){
             for(int j = pieceLayout.length -1; j > 0; j--){
                 pieceLayout[i][j] = pieceLayout[j][i];
             }
         }
+
+        p.setPieceLayout(pieceLayout);
     }
 
     /**

@@ -26,5 +26,7 @@ public class FlipPiece extends GameAction {
                 pieceLayout[i][pieceLayout.length - j - 1] = temp;
             }
         }
+
+        p.setPieceLayout(pieceLayout);
     }
 }
