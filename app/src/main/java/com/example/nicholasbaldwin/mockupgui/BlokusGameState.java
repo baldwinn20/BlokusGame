@@ -75,7 +75,7 @@ public class BlokusGameState extends GameState {
      * @param bgs the game state object that contains information
      *            during a certain state of the game
      */
-    public BlokusGameState(BlokusGameState bgs) { //Deep copy constructor
+    public BlokusGameState(BlokusGameState bgs, int playerID) { //Deep copy constructor
         /**
          External Citation
          Date: 26 February 2019
@@ -88,6 +88,24 @@ public class BlokusGameState extends GameState {
         //Makes deep copies of the original game state's player immutable variables
         //This will allow players to see modified versions of the game state
         //and prevent cheating
+
+        for (int i = 0; i < 4; i++) {
+            this.allPieceInventory.add(new ArrayList<Piece>());
+            if(playerID >=0 && playerID != i){
+                continue;
+            }
+            for (int j = 0; j < 21; j++) {
+                Piece src = bgs.allPieceInventory.get(i).get(j);
+                Piece newPiece = new Piece(src.getName(),
+                        src.getPieceValue(), src.getPieceColor()) ;
+                newPiece.isOnBoard = src.isOnBoard;
+                newPiece.orientationVal = src.orientationVal;
+                newPiece.xPosition = src.xPosition;
+                newPiece.yPosition = src.yPosition;
+                this.allPieceInventory.get(i).add(newPiece);
+            }
+        }
+
         for (int i = 0; i < 4; i++) {
             this.allPiecesRemaining[i] = bgs.allPiecesRemaining[i];
             this.allPlayerScores[i] = bgs.allPlayerScores[i];
