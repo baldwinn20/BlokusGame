@@ -55,6 +55,8 @@ public class Piece {
             }
         }
 
+        //todo make a switch for color to replace the zeros
+
         //the setups for each piece
         if(pieceName.equals("one")){
           pieceLayout[3][3] = 0;

@@ -1,9 +1,11 @@
 package com.example.nicholasbaldwin.mockupgui;
 
 import android.app.Activity;
+import android.graphics.Point;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.TextView;
 
 import com.example.nicholasbaldwin.mockupgui.game.infoMsg.GameInfo;
 import com.example.nicholasbaldwin.mockupgui.game.infoMsg.IllegalMoveInfo;
@@ -25,6 +27,7 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
 
     //TODO Insert Master GUI object here
     private BlokusBoard surfaceView = null;
+    private TextView messageBox = null;
 
     protected Game game;
     private int playerColor;
@@ -34,6 +37,7 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
     private int stage;
     private int playerID;
     private Piece currentPiece;
+    //TODO Remove instnace varprivate ArrayList<Piece> piecesInventory;
     public int INITIAL_PIECES_REMAINING = 21;
     public int INITIAL_SCORE = 89;
 
@@ -68,7 +72,8 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
 
         //TODO replace xml layout with layout id
         activity.setContentView(R.layout.activity_main);
-
+        surfaceView = myActivity.findViewById(R.id.blokusBoard);
+        messageBox = myActivity.findViewById(R.id.messageTV);
         Log.i("set listener","OnTouch");
         surfaceView.setOnTouchListener(this);
     }
@@ -119,9 +124,17 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
         int x = (int) event.getX();
         int y = (int) event.getY();
 
-        //TODO need to map pixel touch to an actual tile on the board
-        game.sendAction(new PlacePiece(this, x, y, currentPiece));
-        surfaceView.invalidate();
-        return false;
+        Point p = surfaceView.mapPixelToTile(x,y);
+        if (p == null){
+            //Makes a message to the widget stating that the player
+            // is touching out of bounds
+            messageBox.setText("Invalid Touch, out of bounds.\n");
+            return false;
+        }
+        else {
+            game.sendAction(new PlacePiece(this, x, y, currentPiece));
+            surfaceView.invalidate();
+            return true;
+        }
     }
 }
