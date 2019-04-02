@@ -4,12 +4,13 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Point;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.SurfaceView;
 import android.view.View;
 
-public class BlokusBoard extends SurfaceView implements SurfaceView.OnTouchListener {
+public class BlokusBoard extends SurfaceView {
 
     /*variables for creating the board
       Each tile on the board is worth 4% of the surface view
@@ -23,6 +24,8 @@ public class BlokusBoard extends SurfaceView implements SurfaceView.OnTouchListe
             + DIVIDER_PERCENT;
     private final float LEFT_BOARDER_PERCENT = 0.5f;
     private int xTouch, yTouch;
+    private int boardWidth;
+    private int boardHeight;
 
     /*  instance variables that are used to create the board
      */
@@ -52,48 +55,45 @@ public class BlokusBoard extends SurfaceView implements SurfaceView.OnTouchListe
         setBackgroundColor(Color.DKGRAY);
     }
 
+    public void setState( BlokusGameState bgs ){
+        state = bgs;
+    }
+
     private void updateDimensions(Canvas canvas) {
-        int width = canvas.getWidth();
-        int height = canvas.getHeight();
+        boardWidth = canvas.getWidth();
+        boardHeight = canvas.getHeight();
 
         /*sets the full square to the smallest value between
         the height and the width of the surface view
          */
-
-        if (width > height) {
-            fullSquare = height;
+        if (boardWidth > boardHeight) {
+            fullSquare = boardHeight;
             vBase = 0;
-            hBase = (width - height) / (float) 2.0;
+            hBase = (boardWidth - boardHeight) / (float) 2.0;
         } else {
-            fullSquare = width;
+            fullSquare = boardWidth;
             hBase = 0;
-            vBase = (height - width) / (float) 2.0;
+            vBase = (boardHeight - boardWidth) / (float) 2.0;
         }
     }
 
-    @Override
-    public boolean onTouch(View v, MotionEvent event) {
-        xTouch = (int) event.getX();
-        yTouch = (int) event.getY();
-        return true;
-    }
 
     @Override
     protected void onDraw(Canvas canvas) {
 
         //Test to see if board registers touch.
         //Selected square should turn yellow
-        Paint yellowPaint = new Paint();
-        yellowPaint.setColor(0xffffff00);
-        int squareSideLength = ((canvas.getWidth()) / 20);
-        if (xTouch % 10 != 0) {
-            xTouch = (xTouch - (xTouch % 10));
-        }
-        if (yTouch % 10 != 0) {
-            yTouch = (yTouch - (yTouch % 10));
-        }
-        canvas.drawRect(xTouch, yTouch, xTouch + squareSideLength,
-                yTouch + squareSideLength, yellowPaint);
+//        Paint yellowPaint = new Paint();
+//        yellowPaint.setColor(0xffffff00);
+//        int squareSideLength = ((canvas.getWidth()) / 20);
+//        if (xTouch % 10 != 0) {
+//            xTouch = (xTouch - (xTouch % 10));
+//        }
+//        if (yTouch % 10 != 0) {
+//            yTouch = (yTouch - (yTouch % 10));
+//        }
+//        canvas.drawRect(xTouch, yTouch, xTouch + squareSideLength,
+//                yTouch + squareSideLength, yellowPaint);
 
         //this allows the message widget to have more space
         this.getHolder().setFixedSize(canvas.getWidth(), 100);
@@ -104,14 +104,14 @@ public class BlokusBoard extends SurfaceView implements SurfaceView.OnTouchListe
         dividerColor.setColor(Color.GRAY);
 
         /**the current state of the board THIS DOESNT WORK **/
-        //boardCopy = state.getBoard();
+        boardCopy = state.getBoard();
 
-        //this is used to test the update board algorythm
-        for (int a = 0; a < BOARD_LENGTH; a++) {
-            for (int b = 0; b < BOARD_LENGTH; b++) {
-                boardCopy[a][b] = -1;
-            }
-        }
+//        //this is used to test the update board algorythm
+//        for (int a = 0; a < BOARD_LENGTH; a++) {
+//            for (int b = 0; b < BOARD_LENGTH; b++) {
+//                boardCopy[a][b] = -1;
+//            }
+//        }
 
 //        for(int k = 0; k < BOARD_LENGTH; k++){
 //            for (int h = 0; h < BOARD_LENGTH; h++){
@@ -175,6 +175,7 @@ public class BlokusBoard extends SurfaceView implements SurfaceView.OnTouchListe
                     , vLocation(bottom), dividerColor);
             canvas.drawRect(hLocation(top), vLocation(left), hLocation(bottom)
                     , vLocation(right), dividerColor);
+
         }
 
 
@@ -206,6 +207,23 @@ public class BlokusBoard extends SurfaceView implements SurfaceView.OnTouchListe
                 , vLocation(bottom), tilePaint);
     }
 
+    public Point mapPixelToTile(int x ,int y){
+        for(int i = 0; i < BOARD_LENGTH; i++){
+            for(int j = 0; j < BOARD_LENGTH; j++){
+                //the dime of the tile based on its position
+                float left = hLocation(LEFT_BOARDER_PERCENT - 0.5f + (i * TILE_TOTAL_PERCENT));
+                float right = hLocation( 99.5f - ((19 - i) * TILE_TOTAL_PERCENT));
+                float top = vLocation(DIVIDER_PERCENT - 0.5f + (j * TILE_TOTAL_PERCENT));
+                float bottom = 99.5f - ((19 - j) * TILE_TOTAL_PERCENT);
+                if ((x > left) != (x > right) && (y > top) != (y > bottom)) {
+                    return new Point(i, j);
+                }
+            }
+        }
+        //if the person did not touch a tile
+        return  null;
+    }
+
     /*
     Helper methods to convert the percentages to both horizontal
     pixel location (hLocation) and vertical pixel location
@@ -219,5 +237,31 @@ public class BlokusBoard extends SurfaceView implements SurfaceView.OnTouchListe
         return vBase + percent * fullSquare / 100;
     }
 
+    //getters
+    public int getBoardHeight() {
+        return boardHeight;
+    }
+    public int getBoardWidth(){
+        return boardWidth;
+    }
 
+    public float getLEFT_BOARDER_PERCENT() {
+        return LEFT_BOARDER_PERCENT;
+    }
+
+    public float getDIVIDER_PERCENT() {
+        return DIVIDER_PERCENT;
+    }
+
+    public float getTILE_SIZE_PERCENT() {
+        return TILE_SIZE_PERCENT;
+    }
+
+    public float getTILE_TOTAL_PERCENT() {
+        return TILE_TOTAL_PERCENT;
+    }
+
+    public float getFullSquare() {
+        return fullSquare;
+    }
 }
