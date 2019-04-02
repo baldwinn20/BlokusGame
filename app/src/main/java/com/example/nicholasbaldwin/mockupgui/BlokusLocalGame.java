@@ -44,6 +44,7 @@ public class BlokusLocalGame extends LocalGame {
     protected void sendUpdatedStateTo(GamePlayer p) {
         // make a copy of the state, and send it to the player
         p.sendInfo(new BlokusGameState(mainState));
+        //TODO omit 3 pieces inventory
     }
 
     /**
@@ -73,8 +74,16 @@ public class BlokusLocalGame extends LocalGame {
         //TODO check who has the highest score if no one can move
         //TODO check who has pieceRemaining = 0 and win the game
 
-
-        int winner = 0;
+        int winner = -1;
+        for (int i = 0; i < players.length; i++) {
+            if(mainState.getAllPiecesRemaining()[i] == 0){
+                winner = i;
+                break;
+            }
+        }
+        if(winner == -1){
+            return null;
+        }
         return playerNames[winner]+" is the winner.";
     }
 

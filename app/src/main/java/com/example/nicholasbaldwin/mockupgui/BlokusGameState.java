@@ -315,9 +315,15 @@ public class BlokusGameState extends GameState {
         --allPiecesRemaining[playerToMove];
     } // What if AI player can't move
 
+    //TODO check to see if deepy copy is needed
+    public int[] getAllPiecesRemaining(){return this.allPiecesRemaining;}
+
     public void updatePlayerScores(Piece curPiece){
         allPlayerScores[playerToMove] += curPiece.getPieceValue();
     }
+
+    //TODO check to see if deepy copy is needed
+    public int[] getAllPlayerScores(){return this.allPlayerScores;}
 
     public void setPlayerTurn(int curTurn){
         switch (curTurn){
