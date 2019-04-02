@@ -15,9 +15,10 @@
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="0dp">
+        app:layout_constraintVertical_bias="0.0">
 
         <LinearLayout
             android:id="@+id/leftLayout"
@@ -36,12 +37,10 @@
                 android:textSize="14dp">
 
                 <ImageView
-                    android:id="@+id/imageView"
+                    android:id="@+id/blokusLogoImageView"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="3"
-                    app:srcCompat="@drawable/blokus_logo" />
-
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/blokus_logo" />
             </LinearLayout>
 
             <LinearLayout
@@ -405,47 +404,146 @@
                 android:layout_weight="1"
                 android:orientation="vertical">
 
-                <ImageButton
-                    android:id="@+id/fPiece"
+                <ScrollView
+                    android:id="@+id/piecesScrollView"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:srcCompat="@drawable/f_green" />
+                    android:layout_height="match_parent">
 
-                <ImageButton
-                    android:id="@+id/bigTPiece"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:srcCompat="@drawable/big_t_green" />
+                    <LinearLayout
+                        android:id="@+id/piecesLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
 
-                <ImageButton
-                    android:id="@+id/xPiece"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:srcCompat="@drawable/x_green" />
+                        <ImageButton
+                            android:id="@+id/oneButton"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/one_red" />
 
-                <ImageButton
-                    android:id="@+id/cPiece"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:srcCompat="@drawable/c_green" />
+                        <ImageButton
+                            android:id="@+id/twoButton"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/two_red" />
 
-                <ImageButton
-                    android:id="@+id/zPiece"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:srcCompat="@drawable/z_green" />
+                        <ImageButton
+                            android:id="@+id/sButton"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/s_red" />
 
-                <ImageButton
-                    android:id="@+id/yPiece"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:srcCompat="@drawable/y_green" />
+                        <ImageButton
+                            android:id="@+id/threeButton"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/three_red" />
 
-                <ImageButton
-                    android:id="@+id/mPiece"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:srcCompat="@drawable/m_green" />
+                        <ImageButton
+                            android:id="@+id/smallTButton"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/small_t_red" />
+
+                        <ImageButton
+                            android:id="@+id/fourButton"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/four_red" />
+
+                        <ImageButton
+                            android:id="@+id/i4Button"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/i_4_red" />
+
+                        <ImageButton
+                            android:id="@+id/fiveButton"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/five_red" />
+
+                        <ImageButton
+                            android:id="@+id/i5Button"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/i_5_red" />
+
+                        <ImageButton
+                            android:id="@+id/nButton"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/n_red" />
+
+                        <ImageButton
+                            android:id="@+id/yButton"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/y_red" />
+
+                        <ImageButton
+                            android:id="@+id/v3Button"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/v_3_red" />
+
+                        <ImageButton
+                            android:id="@+id/cubeButton"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/cubered" />
+
+                        <ImageButton
+                            android:id="@+id/cButton"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/c_red" />
+
+                        <ImageButton
+                            android:id="@+id/bButton"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/b_red" />
+
+                        <ImageButton
+                            android:id="@+id/zButton"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/z_red" />
+
+                        <ImageButton
+                            android:id="@+id/mButton"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/m_red" />
+
+                        <ImageButton
+                            android:id="@+id/xButton"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/x_red" />
+
+                        <ImageButton
+                            android:id="@+id/fButton"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/f_red" />
+
+                        <ImageButton
+                            android:id="@+id/bigTButton"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/big_t_red" />
+
+                        <ImageButton
+                            android:id="@+id/cornerButton"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/cornerred" />
+
+                    </LinearLayout>
+                </ScrollView>
+
             </LinearLayout>
 
             <LinearLayout

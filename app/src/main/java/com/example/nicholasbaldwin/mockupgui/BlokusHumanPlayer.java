@@ -132,7 +132,7 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
             return false;
         }
         else {
-            game.sendAction(new PlacePiece(this, x, y, currentPiece));
+            //game.sendAction(new PlacePiece(this, x, y, currentPiece));
             surfaceView.invalidate();
             return true;
         }

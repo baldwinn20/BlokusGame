@@ -10,7 +10,7 @@ import android.view.MotionEvent;
 import android.view.SurfaceView;
 import android.view.View;
 
-public class BlokusBoard extends SurfaceView {
+public class BlokusBoard extends SurfaceView implements SurfaceView.OnTouchListener {
 
     /*variables for creating the board
       Each tile on the board is worth 4% of the surface view
@@ -23,7 +23,7 @@ public class BlokusBoard extends SurfaceView {
     private final float TILE_TOTAL_PERCENT = TILE_SIZE_PERCENT
             + DIVIDER_PERCENT;
     private final float LEFT_BOARDER_PERCENT = 0.5f;
-    private int xTouch, yTouch;
+    private float xTouch, yTouch;
     private int boardWidth;
     private int boardHeight;
 
@@ -77,23 +77,29 @@ public class BlokusBoard extends SurfaceView {
         }
     }
 
+    @Override
+    public boolean onTouch(View v, MotionEvent event) {
+        xTouch = event.getX();
+        yTouch = event.getY();
+        return true;
+    }
 
     @Override
     protected void onDraw(Canvas canvas) {
 
         //Test to see if board registers touch.
         //Selected square should turn yellow
-//        Paint yellowPaint = new Paint();
-//        yellowPaint.setColor(0xffffff00);
-//        int squareSideLength = ((canvas.getWidth()) / 20);
-//        if (xTouch % 10 != 0) {
-//            xTouch = (xTouch - (xTouch % 10));
-//        }
-//        if (yTouch % 10 != 0) {
-//            yTouch = (yTouch - (yTouch % 10));
-//        }
-//        canvas.drawRect(xTouch, yTouch, xTouch + squareSideLength,
-//                yTouch + squareSideLength, yellowPaint);
+       Paint yellowPaint = new Paint();
+        yellowPaint.setColor(0xffffff00);
+        int squareSideLength = ((getWidth()) / 20);
+        if (xTouch % 10 != 0) {
+            xTouch = (xTouch - (xTouch % 10));
+        }
+        if (yTouch % 10 != 0) {
+            yTouch = (yTouch - (yTouch % 10));
+        }
+        canvas.drawRect(xTouch, yTouch, xTouch + squareSideLength,
+                yTouch + squareSideLength, yellowPaint);
 
         //this allows the message widget to have more space
         this.getHolder().setFixedSize(canvas.getWidth(), 100);
@@ -104,7 +110,7 @@ public class BlokusBoard extends SurfaceView {
         dividerColor.setColor(Color.GRAY);
 
         /**the current state of the board THIS DOESNT WORK **/
-        boardCopy = state.getBoard();
+        //boardCopy = state.getBoard();
 
 //        //this is used to test the update board algorythm
 //        for (int a = 0; a < BOARD_LENGTH; a++) {
@@ -264,4 +270,6 @@ public class BlokusBoard extends SurfaceView {
     public float getFullSquare() {
         return fullSquare;
     }
+
+
 }
