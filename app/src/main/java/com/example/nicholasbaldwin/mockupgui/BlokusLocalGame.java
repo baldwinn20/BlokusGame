@@ -43,8 +43,7 @@ public class BlokusLocalGame extends LocalGame {
     @Override
     protected void sendUpdatedStateTo(GamePlayer p) {
         // make a copy of the state, and send it to the player
-        p.sendInfo(new BlokusGameState(mainState));
-        //TODO omit 3 pieces inventory
+        p.sendInfo(new BlokusGameState(mainState, mainState.getPlayerTurn()));
     }
 
     /**
