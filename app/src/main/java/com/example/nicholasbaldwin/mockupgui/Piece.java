@@ -1,4 +1,7 @@
 package com.example.nicholasbaldwin.mockupgui;
+
+import android.graphics.Color;
+
 /**
  * <!-- class Piece -->
  *
@@ -25,7 +28,7 @@ public class Piece {
     protected int orientationVal = 0;
 
     //how the pieces are arranged in terms of ints
-    protected int[][] pieceLayout = new int[7][7];
+    protected int[][] pieceLayout = new int[5][5];
 
     //if true, remove from a player's inventory user interface
     protected boolean isOnBoard = false;
@@ -56,138 +59,151 @@ public class Piece {
         }
 
         //todo make a switch for color to replace the zeros
+        int colorNum;
+        if(pieceColor == Color.RED){
+            colorNum = 0;
+        }
+        else if (pieceColor == Color.BLUE){
+            colorNum = 1;
+        }
+        else if (pieceColor == Color.GREEN){
+            colorNum = 2;
+        }
+        else{
+            colorNum = 3;
+        }
 
         //the setups for each piece
         if(pieceName.equals("one")){
-          pieceLayout[3][3] = 0;
+          pieceLayout[0][0] = colorNum;
         }
         else if(pieceName.equals("two")){
-            pieceLayout[3][2] = 0;
-            pieceLayout[3][3] = 0;
+            pieceLayout[0][0] = colorNum;
+            pieceLayout[0][1] = colorNum;
         }
         else if(pieceName.equals("VThree")){
-            pieceLayout[2][3] = 0;
-            pieceLayout[3][2] = 0;
-            pieceLayout[3][3] = 0;
+            pieceLayout[0][0] = colorNum;
+            pieceLayout[1][0] = colorNum;
+            pieceLayout[1][1] = colorNum;
         }
         else if(pieceName.equals("IThree")){
-            pieceLayout[3][2] = 0;
-            pieceLayout[3][3] = 0;
-            pieceLayout[3][4] = 0;
+            pieceLayout[0][0] = colorNum;
+            pieceLayout[1][0] = colorNum;
+            pieceLayout[2][0] = colorNum;
         }
         else if(pieceName.equals("TFour")){
-            pieceLayout[3][2] = 0;
-            pieceLayout[3][3] = 0;
-            pieceLayout[2][3] = 0;
-            pieceLayout[4][3] = 0;
+            pieceLayout[1][0] = colorNum;
+            pieceLayout[1][1] = colorNum;
+            pieceLayout[0][1] = colorNum;
+            pieceLayout[2][1] = colorNum;
         }
         else if(pieceName.equals("O")){
-            pieceLayout[2][3] = 0;
-            pieceLayout[3][3] = 0;
-            pieceLayout[2][2] = 0;
-            pieceLayout[3][2] = 0;
+            pieceLayout[0][0] = colorNum;
+            pieceLayout[1][0] = colorNum;
+            pieceLayout[0][1] = colorNum;
+            pieceLayout[1][1] = colorNum;
         }
         else if(pieceName.equals("LFour")){
-            pieceLayout[2][2] = 0;
-            pieceLayout[2][3] = 0;
-            pieceLayout[3][3] = 0;
-            pieceLayout[4][3] = 0;
+            pieceLayout[0][0] = colorNum;
+            pieceLayout[0][1] = colorNum;
+            pieceLayout[1][1] = colorNum;
+            pieceLayout[2][1] = colorNum;
         }
         else if(pieceName.equals("IFour")){
-            pieceLayout[3][2] = 0;
-            pieceLayout[3][3] = 0;
-            pieceLayout[3][4] = 0;
-            pieceLayout[3][5] = 0;
+            pieceLayout[0][0] = colorNum;
+            pieceLayout[1][0] = colorNum;
+            pieceLayout[2][0] = colorNum;
+            pieceLayout[3][0] = colorNum;
         }
         else if(pieceName.equals("ZFour")){
-            pieceLayout[2][2] = 0;
-            pieceLayout[2][3] = 0;
-            pieceLayout[3][3] = 0;
-            pieceLayout[3][4] = 0;
+            pieceLayout[0][0] = colorNum;
+            pieceLayout[0][1] = colorNum;
+            pieceLayout[1][1] = colorNum;
+            pieceLayout[1][2] = colorNum;
         }
         else if(pieceName.equals("F")){
-            pieceLayout[3][2] = 0;
-            pieceLayout[3][3] = 0;
-            pieceLayout[2][3] = 0;
-            pieceLayout[2][4] = 0;
-            pieceLayout[4][3] = 0;
+            pieceLayout[1][0] = colorNum;
+            pieceLayout[1][1] = colorNum;
+            pieceLayout[0][1] = colorNum;
+            pieceLayout[0][2] = colorNum;
+            pieceLayout[2][1] = colorNum;
         }
         else if(pieceName.equals("X")){
-            pieceLayout[3][2] = 0;
-            pieceLayout[3][3] = 0;
-            pieceLayout[3][4] = 0;
-            pieceLayout[2][3] = 0;
-            pieceLayout[4][3] = 0;
+            pieceLayout[1][0] = colorNum;
+            pieceLayout[1][1] = colorNum;
+            pieceLayout[0][1] = colorNum;
+            pieceLayout[2][1] = colorNum;
+            pieceLayout[1][2] = colorNum;
         }
         else if(pieceName.equals("P")){
-            pieceLayout[3][2] = 0;
-            pieceLayout[3][3] = 0;
-            pieceLayout[3][4] = 0;
-            pieceLayout[4][2] = 0;
-            pieceLayout[4][3] = 0;
+            pieceLayout[0][0] = colorNum;
+            pieceLayout[1][0] = colorNum;
+            pieceLayout[0][1] = colorNum;
+            pieceLayout[1][1] = colorNum;
+            pieceLayout[0][2] = colorNum;
         }
         else if(pieceName.equals("W")){
-            pieceLayout[2][3] = 0;
-            pieceLayout[3][3] = 0;
-            pieceLayout[2][2] = 0;
-            pieceLayout[3][4] = 0;
-            pieceLayout[4][4] = 0;
+            pieceLayout[0][0] = colorNum;
+            pieceLayout[0][1] = colorNum;
+            pieceLayout[1][1] = colorNum;
+            pieceLayout[1][2] = colorNum;
+            pieceLayout[2][2] = colorNum;
         }
         else if(pieceName.equals("ZFive")){
-            pieceLayout[2][2] = 0;
-            pieceLayout[2][3] = 0;
-            pieceLayout[3][3] = 0;
-            pieceLayout[4][3] = 0;
-            pieceLayout[4][4] = 0;
+            pieceLayout[0][0] = colorNum;
+            pieceLayout[0][1] = colorNum;
+            pieceLayout[1][1] = colorNum;
+            pieceLayout[2][1] = colorNum;
+            pieceLayout[2][2] = colorNum;
         }
         else if(pieceName.equals("Y")){
-            pieceLayout[1][3] = 0;
-            pieceLayout[2][3] = 0;
-            pieceLayout[2][4] = 0;
-            pieceLayout[3][3] = 0;
-            pieceLayout[4][3] = 0;
+            pieceLayout[0][0] = colorNum;
+            pieceLayout[1][0] = colorNum;
+            pieceLayout[1][1] = colorNum;
+            pieceLayout[2][0] = colorNum;
+            pieceLayout[3][0] = colorNum;
         }
         else if(pieceName.equals("LFive")){
-            pieceLayout[1][3] = 0;
-            pieceLayout[1][4] = 0;
-            pieceLayout[2][3] = 0;
-            pieceLayout[3][3] = 0;
-            pieceLayout[4][3] = 0;
+            pieceLayout[0][0] = colorNum;
+            pieceLayout[0][1] = colorNum;
+            pieceLayout[1][0] = colorNum;
+            pieceLayout[2][0] = colorNum;
+            pieceLayout[3][0] = colorNum;
         }
         else if(pieceName.equals("U")){
-            pieceLayout[2][4] = 0;
-            pieceLayout[2][3] = 0;
-            pieceLayout[3][3] = 0;
-            pieceLayout[4][3] = 0;
-            pieceLayout[4][4] = 0;
+            pieceLayout[0][0] = colorNum;
+            pieceLayout[0][1] = colorNum;
+            pieceLayout[1][0] = colorNum;
+            pieceLayout[2][0] = colorNum;
+            pieceLayout[2][1] = colorNum;
         }
         else if(pieceName.equals("TFive")){
-            pieceLayout[3][2] = 0;
-            pieceLayout[3][3] = 0;
-            pieceLayout[3][4] = 0;
-            pieceLayout[2][4] = 0;
-            pieceLayout[4][4] = 0;
+            pieceLayout[1][0] = colorNum;
+            pieceLayout[1][1] = colorNum;
+            pieceLayout[1][2] = colorNum;
+            pieceLayout[0][2] = colorNum;
+            pieceLayout[2][2] = colorNum;
         }
         else if(pieceName.equals("VFive")){
-            pieceLayout[2][2] = 0;
-            pieceLayout[2][3] = 0;
-            pieceLayout[2][4] = 0;
-            pieceLayout[3][4] = 0;
-            pieceLayout[4][4] = 0;
+            pieceLayout[0][0] = colorNum;
+            pieceLayout[0][1] = colorNum;
+            pieceLayout[0][2] = colorNum;
+            pieceLayout[1][2] = colorNum;
+            pieceLayout[2][2] = colorNum;
         }
         else if(pieceName.equals("N")){
-            pieceLayout[3][2] = 0;
-            pieceLayout[3][3] = 0;
-            pieceLayout[2][3] = 0;
-            pieceLayout[4][2] = 0;
-            pieceLayout[5][2] = 0;
+            pieceLayout[0][1] = colorNum;
+            pieceLayout[1][0] = colorNum;
+            pieceLayout[1][1] = colorNum;
+            pieceLayout[2][0] = colorNum;
+            pieceLayout[3][0] = colorNum;
         }
         else if(pieceName.equals("IFive")){
-            pieceLayout[3][1] = 0;
-            pieceLayout[3][2] = 0;
-            pieceLayout[3][3] = 0;
-            pieceLayout[3][4] = 0;
-            pieceLayout[3][5] = 0;
+            pieceLayout[0][0] = colorNum;
+            pieceLayout[1][0] = colorNum;
+            pieceLayout[2][0] = colorNum;
+            pieceLayout[3][0] = colorNum;
+            pieceLayout[4][0] = colorNum;
         }
 
     }

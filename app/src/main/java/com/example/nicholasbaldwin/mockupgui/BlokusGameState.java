@@ -163,7 +163,7 @@ public class BlokusGameState extends GameState {
         //ret is needed because the method will not recognize boolean
         //return values inside the 'if' statements
         boolean ret = true;
-
+        //TODO just shove the piece onto the board bruh
         //will equal the # of columns and rows in
         //the piece's 2D array, respectively
         int x = pc.pieceWidth;

@@ -98,10 +98,10 @@ public class BlokusLocalGame extends LocalGame {
     @Override
     protected boolean makeMove(GameAction action) {
         PlacePiece pp = (PlacePiece) action;
-        int row = pp.getRow();
-        int col = pp.getCol();
+        int row = pp.getY();
+        int col = pp.getX();
 
-        if(!pp.checkForValidMove()){
+        if(!pp.checkForValidMove(mainState.getPlayerTurn())){
             return false;
         }
 
