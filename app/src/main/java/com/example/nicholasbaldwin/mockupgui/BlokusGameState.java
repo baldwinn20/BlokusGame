@@ -1,5 +1,6 @@
 package com.example.nicholasbaldwin.mockupgui;
 import android.graphics.Color;
+import android.util.Log;
 
 import com.example.nicholasbaldwin.mockupgui.game.infoMsg.GameState;
 import com.example.nicholasbaldwin.mockupgui.game.util.GamePlayer;
@@ -184,7 +185,9 @@ public class BlokusGameState extends GameState {
                 int xOffset = i - x;
                 int yOffset = j - y;
                 if(pieceArray[xOffset][yOffset] != -1){
-                    this.board[i][j] = pieceArray[xOffset][yOffset];
+                    this.board[x][y] = pieceArray[xOffset][yOffset];
+                    Log.i("fucking x", x + " " );
+                    Log.i("fucking y", y + " " );
                 }
             }
         }
