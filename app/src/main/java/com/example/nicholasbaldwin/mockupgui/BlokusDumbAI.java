@@ -29,18 +29,18 @@ public class BlokusDumbAI extends GameComputerPlayer {
     @Override
     protected void receiveInfo(GameInfo info) {
 
-        // if it's not a TTTState message, ignore it; otherwise
-        // cast it
-        if (!(info instanceof BlokusGameState)) return;
-        localState = (BlokusGameState)info;
-
-        // pick x and y positions at random (0-2)
-        int xVal = (int)(21*Math.random());
-        int yVal = (int)(21*Math.random());
-
-        // if it was a "not your turn" message, just ignore it
-        if (info instanceof NotYourTurnInfo) return;
-        game.sendAction(new PlacePiece(this, xVal, yVal, selectRandomPiece()));
+//        // if it's not a TTTState message, ignore it; otherwise
+//        // cast it
+//        if (!(info instanceof BlokusGameState)) return;
+//        localState = (BlokusGameState)info;
+//
+//        // pick x and y positions at random (0-2)
+//        int xVal = (int)(21*Math.random());
+//        int yVal = (int)(21*Math.random());
+//
+//        // if it was a "not your turn" message, just ignore it
+//        if (info instanceof NotYourTurnInfo) return;
+//        game.sendAction(new PlacePiece(this, xVal, yVal, selectRandomPiece()));
     }
 
     public Piece selectRandomPiece(){

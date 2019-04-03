@@ -37,6 +37,8 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
     private int stage;
     private int playerID;
     private Piece currentPiece;
+    private TextView redScore, blueScore, greenScore, yellowScore;
+    private TextView redPR, bluePR, greenPR, yellowPR;
     //TODO Remove instnace varprivate ArrayList<Piece> piecesInventory;
     public int INITIAL_PIECES_REMAINING = 21;
     public int INITIAL_SCORE = 89;
@@ -75,6 +77,24 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
         surfaceView = myActivity.findViewById(R.id.blokusBoard);
         messageBox = myActivity.findViewById(R.id.messageTV);
 
+        //all the scores and pieces remaining
+        redScore = myActivity.findViewById(R.id.redScoreTV);
+        redScore.setText("0");
+        blueScore = myActivity.findViewById(R.id.blueScoreTV);
+        blueScore.setText("0");
+        greenScore = myActivity.findViewById(R.id.greenScoreTV);
+        greenScore.setText("0");
+        yellowScore = myActivity.findViewById(R.id.yellowScoreTV);
+        yellowScore.setText("0");
+        redPR = myActivity.findViewById(R.id.redPiecesCount);
+        bluePR = myActivity.findViewById(R.id.bluePiecesCount);
+        greenPR = myActivity.findViewById(R.id.greenPiecesCount);
+        yellowPR = myActivity.findViewById(R.id.yellowPiecesCount);
+        redPR.setText("21");
+        bluePR.setText("21");
+        greenPR.setText("21");
+        yellowPR.setText("21");
+
         Log.i("set listener","OnTouch");
         surfaceView.setOnTouchListener(this);
     }
@@ -94,6 +114,8 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
             state = (BlokusGameState)info;
             //TODO make setState method in Master GUI class
             surfaceView.setState(state);
+            updatePlayerScores();
+            updatePlayerPiecesRemaining();
             surfaceView.invalidate();
             Log.i("human player", "receiving");
         }
@@ -139,5 +161,18 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
             surfaceView.invalidate();
             return true;
         }
+    }
+
+    private void updatePlayerScores(){
+        redScore.setText(state.getAllPlayerScores()[0] + "");
+        blueScore.setText(state.getAllPlayerScores()[1] + "");
+        greenScore.setText(state.getAllPlayerScores()[2] + "");
+        yellowScore.setText(state.getAllPlayerScores()[3] + "");
+    }
+    private void updatePlayerPiecesRemaining(){
+        redPR.setText(state.getAllPiecesRemaining()[0] + "");
+        bluePR.setText(state.getAllPiecesRemaining()[1] + "");
+        greenPR.setText(state.getAllPiecesRemaining()[2] + "");
+        yellowPR.setText(state.getAllPiecesRemaining()[3] + "");
     }
 }
