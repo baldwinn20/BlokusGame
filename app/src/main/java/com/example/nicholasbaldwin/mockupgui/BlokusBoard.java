@@ -10,7 +10,7 @@ import android.view.MotionEvent;
 import android.view.SurfaceView;
 import android.view.View;
 
-public class BlokusBoard extends SurfaceView{
+public class BlokusBoard extends SurfaceView {
 
     /*variables for creating the board
       Each tile on the board is worth 4% of the surface view
@@ -55,7 +55,7 @@ public class BlokusBoard extends SurfaceView{
         setBackgroundColor(Color.DKGRAY);
     }
 
-    public void setState( BlokusGameState bgs ){
+    public void setState(BlokusGameState bgs) {
         state = bgs;
     }
 
@@ -199,14 +199,14 @@ public class BlokusBoard extends SurfaceView{
                 , vLocation(bottom), tilePaint);
     }
 
-    public Point mapPixelToTile(int x ,int y){
-        for(int i = 0; i < BOARD_LENGTH; i++){
-            for(int j = 0; j < BOARD_LENGTH; j++){
+    public Point mapPixelToTile(int x, int y) {
+        for (int i = 0; i < BOARD_LENGTH; i++) {
+            for (int j = 0; j < BOARD_LENGTH; j++) {
                 //the dime of the tile based on its position
                 float left = hLocation(LEFT_BOARDER_PERCENT - 0.5f + (i * TILE_TOTAL_PERCENT));
-                float right = hLocation( DIVIDER_PERCENT + TILE_SIZE_PERCENT + (i* TILE_TOTAL_PERCENT));
+                float right = hLocation(DIVIDER_PERCENT + TILE_SIZE_PERCENT + (i * TILE_TOTAL_PERCENT));
                 float top = vLocation(DIVIDER_PERCENT - 0.5f + (j * TILE_TOTAL_PERCENT));
-                float bottom = vLocation(DIVIDER_PERCENT + TILE_SIZE_PERCENT + (j* TILE_TOTAL_PERCENT));
+                float bottom = vLocation(DIVIDER_PERCENT + TILE_SIZE_PERCENT + (j * TILE_TOTAL_PERCENT));
                 if ((x > left) != (x > right) && (y > top) != (y > bottom)) {
                     return new Point(x, y);
                 }
@@ -233,7 +233,8 @@ public class BlokusBoard extends SurfaceView{
     public int getBoardHeight() {
         return boardHeight;
     }
-    public int getBoardWidth(){
+
+    public int getBoardWidth() {
         return boardWidth;
     }
 

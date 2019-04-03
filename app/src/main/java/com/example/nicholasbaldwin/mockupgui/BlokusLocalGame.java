@@ -6,7 +6,7 @@ import com.example.nicholasbaldwin.mockupgui.game.util.LocalGame;
 
 /**
  * <!-- class BlokusLocalGame-->
- *
+ * <p>
  * This class defines and enforces
  * the game rules; handles interactions with players.
  *
@@ -23,7 +23,7 @@ public class BlokusLocalGame extends LocalGame {
     /**
      * Constructor for the BlokusLocalGame.
      */
-    public BlokusLocalGame(){
+    public BlokusLocalGame() {
         // perform superclass initialization
         super();
 
@@ -37,8 +37,7 @@ public class BlokusLocalGame extends LocalGame {
      * this method should remove any information from the game that the player is not
      * allowed to know.
      *
-     * @param p
-     * 			the player to notify
+     * @param p the player to notify
      */
     @Override
     protected void sendUpdatedStateTo(GamePlayer p) {
@@ -50,10 +49,8 @@ public class BlokusLocalGame extends LocalGame {
      * Tell whether the given player is allowed to make a move at the
      * present point in the game.
      *
-     * @param playerIdx
-     * 		the player's player-number (ID)
-     * @return
-     * 		true iff the player is allowed to move
+     * @param playerIdx the player's player-number (ID)
+     * @return true iff the player is allowed to move
      */
     @Override
     protected boolean canMove(int playerIdx) {
@@ -64,9 +61,8 @@ public class BlokusLocalGame extends LocalGame {
      * Check if the game is over. It is over, return a string that tells
      * who the winner(s), if any, are. If the game is not over, return null;
      *
-     * @return
-     * 		a message that tells who has won the game, or null if the
-     * 		game is not over
+     * @return a message that tells who has won the game, or null if the
+     * game is not over
      */
     @Override
     protected String checkIfGameOver() {
@@ -80,19 +76,17 @@ public class BlokusLocalGame extends LocalGame {
 //                break;
 //            }
 //        }
-        if(winner == -1){
+        if (winner == -1) {
             return null;
         }
-        return playerNames[winner]+" is the winner.";
+        return playerNames[winner] + " is the winner.";
     }
 
     /**
      * Makes a move on behalf of a player.
      *
-     * @param action
-     * 			The move that the player has sent to the game
-     * @return
-     * 			Tells whether the move was a legal one.
+     * @param action The move that the player has sent to the game
+     * @return Tells whether the move was a legal one.
      */
     @Override
     protected boolean makeMove(GameAction action) {

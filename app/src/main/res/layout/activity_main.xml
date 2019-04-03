@@ -452,10 +452,10 @@
                             android:src="@drawable/four_red" />
 
                         <ImageButton
-                            android:id="@+id/i4Button"
+                            android:id="@+id/fourLButton"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:src="@drawable/i_4_red" />
+                            android:src="@drawable/four_l_red" />
 
                         <ImageButton
                             android:id="@+id/fiveButton"
@@ -464,10 +464,10 @@
                             android:src="@drawable/five_red" />
 
                         <ImageButton
-                            android:id="@+id/i5Button"
+                            android:id="@+id/fiveLButton"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:src="@drawable/i_5_red" />
+                            android:src="@drawable/five_l_red" />
 
                         <ImageButton
                             android:id="@+id/nButton"

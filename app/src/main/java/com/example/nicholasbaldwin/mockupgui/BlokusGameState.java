@@ -1,4 +1,5 @@
 package com.example.nicholasbaldwin.mockupgui;
+
 import android.graphics.Color;
 import android.util.Log;
 
@@ -9,7 +10,7 @@ import java.util.ArrayList;
 
 /**
  * <!-- class BlokusGameState-->
- *
+ * <p>
  * This class contains all the information needed about the current
  * state of the Blokus game in order to display it properly for a human user or allow a computer
  * player to make decisions.
@@ -39,11 +40,9 @@ public class BlokusGameState extends GameState {
 
     /**
      * Constructor for the BlokusGameState class
-     *
+     * <p>
      * Sets up the game state to be in a condition as
      * if a new Blokus game has been started.
-     *
-     *
      */
     public BlokusGameState() {
 
@@ -69,7 +68,7 @@ public class BlokusGameState extends GameState {
 
     /**
      * Deep Copy Constructor for the BlokusGameState class
-     *
+     * <p>
      * Copies over variables
      * from a previous state of the game
      *
@@ -92,13 +91,13 @@ public class BlokusGameState extends GameState {
 
         for (int i = 0; i < 4; i++) {
             this.allPieceInventory.add(new ArrayList<Piece>());
-            if(playerID >=0 && playerID != i){
+            if (playerID >= 0 && playerID != i) {
                 continue;
             }
             for (int j = 0; j < 21; j++) {
                 Piece src = bgs.allPieceInventory.get(i).get(j);
                 Piece newPiece = new Piece(src.getName(),
-                        src.getPieceValue(), src.getPieceColor()) ;
+                        src.getPieceValue(), src.getPieceColor());
                 newPiece.isOnBoard = src.isOnBoard;
                 newPiece.orientationVal = src.orientationVal;
                 newPiece.xPosition = src.xPosition;
@@ -125,12 +124,12 @@ public class BlokusGameState extends GameState {
 
     /**
      * rotate90
-     *
+     * <p>
      * Changes a player's orientation for a specific piece by 90 degrees
      *
      * @return true if it is that specific player's turn and false otherwise
      */
-    public boolean rotate90(Piece pc){
+    public boolean rotate90(Piece pc) {
         if (pc.getOrientationVal() == 0) {
             pc.setOrientationVal(1);
         } else if (pc.getOrientationVal() == 1) {
@@ -145,12 +144,12 @@ public class BlokusGameState extends GameState {
 
     /**
      * flip
-     *
+     * <p>
      * reflects the piece over a horizontal line to change its orientation
      *
      * @return true if it is that specific player's turn and false otherwise
      */
-    public boolean flip(Piece pc){
+    public boolean flip(Piece pc) {
         //For testing purposes, the player's X piece will be flipped;
         if (pc.getOrientationVal() == 0) {
             pc.setOrientationVal(2);
@@ -166,13 +165,13 @@ public class BlokusGameState extends GameState {
 
     /**
      * placePiece
-     *
+     * <p>
      * CAVEAT:      Method not fully implemented for GameState assignment.
-     *              Board will be set as one big array, and each piece
-     *              will be a smaller array. Small arrays will be inserted
-     *              into board array, provided there are no pieces of like
-     *              color in the desired spot.
-     *
+     * Board will be set as one big array, and each piece
+     * will be a smaller array. Small arrays will be inserted
+     * into board array, provided there are no pieces of like
+     * color in the desired spot.
+     * <p>
      * Places a currently selected piece from a player's piece inventory onto
      * the board.
      *
@@ -180,12 +179,12 @@ public class BlokusGameState extends GameState {
      */
     public boolean placePiece(int x, int y, Piece pc) {
         int[][] pieceArray = pc.getPieceLayout();
-        for(int i = x; i < x + pc.getPieceWidth(); i++){
-            for(int j = y; j < y + pc.getPieceLength(); j++){
+        for (int i = x; i < x + pc.getPieceWidth(); i++) {
+            for (int j = y; j < y + pc.getPieceLength(); j++) {
                 int xOffset = i - x;
                 int yOffset = j - y;
-                if(pieceArray[xOffset][yOffset] != -1){
-                    if(xOffset + x <= 19 && yOffset + y <= 19) {
+                if (pieceArray[xOffset][yOffset] != -1) {
+                    if (xOffset + x <= 19 && yOffset + y <= 19) {
                         this.board[x + xOffset][y + yOffset] = pieceArray[xOffset][yOffset];
                         Log.i("fucking x", x + " ");
                         Log.i("fucking y", y + " ");
@@ -194,16 +193,16 @@ public class BlokusGameState extends GameState {
             }
         }
 //        this.board[1][1] = 0;
-       return true;
+        return true;
     }
 
 
-    public ArrayList<Piece> initializeInventories(int pIndex){
+    public ArrayList<Piece> initializeInventories(int pIndex) {
         //Add the 21 default pieces into a player's inventory
 
         ArrayList<Piece> inv = new ArrayList<>();
 
-        switch(pIndex) {
+        switch (pIndex) {
             case 0:
                 inv.add(new Piece("one", 1, Color.RED));
                 inv.add(new Piece("two", 2, Color.RED));
@@ -302,26 +301,30 @@ public class BlokusGameState extends GameState {
         return inv;
     }
 
-    public ArrayList<ArrayList<Piece>> getAllPieceInventory(){
+    public ArrayList<ArrayList<Piece>> getAllPieceInventory() {
         return this.allPieceInventory;
     }
 
-    public void updatePiecesRemaining(){
+    public void updatePiecesRemaining() {
         --allPiecesRemaining[playerToMove];
     } // What if AI player can't move
 
     //TODO check to see if deepy copy is needed
-    public int[] getAllPiecesRemaining(){return this.allPiecesRemaining;}
+    public int[] getAllPiecesRemaining() {
+        return this.allPiecesRemaining;
+    }
 
-    public void updatePlayerScores(Piece curPiece){
+    public void updatePlayerScores(Piece curPiece) {
         allPlayerScores[playerToMove] += curPiece.getPieceValue();
     }
 
     //TODO check to see if deepy copy is needed
-    public int[] getAllPlayerScores(){return this.allPlayerScores;}
+    public int[] getAllPlayerScores() {
+        return this.allPlayerScores;
+    }
 
-    public void setPlayerTurn(int curTurn){
-        switch (curTurn){
+    public void setPlayerTurn(int curTurn) {
+        switch (curTurn) {
             case 0:
                 this.playerToMove = 1;
                 break;
@@ -338,14 +341,22 @@ public class BlokusGameState extends GameState {
                 break;
         }
     }
-    public int getPlayerTurn(){return this.playerToMove;}
-    public int [][] getBoard(){return this.board; };
+
+    public int getPlayerTurn() {
+        return this.playerToMove;
+    }
+
+    public int[][] getBoard() {
+        return this.board;
+    }
+
+    ;
 }
 /**
- External Citation
- Date: 26 February 2019
- Problem: Needed to see an example of a game state
- Resource:
- https://github.com/srvegdahl/TttGame
- Solution: I used the example code from this post to improve my understanding
+ * External Citation
+ * Date: 26 February 2019
+ * Problem: Needed to see an example of a game state
+ * Resource:
+ * https://github.com/srvegdahl/TttGame
+ * Solution: I used the example code from this post to improve my understanding
  */

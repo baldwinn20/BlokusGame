@@ -6,6 +6,8 @@ import android.graphics.Point;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ImageButton;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.example.nicholasbaldwin.mockupgui.game.infoMsg.GameInfo;
@@ -17,7 +19,8 @@ import com.example.nicholasbaldwin.mockupgui.game.util.GameMainActivity;
 
 import java.util.ArrayList;
 
-public class BlokusHumanPlayer extends GameHumanPlayer implements View.OnTouchListener {
+public class BlokusHumanPlayer extends GameHumanPlayer implements
+        View.OnTouchListener, ScrollView.OnClickListener {
     //All the instance variables
 
     // the activity under which we're running
@@ -39,7 +42,13 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
     private Piece currentPiece;
     private TextView redScore, blueScore, greenScore, yellowScore;
     private TextView redPR, bluePR, greenPR, yellowPR;
-    //TODO Remove instnace varprivate ArrayList<Piece> piecesInventory;
+    private ScrollView scrollView;
+    private ImageButton oneButton, twoButton, sButton, threeButton, smallTButton,
+            fourButton, fourLButton, fiveButton, fiveLButton, nButton, yButton,
+            v3Button, cubeButton, cButton, bButton, zButton, mButton, xButton,
+            fButton, bigTButton, cornerButton, imageButton;
+
+    //TODO Remove instance var private ArrayList<Piece> piecesInventory;
     public int INITIAL_PIECES_REMAINING = 21;
     public int INITIAL_SCORE = 89;
 
@@ -47,14 +56,11 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
     /**
      * constructor
      *
-     * @param initName
-     * 		the player's name
-     * @param initColor
-     *      the player color
-     * @param initID
-     *      the index of the player to track turns
+     * @param initName  the player's name
+     * @param initColor the player color
+     * @param initID    the index of the player to track turns
      */
-    public BlokusHumanPlayer(String initName, int initColor, int initID){
+    public BlokusHumanPlayer(String initName, int initColor, int initID) {
         super(initName);
         playerColor = initColor;
         playerID = initID;
@@ -95,8 +101,105 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
         greenPR.setText("21");
         yellowPR.setText("21");
 
-        Log.i("set listener","OnTouch");
+        Log.i("set listener", "OnTouch");
         surfaceView.setOnTouchListener(this);
+
+        scrollView = myActivity.findViewById(R.id.piecesScrollView);
+        scrollView.setOnClickListener(this);
+        //imageButton.setOnClickListener(this);
+
+    }
+
+    @Override
+    public void onClick(View v) {
+
+        oneButton = myActivity.findViewById(R.id.oneButton);
+        oneButton.setOnClickListener(this);
+        twoButton = myActivity.findViewById(R.id.twoButton);
+        twoButton.setOnClickListener(this);
+        sButton = myActivity.findViewById(R.id.sButton);
+        sButton.setOnClickListener(this);
+        threeButton = myActivity.findViewById(R.id.threeButton);
+        threeButton.setOnClickListener(this);
+        smallTButton = myActivity.findViewById(R.id.smallTButton);
+        smallTButton.setOnClickListener(this);
+        fourButton = myActivity.findViewById(R.id.fourButton);
+        fourButton.setOnClickListener(this);
+        fourLButton = myActivity.findViewById(R.id.fourLButton);
+        fourLButton.setOnClickListener(this);
+        fiveButton = myActivity.findViewById(R.id.fiveButton);
+        fiveButton.setOnClickListener(this);
+        fiveLButton = myActivity.findViewById(R.id.fiveLButton);
+        fiveLButton.setOnClickListener(this);
+        nButton = myActivity.findViewById(R.id.nButton);
+        nButton.setOnClickListener(this);
+        yButton = myActivity.findViewById(R.id.yButton);
+        yButton.setOnClickListener(this);
+        v3Button = myActivity.findViewById(R.id.v3Button);
+        v3Button.setOnClickListener(this);
+        cubeButton = myActivity.findViewById(R.id.cubeButton);
+        cubeButton.setOnClickListener(this);
+        cButton = myActivity.findViewById(R.id.cButton);
+        cButton.setOnClickListener(this);
+        bButton = myActivity.findViewById(R.id.bButton);
+        bButton.setOnClickListener(this);
+        zButton = myActivity.findViewById(R.id.zButton);
+        zButton.setOnClickListener(this);
+        mButton = myActivity.findViewById(R.id.mButton);
+        mButton.setOnClickListener(this);
+        xButton = myActivity.findViewById(R.id.xButton);
+        xButton.setOnClickListener(this);
+        fButton = myActivity.findViewById(R.id.fButton);
+        fButton.setOnClickListener(this);
+        bigTButton = myActivity.findViewById(R.id.bigTButton);
+        bigTButton.setOnClickListener(this);
+        cornerButton = myActivity.findViewById(R.id.cornerButton);
+        cornerButton.setOnClickListener(this);
+
+
+        if (imageButton == oneButton) {
+            currentPiece.setName("one");
+        } else if (imageButton == twoButton) {
+            currentPiece.setName("two");
+        } else if (imageButton == myActivity.findViewById(R.id.sButton)) {
+            currentPiece.setName("s");
+        } else if (imageButton == myActivity.findViewById(R.id.threeButton)) {
+            currentPiece.setName("three");
+        } else if (imageButton == myActivity.findViewById(R.id.smallTButton)) {
+            currentPiece.setName("smallT");
+        } else if (imageButton == myActivity.findViewById(R.id.fourButton)) {
+            currentPiece.setName("four");
+        } else if (imageButton == myActivity.findViewById(R.id.fourLButton)) {
+            currentPiece.setName("fourL");
+        } else if (imageButton == myActivity.findViewById(R.id.fiveButton)) {
+            currentPiece.setName("five");
+        } else if (imageButton == myActivity.findViewById(R.id.fiveLButton)) {
+            currentPiece.setName("fiveL");
+        } else if (imageButton == myActivity.findViewById(R.id.nButton)) {
+            currentPiece.setName("N");
+        } else if (imageButton == myActivity.findViewById(R.id.yButton)) {
+            currentPiece.setName("Y");
+        } else if (imageButton == myActivity.findViewById(R.id.v3Button)) {
+            currentPiece.setName("v3");
+        } else if (imageButton == myActivity.findViewById(R.id.cubeButton)) {
+            currentPiece.setName("cube");
+        } else if (imageButton == myActivity.findViewById(R.id.cButton)) {
+            currentPiece.setName("C");
+        } else if (imageButton == myActivity.findViewById(R.id.bButton)) {
+            currentPiece.setName("B");
+        } else if (imageButton == myActivity.findViewById(R.id.zButton)) {
+            currentPiece.setName("Z");
+        } else if (imageButton == myActivity.findViewById(R.id.mButton)) {
+            currentPiece.setName("M");
+        } else if (imageButton == myActivity.findViewById(R.id.xButton)) {
+            currentPiece.setName("X");
+        } else if (imageButton == myActivity.findViewById(R.id.fButton)) {
+            currentPiece.setName("F");
+        } else if (imageButton == myActivity.findViewById(R.id.bigTButton)) {
+            currentPiece.setName("bigT");
+        } else if (imageButton == myActivity.findViewById(R.id.cornerButton)) {
+            currentPiece.setName("corner");
+        }
     }
 
     @Override
@@ -106,12 +209,11 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
         if (info instanceof IllegalMoveInfo || info instanceof NotYourTurnInfo) {
             //TODO place holder for handling
             return;
-        }
-        else if (!(info instanceof BlokusGameState))
+        } else if (!(info instanceof BlokusGameState))
             // if we do not have a TTTState, ignore
             return;
         else {
-            state = (BlokusGameState)info;
+            state = (BlokusGameState) info;
             //TODO make setState method in Master GUI class
             surfaceView.setState(state);
             updatePlayerScores();
@@ -136,20 +238,20 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
     @Override
     public boolean onTouch(View v, MotionEvent event) {
 
+
         // get the x and y coordinates of the touch-location;
         // convert them to square coordinates (where both
         // values are in the range 0..2)
         int x = (int) event.getX();
         int y = (int) event.getY();
 
-        Point p = surfaceView.mapPixelToTile(x,y);
-        if (p == null){
+        Point p = surfaceView.mapPixelToTile(x, y);
+        if (p == null) {
             //Makes a message to the widget stating that the player
             // is touching out of bounds
             messageBox.setText("Invalid Touch, out of bounds.\n");
             return false;
-        }
-        else {
+        } else {
             //game.sendAction(new PlacePiece(this, x, y, currentPiece));
             messageBox.setText("Placing Piece.\n");
 //            BlokusGameState testState = new BlokusGameState();
@@ -157,22 +259,26 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
             Piece testP = new Piece("N", 1, Color.RED);
 //            surfaceView.state.placePiece(p.x,p.y,testP);
             setCurrentPiece(testP);
-            game.sendAction(new PlacePiece(this,p.x,p.y, currentPiece));
+            game.sendAction(new PlacePiece(this, p.x, p.y, currentPiece));
             surfaceView.invalidate();
             return true;
         }
     }
 
-    private void updatePlayerScores(){
+
+    private void updatePlayerScores() {
         redScore.setText(state.getAllPlayerScores()[0] + "");
         blueScore.setText(state.getAllPlayerScores()[1] + "");
         greenScore.setText(state.getAllPlayerScores()[2] + "");
         yellowScore.setText(state.getAllPlayerScores()[3] + "");
     }
-    private void updatePlayerPiecesRemaining(){
+
+    private void updatePlayerPiecesRemaining() {
         redPR.setText(state.getAllPiecesRemaining()[0] + "");
         bluePR.setText(state.getAllPiecesRemaining()[1] + "");
         greenPR.setText(state.getAllPiecesRemaining()[2] + "");
         yellowPR.setText(state.getAllPiecesRemaining()[3] + "");
     }
+
+
 }
