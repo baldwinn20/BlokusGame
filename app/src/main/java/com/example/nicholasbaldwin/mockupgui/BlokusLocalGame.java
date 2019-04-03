@@ -74,12 +74,12 @@ public class BlokusLocalGame extends LocalGame {
         //TODO check who has pieceRemaining = 0 and win the game
 
         int winner = -1;
-        for (int i = 0; i < players.length; i++) {
-            if(mainState.getAllPiecesRemaining()[i] == 0){
-                winner = i;
-                break;
-            }
-        }
+//        for (int i = 0; i < players.length; i++) {
+//            if(mainState.getAllPiecesRemaining()[i] == 0){
+//                winner = i;
+//                break;
+//            }
+//        }
         if(winner == -1){
             return null;
         }
@@ -97,17 +97,17 @@ public class BlokusLocalGame extends LocalGame {
     @Override
     protected boolean makeMove(GameAction action) {
         PlacePiece pp = (PlacePiece) action;
-        int row = pp.getY();
-        int col = pp.getX();
+        int y = pp.getY();
+        int x = pp.getX();
 
 //        if(!pp.checkForValidMove(mainState.getPlayerTurn())){
 //            return false;
 //        }
 
-        mainState.placePiece(row, col, pp.getCurrentPiece());
+        mainState.placePiece(x, y, pp.getCurrentPiece());
         mainState.updatePiecesRemaining();
         mainState.updatePlayerScores(pp.getCurrentPiece());
-        mainState.setPlayerTurn(mainState.getPlayerTurn());
+        //mainState.setPlayerTurn(mainState.getPlayerTurn());
 
         return true;
     }

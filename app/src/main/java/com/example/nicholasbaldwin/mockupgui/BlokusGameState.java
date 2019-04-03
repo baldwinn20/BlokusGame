@@ -185,9 +185,11 @@ public class BlokusGameState extends GameState {
                 int xOffset = i - x;
                 int yOffset = j - y;
                 if(pieceArray[xOffset][yOffset] != -1){
-                    this.board[x][y] = pieceArray[xOffset][yOffset];
-                    Log.i("fucking x", x + " " );
-                    Log.i("fucking y", y + " " );
+                    if(xOffset + x <= 19 && yOffset + y <= 19) {
+                        this.board[x + xOffset][y + yOffset] = pieceArray[xOffset][yOffset];
+                        Log.i("fucking x", x + " ");
+                        Log.i("fucking y", y + " ");
+                    }
                 }
             }
         }

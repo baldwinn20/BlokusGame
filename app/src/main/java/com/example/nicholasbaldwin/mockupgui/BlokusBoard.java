@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Point;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceView;
 import android.view.View;
@@ -202,13 +203,15 @@ public class BlokusBoard extends SurfaceView{
     public Point mapPixelToTile(int x ,int y){
         for(int i = 0; i < BOARD_LENGTH; i++){
             for(int j = 0; j < BOARD_LENGTH; j++){
-                //the dime of the tile based on its position
+                //the size of the tile based on its position
                 float left = hLocation(LEFT_BOARDER_PERCENT - 0.5f + (i * TILE_TOTAL_PERCENT));
                 float right = hLocation( DIVIDER_PERCENT + TILE_SIZE_PERCENT + (i* TILE_TOTAL_PERCENT));
                 float top = vLocation(DIVIDER_PERCENT - 0.5f + (j * TILE_TOTAL_PERCENT));
                 float bottom = vLocation(DIVIDER_PERCENT + TILE_SIZE_PERCENT + (j* TILE_TOTAL_PERCENT));
-                if ((x > left) != (x > right) && (y > top) != (y > bottom)) {
-                    return new Point(x, y);
+                if ((x >= left+5) != (x >= right+5) && (y >= top+5) != (y >= bottom+5)) {
+                    Log.i("good i", i + " " );
+                    Log.i("good j", j + " " );
+                    return new Point(i, j);
                 }
             }
         }
