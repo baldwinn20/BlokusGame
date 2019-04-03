@@ -1,6 +1,7 @@
 package com.example.nicholasbaldwin.mockupgui;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.graphics.Point;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -29,7 +30,6 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
     private BlokusBoard surfaceView = null;
     private TextView messageBox = null;
 
-    protected Game game;
     private int playerColor;
     private int piecesRemaining;
     private int playerType = 0; // human players are all of type 0
@@ -79,11 +79,6 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
     }
 
     @Override
-    public void sendInfo(GameInfo info) {
-
-    }
-
-    @Override
     public void receiveInfo(GameInfo info) {
         if (surfaceView == null) return;
 
@@ -97,7 +92,7 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
         else {
             state = (BlokusGameState)info;
             //TODO make setState method in Master GUI class
-            surfaceView.setState((BlokusGameState)info);
+            surfaceView.setState(state);
             surfaceView.invalidate();
             Log.i("human player", "receiving");
         }
@@ -132,7 +127,14 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
             return false;
         }
         else {
-            game.sendAction(new PlacePiece(this, x, y, currentPiece));
+            //game.sendAction(new PlacePiece(this, x, y, currentPiece));
+            messageBox.setText("Placing Pieve.\n");
+//            BlokusGameState testState = new BlokusGameState();
+//            surfaceView.setState(testState);
+            Piece testP = new Piece("one", 1, Color.RED);
+//            surfaceView.state.placePiece(p.x,p.y,testP);
+            setCurrentPiece(testP);
+            game.sendAction(new PlacePiece(this,p.x,p.y, currentPiece));
             surfaceView.invalidate();
             return true;
         }

@@ -10,7 +10,7 @@ import android.view.MotionEvent;
 import android.view.SurfaceView;
 import android.view.View;
 
-public class BlokusBoard extends SurfaceView implements SurfaceView.OnTouchListener {
+public class BlokusBoard extends SurfaceView{
 
     /*variables for creating the board
       Each tile on the board is worth 4% of the surface view
@@ -77,30 +77,9 @@ public class BlokusBoard extends SurfaceView implements SurfaceView.OnTouchListe
         }
     }
 
-    @Override
-    public boolean onTouch(View v, MotionEvent event) {
-        xTouch = event.getX();
-        yTouch = event.getY();
-        return true;
-    }
 
     @Override
     protected void onDraw(Canvas canvas) {
-
-        //Test to see if board registers touch.
-        //Selected square should turn yellow
-       Paint yellowPaint = new Paint();
-        yellowPaint.setColor(0xffffff00);
-        int squareSideLength = ((getWidth()) / 20);
-        if (xTouch % 10 != 0) {
-            xTouch = (xTouch - (xTouch % 10));
-        }
-        if (yTouch % 10 != 0) {
-            yTouch = (yTouch - (yTouch % 10));
-        }
-        canvas.drawRect(xTouch, yTouch, xTouch + squareSideLength,
-                yTouch + squareSideLength, yellowPaint);
-
         //this allows the message widget to have more space
         this.getHolder().setFixedSize(canvas.getWidth(), 100);
 
@@ -108,9 +87,6 @@ public class BlokusBoard extends SurfaceView implements SurfaceView.OnTouchListe
         updateDimensions(canvas);
         Paint dividerColor = new Paint();
         dividerColor.setColor(Color.GRAY);
-
-        /**the current state of the board THIS DOESNT WORK **/
-        //boardCopy = state.getBoard();
 
 //        //this is used to test the update board algorythm
 //        for (int a = 0; a < BOARD_LENGTH; a++) {
@@ -135,6 +111,7 @@ public class BlokusBoard extends SurfaceView implements SurfaceView.OnTouchListe
 //                }
 //            }
 //        }
+
         //this draws the starting points for each respective color
         Paint startingColor = new Paint();
         float sLeft = LEFT_BOARDER_PERCENT - 0.5f;
@@ -158,14 +135,6 @@ public class BlokusBoard extends SurfaceView implements SurfaceView.OnTouchListe
                 vLocation(sTop + 1.4f + (19 * TILE_TOTAL_PERCENT)), hLocation(sRight - 1.4f),
                 vLocation(sBottom - 1.4f), startingColor);
 
-        //this updates the board based on what the board has in the game state
-        for (int i = 0; i < BOARD_LENGTH; i++) {
-            for (int j = 0; j < BOARD_LENGTH; j++) {
-                if (boardCopy[i][j] != -1) {
-                    drawTile(i, j, boardCopy[i][j], canvas);
-                }
-            }
-        }
 
         //this is the very left most vertical boarder
         canvas.drawRect(hLocation(0), vLocation(0), hLocation(0.2f)
@@ -184,6 +153,23 @@ public class BlokusBoard extends SurfaceView implements SurfaceView.OnTouchListe
 
         }
 
+        // if we don't have any state, there's nothing more to draw, so return
+        if (state == null) {
+            return;
+        }
+
+
+        /**the current state of the board THIS DOESNT WORK **/
+        boardCopy = state.getBoard();
+
+        //this updates the board based on what the board has in the game state
+        for (int i = 0; i < BOARD_LENGTH; i++) {
+            for (int j = 0; j < BOARD_LENGTH; j++) {
+                if (boardCopy[i][j] != -1) {
+                    drawTile(i, j, boardCopy[i][j], canvas);
+                }
+            }
+        }
 
     }
 
@@ -218,16 +204,16 @@ public class BlokusBoard extends SurfaceView implements SurfaceView.OnTouchListe
             for(int j = 0; j < BOARD_LENGTH; j++){
                 //the dime of the tile based on its position
                 float left = hLocation(LEFT_BOARDER_PERCENT - 0.5f + (i * TILE_TOTAL_PERCENT));
-                float right = hLocation( 99.5f - ((19 - i) * TILE_TOTAL_PERCENT));
+                float right = hLocation( DIVIDER_PERCENT + TILE_SIZE_PERCENT + (i* TILE_TOTAL_PERCENT));
                 float top = vLocation(DIVIDER_PERCENT - 0.5f + (j * TILE_TOTAL_PERCENT));
-                float bottom = 99.5f - ((19 - j) * TILE_TOTAL_PERCENT);
+                float bottom = vLocation(DIVIDER_PERCENT + TILE_SIZE_PERCENT + (j* TILE_TOTAL_PERCENT));
                 if ((x > left) != (x > right) && (y > top) != (y > bottom)) {
-                    return new Point(i, j);
+                    return new Point(x, y);
                 }
             }
         }
         //if the person did not touch a tile
-        return  null;
+        return null;
     }
 
     /*

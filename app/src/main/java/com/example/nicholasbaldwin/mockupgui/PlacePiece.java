@@ -27,10 +27,10 @@ public class PlacePiece extends GameAction {
 
     //TODO finish this algorythm and pass in the boardcopy
     public boolean checkForValidMove(int pID){
-        
+
         boolean isCorner = false;
-        for(int i = x; i < x + getPieceWidth(); i++){
-            for(int j = y; j < y + getPieceLength(); j++){
+        for(int i = x; i < x + currentPiece.getPieceWidth(); i++){
+            for(int j = y; j < y + currentPiece.getPieceLength(); j++){
                 int xOffset = i - x;
                 int yOffset = j - y;
                 if(pieceLayout[xOffset][yOffset] != -1){
@@ -54,30 +54,6 @@ public class PlacePiece extends GameAction {
         return false;
     }
 
-    //getters for the length and widths or each piece
-    private int getPieceLength(){
-        int length = 0;
-        for(int i = 0; i < pieceLayout.length; i++){
-            for(int j = 0; j < pieceLayout.length;j++){
-                if(pieceLayout[i][j] != -1 && j >= length){
-                    length++;
-                }
-            }
-        }
-        return length;
-    }
-
-    private int getPieceWidth(){
-        int width = 0;
-        for(int i = 0; i < pieceLayout.length; i++){
-            for(int j = 0; j < pieceLayout.length;j++){
-                if(pieceLayout[i][j] != -1 && i >= width){
-                    width++;
-                }
-            }
-        }
-        return width;
-    }
 
     /**
      * get the object's y
