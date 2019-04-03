@@ -100,9 +100,9 @@ public class BlokusLocalGame extends LocalGame {
         int row = pp.getY();
         int col = pp.getX();
 
-        if(!pp.checkForValidMove(mainState.getPlayerTurn())){
-            return false;
-        }
+//        if(!pp.checkForValidMove(mainState.getPlayerTurn())){
+//            return false;
+//        }
 
         mainState.placePiece(row, col, pp.getCurrentPiece());
         mainState.updatePiecesRemaining();

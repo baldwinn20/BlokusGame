@@ -23,6 +23,7 @@ public class Piece {
     private int pieceColor;
     protected int xPosition = -1;
     protected int yPosition = -1;
+    private  int colorNum;
 
     //0,1,2,3 are different orientation displays
     protected int orientationVal = 0;
@@ -59,7 +60,6 @@ public class Piece {
         }
 
         //todo make a switch for color to replace the zeros
-        int colorNum;
         if(pieceColor == Color.RED){
             colorNum = 0;
         }
@@ -207,11 +207,41 @@ public class Piece {
         }
 
     }
+    //getters for the length and widths or each piece
+    public int getPieceLength(){
+        int length = 0;
+        for(int i = 0; i < pieceLayout.length; i++){
+            for(int j = 0; j < pieceLayout.length;j++){
+                if(pieceLayout[i][j] != -1 && j >= length){
+                    length++;
+                }
+            }
+        }
+        return length;
+    }
+
+    public int getPieceWidth(){
+        int width = 0;
+        for(int i = 0; i < pieceLayout.length; i++){
+            for(int j = 0; j < pieceLayout.length;j++){
+                if(pieceLayout[i][j] != -1 && i >= width){
+                    width++;
+                }
+            }
+        }
+        return width;
+    }
+
 
     //Setters and Getters
     public String getName() {return pieceName;}
     public int getPieceValue() {return pieceValue;}
     public int getPieceColor() {return pieceColor;}
+
+    public int getColorNum() {
+        return colorNum;
+    }
+
     public int getXPosition(){return xPosition;}
     public int[][] getPieceLayout(){return pieceLayout;}
     public void setPieceLayout(int[][] layout){this.pieceLayout = layout;}

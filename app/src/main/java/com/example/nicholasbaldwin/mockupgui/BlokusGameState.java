@@ -177,51 +177,19 @@ public class BlokusGameState extends GameState {
      *
      * @return true if it is that specific player's turn and false otherwise
      */
-    public boolean placePiece(int row, int col, Piece pc) {
-        //ret is needed because the method will not recognize boolean
-        //return values inside the 'if' statements
-        boolean ret = true;
-        //TODO just shove the piece onto the board bruh
-        //will equal the # of columns and rows in
-        //the piece's 2D array, respectively
-        int x = pc.pieceWidth;
-        int y = pc.pieceWidth;
-        if (pc.isOnBoard) {
-            ret = false;
-        } else {
-            for (int i = 0; i < x; i++) {
-                for (int j = 0; j < y; j++) {
-                    //if a square on the board is not empty,
-                    //place the piece and hide it from the inventory.
-                    if (this.board[row + i][col + j] != -1) {
-                        ret = false;
-                    } else {
-                        pc.isOnBoard = true;
-                        pc.setxPosition(row);
-                        pc.setyPosition(col);
-                        //TODO need to further implement inserting piece array onto board
-                        switch (pc.getPieceColor()){
-                            case Color.RED:
-                                this.board[row][col] = 0;
-                                break;
-                            case Color.BLUE:
-                                this.board[row][col] = 1;
-                                break;
-                            case Color.GREEN:
-                                this.board[row][col] = 2;
-                                break;
-                            case Color.YELLOW:
-                                this.board[row][col] = 3;
-                                break;
-                            default:
-                                break;
-                        }
-                        ret = true;
-                    }
+    public boolean placePiece(int x, int y, Piece pc) {
+        int[][] pieceArray = pc.getPieceLayout();
+        for(int i = x; i < x + pc.getPieceWidth(); i++){
+            for(int j = y; j < y + pc.getPieceLength(); j++){
+                int xOffset = i - x;
+                int yOffset = j - y;
+                if(pieceArray[xOffset][yOffset] != -1){
+                    this.board[i][j] = pieceArray[xOffset][yOffset];
                 }
             }
         }
-        return ret;
+//        this.board[1][1] = 0;
+       return true;
     }
 
 
