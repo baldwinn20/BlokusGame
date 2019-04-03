@@ -6,7 +6,9 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Point;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
 import android.view.SurfaceView;
+import android.view.View;
 
 public class BlokusBoard extends SurfaceView{
 
@@ -20,7 +22,7 @@ public class BlokusBoard extends SurfaceView{
     private final float DIVIDER_PERCENT = .5f;//thickness of the dividers
     private final float TILE_TOTAL_PERCENT = TILE_SIZE_PERCENT
             + DIVIDER_PERCENT;
-    private final float LEFT_BORDER_PERCENT = 0.5f;
+    private final float LEFT_BOARDER_PERCENT = 0.5f;
     private float xTouch, yTouch;
     private int boardWidth;
     private int boardHeight;
@@ -112,7 +114,7 @@ public class BlokusBoard extends SurfaceView{
 
         //this draws the starting points for each respective color
         Paint startingColor = new Paint();
-        float sLeft = LEFT_BORDER_PERCENT - 0.5f;
+        float sLeft = LEFT_BOARDER_PERCENT - 0.5f;
         float sRight = 99.5f;
         float sTop = DIVIDER_PERCENT - 0.5f;
         float sBottom = 99.5f;
@@ -188,7 +190,7 @@ public class BlokusBoard extends SurfaceView{
         }
 
         //draw one tile based on the location
-        float left = LEFT_BORDER_PERCENT - 0.5f + (xPosition * TILE_TOTAL_PERCENT);
+        float left = LEFT_BOARDER_PERCENT - 0.5f + (xPosition * TILE_TOTAL_PERCENT);
         float right = 99.5f - ((19 - xPosition) * TILE_TOTAL_PERCENT);
         float top = DIVIDER_PERCENT - 0.5f + (yPosition * TILE_TOTAL_PERCENT);
         float bottom = 99.5f - ((19 - yPosition) * TILE_TOTAL_PERCENT);
@@ -200,19 +202,16 @@ public class BlokusBoard extends SurfaceView{
     public Point mapPixelToTile(int x ,int y){
         for(int i = 0; i < BOARD_LENGTH; i++){
             for(int j = 0; j < BOARD_LENGTH; j++){
-
-                //the size of the tile based on its position
-                float left = hLocation(LEFT_BORDER_PERCENT - 0.5f + (i * TILE_TOTAL_PERCENT));
+                //the dime of the tile based on its position
+                float left = hLocation(LEFT_BOARDER_PERCENT - 0.5f + (i * TILE_TOTAL_PERCENT));
                 float right = hLocation( DIVIDER_PERCENT + TILE_SIZE_PERCENT + (i* TILE_TOTAL_PERCENT));
                 float top = vLocation(DIVIDER_PERCENT - 0.5f + (j * TILE_TOTAL_PERCENT));
                 float bottom = vLocation(DIVIDER_PERCENT + TILE_SIZE_PERCENT + (j* TILE_TOTAL_PERCENT));
-
                 if ((x > left) != (x > right) && (y > top) != (y > bottom)) {
-                    return new Point(i, j);
+                    return new Point(x, y);
                 }
             }
         }
-
         //if the person did not touch a tile
         return null;
     }
@@ -238,8 +237,8 @@ public class BlokusBoard extends SurfaceView{
         return boardWidth;
     }
 
-    public float getLEFT_BORDER_PERCENT() {
-        return LEFT_BORDER_PERCENT;
+    public float getLEFT_BOARDER_PERCENT() {
+        return LEFT_BOARDER_PERCENT;
     }
 
     public float getDIVIDER_PERCENT() {
