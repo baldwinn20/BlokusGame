@@ -128,7 +128,7 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
         }
         else {
             //game.sendAction(new PlacePiece(this, x, y, currentPiece));
-            messageBox.setText("Placing Pieve.\n");
+            messageBox.setText("Placing Piece.\n");
 //            BlokusGameState testState = new BlokusGameState();
 //            surfaceView.setState(testState);
             Piece testP = new Piece("one", 1, Color.RED);
