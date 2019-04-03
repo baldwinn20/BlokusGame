@@ -1,5 +1,7 @@
 package com.example.nicholasbaldwin.mockupgui;
 
+import android.util.Log;
+
 import com.example.nicholasbaldwin.mockupgui.game.actionMsg.GameAction;
 import com.example.nicholasbaldwin.mockupgui.game.util.GamePlayer;
 
@@ -29,28 +31,40 @@ public class PlacePiece extends GameAction {
     public boolean checkForValidMove(int pID){
 
         boolean isCorner = false;
-        for(int i = x; i < x + currentPiece.getPieceWidth(); i++){
-            for(int j = y; j < y + currentPiece.getPieceLength(); j++){
+        boolean isAdjacent = false;
+        isCorner |= isStart(x,y, pID);
+        if(isCorner){
+            return true;
+        }
+        for(int i = x; i <= x + currentPiece.getPieceWidth(); i++){
+            for(int j = y; j <= y + currentPiece.getPieceLength(); j++){
                 int xOffset = i - x;
                 int yOffset = j - y;
                 if(pieceLayout[xOffset][yOffset] != -1){
-                    boolean isAdjacent = boardCopy[x-1][y] != pID || boardCopy[x+1][y] != pID
-                            || boardCopy[x][y-1] != pID || boardCopy[x][y+1] != pID;
+                    //Check for out of bound piece tiles
+                    Log.i("x+1", boardCopy[x+1] + "");
+
+                    isAdjacent = boardCopy[x + xOffset - 1][y + yOffset] == pID || boardCopy[x + xOffset+ 1][y + yOffset] == pID
+                            || boardCopy[x+xOffset][y+yOffset - 1] == pID || boardCopy[x+xOffset][y+yOffset + 1] == pID;
                     if(isAdjacent){
                         return false;
                     }
-                    isCorner |= boardCopy[x+1][y+1] == pID || boardCopy[x-1][y-1] == pID;
-                    isCorner |= boardCopy[x-1][y+1] == pID || boardCopy[x+1][y-1] == pID;
-                    isCorner |= isStart(x,y, pID);
+                    isCorner |= boardCopy[x+xOffset+1][y+yOffset+1] == pID || boardCopy[x+xOffset-1][y+yOffset-1] == pID;
+                    isCorner |= boardCopy[x+xOffset-1][y+yOffset+1] == pID || boardCopy[x+xOffset+1][y+yOffset-1] == pID;
+
                 }
             }
         }
 
-        return true;
+        return isCorner;
     }
 
     //TODO placing pieces from the starting corners
     private boolean isStart(int x, int y, int pID){
+        if(x == y && x == 0){
+
+            return true;
+        }
         return false;
     }
 
@@ -68,8 +82,13 @@ public class PlacePiece extends GameAction {
      * @return the column selected
      */
     public int getX() { return x; }
+    public void setX(int x){this.x = x;}
+    public void setY(int y){this.y= y;}
 
     public Piece getCurrentPiece() {
         return currentPiece;
+    }
+    public void setBoard(int[][] orig){
+        this.boardCopy = orig;
     }
 }

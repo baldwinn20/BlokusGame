@@ -29,7 +29,7 @@ public class BlokusDumbAI extends GameComputerPlayer {
     @Override
     protected void receiveInfo(GameInfo info) {
 
-//        // if it's not a TTTState message, ignore it; otherwise
+//        // if it's not a BlokusGameState message, ignore it; otherwise
 //        // cast it
 //        if (!(info instanceof BlokusGameState)) return;
 //        localState = (BlokusGameState)info;
@@ -40,11 +40,16 @@ public class BlokusDumbAI extends GameComputerPlayer {
 //
 //        // if it was a "not your turn" message, just ignore it
 //        if (info instanceof NotYourTurnInfo) return;
-//        game.sendAction(new PlacePiece(this, xVal, yVal, selectRandomPiece()));
+//        PlacePiece pp = new PlacePiece(this, xVal, yVal, selectRandomPiece());
+//        while(!pp.checkForValidMove(localState.getPlayerTurn())){
+//            pp.setX((int)(21*Math.random()));
+//            pp.setY((int)(21*Math.random()));
+//        }
+//        game.sendAction(pp);
     }
 
     public Piece selectRandomPiece(){
-        return localState.getAllPieceInventory().get(this.playerID).get((int)(21*Math.random()));
+        return localState.getAllPieceInventory().get(localState.getPlayerTurn()).get(0);
     }
 
     public int getPlayerColor() {
