@@ -329,6 +329,10 @@ public class BlokusGameState extends GameState {
         return inv;
     }
 
+    public ArrayList<ArrayList<Piece>> getAllPieceInventory(){
+        return this.allPieceInventory;
+    }
+
     public void updatePiecesRemaining(){
         --allPiecesRemaining[playerToMove];
     } // What if AI player can't move
