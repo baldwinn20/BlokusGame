@@ -208,7 +208,7 @@ public class BlokusBoard extends SurfaceView {
                 float top = vLocation(DIVIDER_PERCENT - 0.5f + (j * TILE_TOTAL_PERCENT));
                 float bottom = vLocation(DIVIDER_PERCENT + TILE_SIZE_PERCENT + (j * TILE_TOTAL_PERCENT));
                 if ((x > left) != (x > right) && (y > top) != (y > bottom)) {
-                    return new Point(x, y);
+                    return new Point(i, j);
                 }
             }
         }
