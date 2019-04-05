@@ -18,7 +18,7 @@ import com.example.nicholasbaldwin.mockupgui.game.util.LocalGame;
 public class BlokusLocalGame extends LocalGame {
 
     // the game's state
-    public BlokusGameState mainState;
+    private BlokusGameState mainState;
 
     /**
      * Constructor for the BlokusLocalGame.
@@ -93,10 +93,11 @@ public class BlokusLocalGame extends LocalGame {
         PlacePiece pp = (PlacePiece) action;
         int y = pp.getY();
         int x = pp.getX();
+        pp.setBoard(mainState.getBoard());
 
-//        if(!pp.checkForValidMove(mainState.getPlayerTurn())){
-//            return false;
-//        }
+        if(!pp.checkForValidMove(mainState.getPlayerTurn())){
+            return false;
+        }
 
         mainState.placePiece(x, y, pp.getCurrentPiece());
         mainState.updatePiecesRemaining();

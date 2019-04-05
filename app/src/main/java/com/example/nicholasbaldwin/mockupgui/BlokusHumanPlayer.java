@@ -256,7 +256,7 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
             messageBox.setText("Placing Piece.\n");
 //            BlokusGameState testState = new BlokusGameState();
 //            surfaceView.setState(testState);
-            Piece testP = new Piece("N", 1, Color.RED);
+            Piece testP = new Piece("one", 1, Color.RED);
 //            surfaceView.state.placePiece(p.x,p.y,testP);
             setCurrentPiece(testP);
             game.sendAction(new PlacePiece(this, p.x, p.y, currentPiece));

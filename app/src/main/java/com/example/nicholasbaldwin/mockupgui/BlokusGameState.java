@@ -186,13 +186,15 @@ public class BlokusGameState extends GameState {
                 if (pieceArray[xOffset][yOffset] != -1) {
                     if (xOffset + x <= 19 && yOffset + y <= 19) {
                         this.board[x + xOffset][y + yOffset] = pieceArray[xOffset][yOffset];
-                        Log.i("fucking x", x + " ");
-                        Log.i("fucking y", y + " ");
                     }
                 }
             }
         }
-//        this.board[1][1] = 0;
+
+        //TODO testing green, blue, and yellow should be removed
+        this.board[0][19] = 2;
+        this.board[19][0] = 1;
+        this.board[19][19] = 3;
         return true;
     }
 
