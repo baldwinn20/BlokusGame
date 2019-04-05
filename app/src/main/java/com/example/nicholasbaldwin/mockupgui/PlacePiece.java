@@ -86,6 +86,7 @@ public class PlacePiece extends GameAction {
                         isCorner |= boardCopy[x + xOffset + 1][y + yOffset + 1] == pID || boardCopy[x + xOffset + 1][y + yOffset - 1] == pID;
 
                     }
+                    //Log.i("x+1", boardCopy[x+1] + "");
 
                     //Special check for last column of board:
                     else if(x ==19){

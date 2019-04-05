@@ -36,6 +36,7 @@ public class BlokusGameState extends GameState {
     //An integer array will help differentiate whose pieces are on the board.
     private int[][] board = new int[20][20];
     private static final int BOARD_LENGTH = 20;
+    private static final int initTilesRemaining = 89;
     private int playerToMove;
 
     /**
@@ -208,94 +209,94 @@ public class BlokusGameState extends GameState {
             case 0:
                 inv.add(new Piece("one", 1, Color.RED));
                 inv.add(new Piece("two", 2, Color.RED));
-                inv.add(new Piece("VThree", 3, Color.RED));
-                inv.add(new Piece("LThree", 3, Color.RED));
-                inv.add(new Piece("TFour", 4, Color.RED));
-                inv.add(new Piece("O", 4, Color.RED));
-                inv.add(new Piece("LFour", 4, Color.RED));
-                inv.add(new Piece("lFour", 4, Color.RED));
-                inv.add(new Piece("zFour", 4, Color.RED));
-                inv.add(new Piece("F", 5, Color.RED));
-                inv.add(new Piece("X", 5, Color.RED));
-                inv.add(new Piece("P", 5, Color.RED));
-                inv.add(new Piece("W", 5, Color.RED));
-                inv.add(new Piece("ZFive", 5, Color.RED));
-                inv.add(new Piece("Y", 5, Color.RED));
-                inv.add(new Piece("LFive", 5, Color.RED));
-                inv.add(new Piece("U", 5, Color.RED));
-                inv.add(new Piece("TFive", 5, Color.RED));
-                inv.add(new Piece("VFive", 5, Color.RED));
+                inv.add(new Piece("S", 4, Color.RED));
+                inv.add(new Piece("three", 3, Color.RED));
+                inv.add(new Piece("smallT", 4, Color.RED));
+                inv.add(new Piece("four", 4, Color.RED));
+                inv.add(new Piece("fourL", 4, Color.RED));
+                inv.add(new Piece("five", 5, Color.RED));
+                inv.add(new Piece("fiveL", 5, Color.RED));
                 inv.add(new Piece("N", 5, Color.RED));
-                inv.add(new Piece("lFive", 5, Color.RED));
+                inv.add(new Piece("Y", 5, Color.RED));
+                inv.add(new Piece("v3", 3, Color.RED));
+                inv.add(new Piece("cube", 4, Color.RED));
+                inv.add(new Piece("C", 5, Color.RED));
+                inv.add(new Piece("B", 5, Color.RED));
+                inv.add(new Piece("Z", 5, Color.RED));
+                inv.add(new Piece("M", 5, Color.RED));
+                inv.add(new Piece("X", 5, Color.RED));
+                inv.add(new Piece("F", 5, Color.RED));
+                inv.add(new Piece("bigT", 5, Color.RED));
+                inv.add(new Piece("corner", 5, Color.RED));
                 break;
             case 1:
                 inv.add(new Piece("one", 1, Color.BLUE));
                 inv.add(new Piece("two", 2, Color.BLUE));
-                inv.add(new Piece("VThree", 3, Color.BLUE));
-                inv.add(new Piece("LThree", 3, Color.BLUE));
-                inv.add(new Piece("TFour", 4, Color.BLUE));
-                inv.add(new Piece("O", 4, Color.BLUE));
-                inv.add(new Piece("LFour", 4, Color.BLUE));
-                inv.add(new Piece("lFour", 4, Color.BLUE));
-                inv.add(new Piece("zFour", 4, Color.BLUE));
-                inv.add(new Piece("F", 5, Color.BLUE));
-                inv.add(new Piece("X", 5, Color.BLUE));
-                inv.add(new Piece("P", 5, Color.BLUE));
-                inv.add(new Piece("W", 5, Color.BLUE));
-                inv.add(new Piece("ZFive", 5, Color.BLUE));
-                inv.add(new Piece("Y", 5, Color.BLUE));
-                inv.add(new Piece("LFive", 5, Color.BLUE));
-                inv.add(new Piece("U", 5, Color.BLUE));
-                inv.add(new Piece("TFive", 5, Color.BLUE));
-                inv.add(new Piece("VFive", 5, Color.BLUE));
+                inv.add(new Piece("S", 4, Color.BLUE));
+                inv.add(new Piece("three", 3, Color.BLUE));
+                inv.add(new Piece("smallT", 4, Color.BLUE));
+                inv.add(new Piece("four", 4, Color.BLUE));
+                inv.add(new Piece("fourL", 4, Color.BLUE));
+                inv.add(new Piece("five", 5, Color.BLUE));
+                inv.add(new Piece("fiveL", 5, Color.BLUE));
                 inv.add(new Piece("N", 5, Color.BLUE));
-                inv.add(new Piece("lFive", 5, Color.BLUE));
+                inv.add(new Piece("Y", 5, Color.BLUE));
+                inv.add(new Piece("v3", 3, Color.BLUE));
+                inv.add(new Piece("cube", 4, Color.BLUE));
+                inv.add(new Piece("C", 5, Color.BLUE));
+                inv.add(new Piece("B", 5, Color.BLUE));
+                inv.add(new Piece("Z", 5, Color.BLUE));
+                inv.add(new Piece("M", 5, Color.BLUE));
+                inv.add(new Piece("X", 5, Color.BLUE));
+                inv.add(new Piece("F", 5, Color.BLUE));
+                inv.add(new Piece("bigT", 5, Color.BLUE));
+                inv.add(new Piece("corner", 5, Color.BLUE));
                 break;
             case 2:
                 inv.add(new Piece("one", 1, Color.GREEN));
                 inv.add(new Piece("two", 2, Color.GREEN));
-                inv.add(new Piece("VThree", 3, Color.GREEN));
-                inv.add(new Piece("LThree", 3, Color.GREEN));
-                inv.add(new Piece("TFour", 4, Color.GREEN));
-                inv.add(new Piece("O", 4, Color.GREEN));
-                inv.add(new Piece("LFour", 4, Color.GREEN));
-                inv.add(new Piece("lFour", 4, Color.GREEN));
-                inv.add(new Piece("zFour", 4, Color.GREEN));
-                inv.add(new Piece("F", 5, Color.GREEN));
-                inv.add(new Piece("X", 5, Color.GREEN));
-                inv.add(new Piece("P", 5, Color.GREEN));
-                inv.add(new Piece("W", 5, Color.GREEN));
-                inv.add(new Piece("ZFive", 5, Color.GREEN));
-                inv.add(new Piece("Y", 5, Color.GREEN));
-                inv.add(new Piece("LFive", 5, Color.GREEN));
-                inv.add(new Piece("U", 5, Color.GREEN));
-                inv.add(new Piece("TFive", 5, Color.GREEN));
-                inv.add(new Piece("VFive", 5, Color.GREEN));
+                inv.add(new Piece("S", 4, Color.GREEN));
+                inv.add(new Piece("three", 3, Color.GREEN));
+                inv.add(new Piece("smallT", 4, Color.GREEN));
+                inv.add(new Piece("four", 4, Color.GREEN));
+                inv.add(new Piece("fourL", 4, Color.GREEN));
+                inv.add(new Piece("five", 5, Color.GREEN));
+                inv.add(new Piece("fiveL", 5, Color.GREEN));
                 inv.add(new Piece("N", 5, Color.GREEN));
-                inv.add(new Piece("lFive", 5, Color.GREEN));
+                inv.add(new Piece("Y", 5, Color.GREEN));
+                inv.add(new Piece("v3", 3, Color.GREEN));
+                inv.add(new Piece("cube", 4, Color.GREEN));
+                inv.add(new Piece("C", 5, Color.GREEN));
+                inv.add(new Piece("B", 5, Color.GREEN));
+                inv.add(new Piece("Z", 5, Color.GREEN));
+                inv.add(new Piece("M", 5, Color.GREEN));
+                inv.add(new Piece("X", 5, Color.GREEN));
+                inv.add(new Piece("F", 5, Color.GREEN));
+                inv.add(new Piece("bigT", 5, Color.GREEN));
+                inv.add(new Piece("corner", 5, Color.GREEN));
                 break;
             case 3:
                 inv.add(new Piece("one", 1, Color.YELLOW));
                 inv.add(new Piece("two", 2, Color.YELLOW));
-                inv.add(new Piece("VThree", 3, Color.YELLOW));
-                inv.add(new Piece("LThree", 3, Color.YELLOW));
-                inv.add(new Piece("TFour", 4, Color.YELLOW));
-                inv.add(new Piece("O", 4, Color.YELLOW));
-                inv.add(new Piece("LFour", 4, Color.YELLOW));
-                inv.add(new Piece("lFour", 4, Color.YELLOW));
-                inv.add(new Piece("zFour", 4, Color.YELLOW));
-                inv.add(new Piece("F", 5, Color.YELLOW));
-                inv.add(new Piece("X", 5, Color.YELLOW));
-                inv.add(new Piece("P", 5, Color.YELLOW));
-                inv.add(new Piece("W", 5, Color.YELLOW));
-                inv.add(new Piece("ZFive", 5, Color.YELLOW));
-                inv.add(new Piece("Y", 5, Color.YELLOW));
-                inv.add(new Piece("LFive", 5, Color.YELLOW));
-                inv.add(new Piece("U", 5, Color.YELLOW));
-                inv.add(new Piece("TFive", 5, Color.YELLOW));
-                inv.add(new Piece("VFive", 5, Color.YELLOW));
+                inv.add(new Piece("S", 4, Color.YELLOW));
+                inv.add(new Piece("three", 3, Color.YELLOW));
+                inv.add(new Piece("smallT", 4, Color.YELLOW));
+                inv.add(new Piece("four", 4, Color.YELLOW));
+                inv.add(new Piece("fourL", 4, Color.YELLOW));
+                inv.add(new Piece("five", 5, Color.YELLOW));
+                inv.add(new Piece("fiveL", 5, Color.YELLOW));
                 inv.add(new Piece("N", 5, Color.YELLOW));
-                inv.add(new Piece("lFive", 5, Color.YELLOW));
+                inv.add(new Piece("Y", 5, Color.YELLOW));
+                inv.add(new Piece("v3", 3, Color.YELLOW));
+                inv.add(new Piece("cube", 4, Color.YELLOW));
+                inv.add(new Piece("C", 5, Color.YELLOW));
+                inv.add(new Piece("B", 5, Color.YELLOW));
+                inv.add(new Piece("Z", 5, Color.YELLOW));
+                inv.add(new Piece("M", 5, Color.YELLOW));
+                inv.add(new Piece("X", 5, Color.YELLOW));
+                inv.add(new Piece("F", 5, Color.YELLOW));
+                inv.add(new Piece("bigT", 5, Color.YELLOW));
+                inv.add(new Piece("corner", 5, Color.YELLOW));
                 break;
             default:
                 break;
@@ -308,7 +309,10 @@ public class BlokusGameState extends GameState {
     }
 
     public void updatePiecesRemaining() {
-        --allPiecesRemaining[playerToMove];
+        if(allPiecesRemaining[playerToMove] > 0) { //not < 0 pieces
+            --allPiecesRemaining[playerToMove];
+        }
+
     } // What if AI player can't move
 
     //TODO check to see if deepy copy is needed
@@ -317,7 +321,10 @@ public class BlokusGameState extends GameState {
     }
 
     public void updatePlayerScores(Piece curPiece) {
-        allPlayerScores[playerToMove] += curPiece.getPieceValue();
+        if(allPlayerScores[playerToMove] < initTilesRemaining) {
+            allPlayerScores[playerToMove] += curPiece.getPieceValue();
+        }
+
     }
 
     //TODO check to see if deepy copy is needed

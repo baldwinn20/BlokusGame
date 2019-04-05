@@ -23,7 +23,6 @@ public class BlokusBoard extends SurfaceView {
     private final float TILE_TOTAL_PERCENT = TILE_SIZE_PERCENT
             + DIVIDER_PERCENT;
     private final float LEFT_BOARDER_PERCENT = 0.5f;
-    private float xTouch, yTouch;
     private int boardWidth;
     private int boardHeight;
 

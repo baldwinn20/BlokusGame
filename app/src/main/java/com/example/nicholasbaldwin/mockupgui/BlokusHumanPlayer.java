@@ -106,12 +106,6 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
 
         scrollView = myActivity.findViewById(R.id.piecesScrollView);
         scrollView.setOnClickListener(this);
-        //imageButton.setOnClickListener(this);
-
-    }
-
-    @Override
-    public void onClick(View v) {
 
         oneButton = myActivity.findViewById(R.id.oneButton);
         oneButton.setOnClickListener(this);
@@ -155,49 +149,54 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
         bigTButton.setOnClickListener(this);
         cornerButton = myActivity.findViewById(R.id.cornerButton);
         cornerButton.setOnClickListener(this);
+        //imageButton.setOnClickListener(this);
 
+    }
 
-        if (imageButton == oneButton) {
+    @Override
+    public void onClick(View v) {
+
+        if (v == oneButton) {
             currentPiece.setName("one");
-        } else if (imageButton == twoButton) {
+        } else if (v == twoButton) {
             currentPiece.setName("two");
-        } else if (imageButton == myActivity.findViewById(R.id.sButton)) {
-            currentPiece.setName("s");
-        } else if (imageButton == myActivity.findViewById(R.id.threeButton)) {
+        } else if (v == sButton) {
+            currentPiece.setName("S");
+        } else if (v == threeButton) {
             currentPiece.setName("three");
-        } else if (imageButton == myActivity.findViewById(R.id.smallTButton)) {
+        } else if (v == smallTButton) {
             currentPiece.setName("smallT");
-        } else if (imageButton == myActivity.findViewById(R.id.fourButton)) {
+        } else if (v == fourButton) {
             currentPiece.setName("four");
-        } else if (imageButton == myActivity.findViewById(R.id.fourLButton)) {
+        } else if (v == fourLButton) {
             currentPiece.setName("fourL");
-        } else if (imageButton == myActivity.findViewById(R.id.fiveButton)) {
+        } else if (v == fiveButton) {
             currentPiece.setName("five");
-        } else if (imageButton == myActivity.findViewById(R.id.fiveLButton)) {
+        } else if (v == fiveLButton) {
             currentPiece.setName("fiveL");
-        } else if (imageButton == myActivity.findViewById(R.id.nButton)) {
+        } else if (v == nButton) {
             currentPiece.setName("N");
-        } else if (imageButton == myActivity.findViewById(R.id.yButton)) {
+        } else if (v == yButton) {
             currentPiece.setName("Y");
-        } else if (imageButton == myActivity.findViewById(R.id.v3Button)) {
+        } else if (v == v3Button) {
             currentPiece.setName("v3");
-        } else if (imageButton == myActivity.findViewById(R.id.cubeButton)) {
+        } else if (v == cubeButton) {
             currentPiece.setName("cube");
-        } else if (imageButton == myActivity.findViewById(R.id.cButton)) {
+        } else if (v == cButton) {
             currentPiece.setName("C");
-        } else if (imageButton == myActivity.findViewById(R.id.bButton)) {
+        } else if (v == bButton) {
             currentPiece.setName("B");
-        } else if (imageButton == myActivity.findViewById(R.id.zButton)) {
+        } else if (v == zButton) {
             currentPiece.setName("Z");
-        } else if (imageButton == myActivity.findViewById(R.id.mButton)) {
+        } else if (v == mButton) {
             currentPiece.setName("M");
-        } else if (imageButton == myActivity.findViewById(R.id.xButton)) {
+        } else if (v == xButton) {
             currentPiece.setName("X");
-        } else if (imageButton == myActivity.findViewById(R.id.fButton)) {
+        } else if (v == fButton) {
             currentPiece.setName("F");
-        } else if (imageButton == myActivity.findViewById(R.id.bigTButton)) {
+        } else if (v == bigTButton) {
             currentPiece.setName("bigT");
-        } else if (imageButton == myActivity.findViewById(R.id.cornerButton)) {
+        } else if (v == cornerButton) {
             currentPiece.setName("corner");
         }
     }
