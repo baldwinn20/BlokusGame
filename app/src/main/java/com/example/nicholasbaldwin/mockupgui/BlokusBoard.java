@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Point;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceView;
 import android.view.View;
@@ -158,7 +159,7 @@ public class BlokusBoard extends SurfaceView {
         }
 
 
-        /**the current state of the board THIS DOESNT WORK **/
+        //gets the current state of the board
         boardCopy = state.getBoard();
 
         //this updates the board based on what the board has in the game state

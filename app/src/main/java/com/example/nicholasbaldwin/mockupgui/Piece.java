@@ -75,12 +75,12 @@ public class Piece {
             pieceLayout[0][0] = colorNum;
         } else if (pieceName.equals("two")) {
             pieceLayout[0][0] = colorNum;
-            pieceLayout[0][1] = colorNum;
-        } else if (pieceName.equals("s")) {
-            pieceLayout[0][0] = colorNum;
-            pieceLayout[0][1] = colorNum;
+            pieceLayout[1][0] = colorNum;
+        } else if (pieceName.equals("S")) {
+            pieceLayout[1][0] = colorNum;
+            pieceLayout[2][0] = colorNum;
             pieceLayout[1][1] = colorNum;
-            pieceLayout[1][2] = colorNum;
+            pieceLayout[0][1] = colorNum;
         } else if (pieceName.equals("three")) {
             pieceLayout[0][0] = colorNum;
             pieceLayout[1][0] = colorNum;
@@ -96,7 +96,7 @@ public class Piece {
             pieceLayout[2][0] = colorNum;
             pieceLayout[3][0] = colorNum;
         } else if (pieceName.equals("fourL")) {
-            pieceLayout[0][0] = colorNum;
+            pieceLayout[2][0] = colorNum;
             pieceLayout[0][1] = colorNum;
             pieceLayout[1][1] = colorNum;
             pieceLayout[2][1] = colorNum;
@@ -109,9 +109,9 @@ public class Piece {
         } else if (pieceName.equals("fiveL")) {
             pieceLayout[0][0] = colorNum;
             pieceLayout[0][1] = colorNum;
-            pieceLayout[1][0] = colorNum;
-            pieceLayout[2][0] = colorNum;
-            pieceLayout[3][0] = colorNum;
+            pieceLayout[1][1] = colorNum;
+            pieceLayout[2][1] = colorNum;
+            pieceLayout[3][1] = colorNum;
         } else if (pieceName.equals("N")) {
             pieceLayout[0][1] = colorNum;
             pieceLayout[1][0] = colorNum;
@@ -119,11 +119,11 @@ public class Piece {
             pieceLayout[2][0] = colorNum;
             pieceLayout[3][0] = colorNum;
         } else if (pieceName.equals("Y")) {
-            pieceLayout[0][0] = colorNum;
+            pieceLayout[0][1] = colorNum;
             pieceLayout[1][0] = colorNum;
             pieceLayout[1][1] = colorNum;
-            pieceLayout[2][0] = colorNum;
-            pieceLayout[3][0] = colorNum;
+            pieceLayout[2][1] = colorNum;
+            pieceLayout[3][1] = colorNum;
         } else if (pieceName.equals("v3")) {
             pieceLayout[0][0] = colorNum;
             pieceLayout[1][0] = colorNum;
@@ -136,27 +136,27 @@ public class Piece {
         } else if (pieceName.equals("C")) {
             pieceLayout[0][0] = colorNum;
             pieceLayout[0][1] = colorNum;
+            pieceLayout[0][2] = colorNum;
             pieceLayout[1][0] = colorNum;
-            pieceLayout[2][0] = colorNum;
-            pieceLayout[2][1] = colorNum;
+            pieceLayout[1][2] = colorNum;
         } else if (pieceName.equals("B")) {
             pieceLayout[0][0] = colorNum;
-            pieceLayout[1][0] = colorNum;
             pieceLayout[0][1] = colorNum;
-            pieceLayout[1][1] = colorNum;
             pieceLayout[0][2] = colorNum;
+            pieceLayout[1][1] = colorNum;
+            pieceLayout[1][2] = colorNum;
         } else if (pieceName.equals("Z")) {
-            pieceLayout[0][0] = colorNum;
+            pieceLayout[2][0] = colorNum;
             pieceLayout[0][1] = colorNum;
             pieceLayout[1][1] = colorNum;
             pieceLayout[2][1] = colorNum;
-            pieceLayout[2][2] = colorNum;
+            pieceLayout[0][2] = colorNum;
         } else if (pieceName.equals("M")) {
-            pieceLayout[0][0] = colorNum;
-            pieceLayout[0][1] = colorNum;
+            pieceLayout[1][0] = colorNum;
+            pieceLayout[2][0] = colorNum;
             pieceLayout[1][1] = colorNum;
-            pieceLayout[1][2] = colorNum;
-            pieceLayout[2][2] = colorNum;
+            pieceLayout[0][1] = colorNum;
+            pieceLayout[0][2] = colorNum;
         } else if (pieceName.equals("X")) {
             pieceLayout[1][0] = colorNum;
             pieceLayout[1][1] = colorNum;
@@ -167,8 +167,8 @@ public class Piece {
             pieceLayout[1][0] = colorNum;
             pieceLayout[1][1] = colorNum;
             pieceLayout[0][1] = colorNum;
-            pieceLayout[0][2] = colorNum;
-            pieceLayout[2][1] = colorNum;
+            pieceLayout[1][2] = colorNum;
+            pieceLayout[2][0] = colorNum;
         } else if (pieceName.equals("bigT")) {
             pieceLayout[1][0] = colorNum;
             pieceLayout[1][1] = colorNum;

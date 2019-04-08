@@ -155,50 +155,52 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
 
     @Override
     public void onClick(View v) {
-
+        ArrayList<Piece> currentInventory = state.getAllPieceInventory().get(playerID);
         if (v == oneButton) {
-            currentPiece.setName("one");
+            setCurrentPiece(currentInventory.get(0));
         } else if (v == twoButton) {
-            currentPiece.setName("two");
+            setCurrentPiece(currentInventory.get(1));
         } else if (v == sButton) {
-            currentPiece.setName("S");
+            setCurrentPiece(currentInventory.get(2));
         } else if (v == threeButton) {
-            currentPiece.setName("three");
+            setCurrentPiece(currentInventory.get(3));
         } else if (v == smallTButton) {
-            currentPiece.setName("smallT");
+            setCurrentPiece(currentInventory.get(4));
         } else if (v == fourButton) {
-            currentPiece.setName("four");
+            setCurrentPiece(currentInventory.get(5));
         } else if (v == fourLButton) {
-            currentPiece.setName("fourL");
+            setCurrentPiece(currentInventory.get(6));
         } else if (v == fiveButton) {
-            currentPiece.setName("five");
+            setCurrentPiece(currentInventory.get(7));
         } else if (v == fiveLButton) {
-            currentPiece.setName("fiveL");
+            setCurrentPiece(currentInventory.get(8));
         } else if (v == nButton) {
-            currentPiece.setName("N");
+            setCurrentPiece(currentInventory.get(9));
         } else if (v == yButton) {
-            currentPiece.setName("Y");
+            setCurrentPiece(currentInventory.get(10));
         } else if (v == v3Button) {
-            currentPiece.setName("v3");
+            setCurrentPiece(currentInventory.get(11));
         } else if (v == cubeButton) {
-            currentPiece.setName("cube");
+            setCurrentPiece(currentInventory.get(12));
         } else if (v == cButton) {
-            currentPiece.setName("C");
+            setCurrentPiece(currentInventory.get(13));
         } else if (v == bButton) {
-            currentPiece.setName("B");
+            setCurrentPiece(currentInventory.get(14));
         } else if (v == zButton) {
-            currentPiece.setName("Z");
+            setCurrentPiece(currentInventory.get(15)); //TODO Z piece is broken
         } else if (v == mButton) {
-            currentPiece.setName("M");
+            setCurrentPiece(currentInventory.get(16)); //TODO M piece is broken
         } else if (v == xButton) {
-            currentPiece.setName("X");
+            setCurrentPiece(currentInventory.get(17));
         } else if (v == fButton) {
-            currentPiece.setName("F");
+            setCurrentPiece(currentInventory.get(18));
         } else if (v == bigTButton) {
-            currentPiece.setName("bigT");
+            setCurrentPiece(currentInventory.get(19));
         } else if (v == cornerButton) {
-            currentPiece.setName("corner");
+            setCurrentPiece(currentInventory.get(20));
         }
+
+
     }
 
     @Override
@@ -244,6 +246,11 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
         int x = (int) event.getX();
         int y = (int) event.getY();
 
+        if(currentPiece == null){
+            messageBox.setText("Invalid Move: Select a Piece.");
+            return false;
+        }
+
         Point p = surfaceView.mapPixelToTile(x, y);
         if (p == null) {
             //Makes a message to the widget stating that the player
@@ -253,11 +260,6 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
         } else {
             //game.sendAction(new PlacePiece(this, x, y, currentPiece));
             messageBox.setText("Placing Piece.\n");
-//            BlokusGameState testState = new BlokusGameState();
-//            surfaceView.setState(testState);
-            Piece testP = new Piece("one", 1, Color.RED);
-//            surfaceView.state.placePiece(p.x,p.y,testP);
-            setCurrentPiece(testP);
             game.sendAction(new PlacePiece(this, p.x, p.y, currentPiece));
             surfaceView.invalidate();
             return true;
