@@ -6,6 +6,7 @@ import android.graphics.Point;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -47,7 +48,7 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
             fourButton, fourLButton, fiveButton, fiveLButton, nButton, yButton,
             v3Button, cubeButton, cButton, bButton, zButton, mButton, xButton,
             fButton, bigTButton, cornerButton, imageButton;
-
+    private Button placePieceButton, rotateButton, flipButton;
     //TODO Remove instance var private ArrayList<Piece> piecesInventory;
     public int INITIAL_PIECES_REMAINING = 21;
     public int INITIAL_SCORE = 89;
@@ -151,12 +152,20 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
         cornerButton.setOnClickListener(this);
         //imageButton.setOnClickListener(this);
 
+        placePieceButton = myActivity.findViewById((R.id.placePieceButton));
+        placePieceButton.setOnClickListener(this);
+        rotateButton = myActivity.findViewById(R.id.rotateButton);
+        rotateButton.setOnClickListener(this);
+        flipButton = myActivity.findViewById(R.id.flipButton);
+        flipButton.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         ArrayList<Piece> currentInventory = state.getAllPieceInventory().get(playerID);
+        ImageButton currentPieceButton = null;
         if (v == oneButton) {
+            currentPieceButton = oneButton;
             setCurrentPiece(currentInventory.get(0));
         } else if (v == twoButton) {
             setCurrentPiece(currentInventory.get(1));
@@ -187,9 +196,9 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
         } else if (v == bButton) {
             setCurrentPiece(currentInventory.get(14));
         } else if (v == zButton) {
-            setCurrentPiece(currentInventory.get(15)); //TODO Z piece is broken
+            setCurrentPiece(currentInventory.get(15));
         } else if (v == mButton) {
-            setCurrentPiece(currentInventory.get(16)); //TODO M piece is broken
+            setCurrentPiece(currentInventory.get(16));
         } else if (v == xButton) {
             setCurrentPiece(currentInventory.get(17));
         } else if (v == fButton) {
@@ -200,7 +209,17 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
             setCurrentPiece(currentInventory.get(20));
         }
 
-
+        //TODO THESE BUTTONS DON'T WORK AND WILL CRASH THE GAME 
+        if(v == placePieceButton) {
+            //This makes the button disappear when pressed
+            currentPieceButton.setVisibility(View.GONE);
+        }
+        else if( v == flipButton){
+            game.sendAction(new FlipPiece(this,currentPiece));
+        }
+        else if(v == rotateButton){
+            game.sendAction(new Rotate90(this,currentPiece));
+        }
     }
 
     @Override
@@ -280,6 +299,11 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
         greenPR.setText(state.getAllPiecesRemaining()[2] + "");
         yellowPR.setText(state.getAllPiecesRemaining()[3] + "");
     }
-
+    /**
+     External Citation:
+     Date: 8 April 2019
+     Problem: I didn't know how to make buttons disappear when used
+     Source:https://stackoverflow.com/questions/14868349/how-to-disappear-button-in-android
+     */
 
 }

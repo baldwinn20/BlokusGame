@@ -187,7 +187,7 @@ public class Piece {
 
     //getters for the length and widths or each piece
     public int getPieceLength() {
-        int length = 0;
+        int length = 1;
         for (int i = 0; i < pieceLayout.length; i++) {
             for (int j = 0; j < pieceLayout.length; j++) {
                 if (pieceLayout[i][j] != -1 && j >= length) {
@@ -199,7 +199,7 @@ public class Piece {
     }
 
     public int getPieceWidth() {
-        int width = 0;
+        int width = 1;
         for (int i = 0; i < pieceLayout.length; i++) {
             for (int j = 0; j < pieceLayout.length; j++) {
                 if (pieceLayout[i][j] != -1 && i >= width) {
