@@ -48,10 +48,12 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
             fourButton, fourLButton, fiveButton, fiveLButton, nButton, yButton,
             v3Button, cubeButton, cButton, bButton, zButton, mButton, xButton,
             fButton, bigTButton, cornerButton, imageButton;
-    private Button placePieceButton, rotateButton, flipButton;
+    private Button placePieceButton, rotateButton, flipButton, helpButton;
     //TODO Remove instance var private ArrayList<Piece> piecesInventory;
     public int INITIAL_PIECES_REMAINING = 21;
     public int INITIAL_SCORE = 89;
+    private ArrayList<Piece> currentInventory = null;
+
 
 
     /**
@@ -158,14 +160,14 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
         rotateButton.setOnClickListener(this);
         flipButton = myActivity.findViewById(R.id.flipButton);
         flipButton.setOnClickListener(this);
+        helpButton = myActivity.findViewById(R.id.helpButton);
+        helpButton.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
-        ArrayList<Piece> currentInventory = state.getAllPieceInventory().get(playerID);
         ImageButton currentPieceButton = null;
         if (v == oneButton) {
-            currentPieceButton = oneButton;
             setCurrentPiece(currentInventory.get(0));
         } else if (v == twoButton) {
             setCurrentPiece(currentInventory.get(1));
@@ -209,16 +211,19 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
             setCurrentPiece(currentInventory.get(20));
         }
 
-        //TODO THESE BUTTONS DON'T WORK AND WILL CRASH THE GAME 
+        //TODO THESE BUTTONS DON'T WORK AND WILL CRASH THE GAME
         if(v == placePieceButton) {
             //This makes the button disappear when pressed
-            currentPieceButton.setVisibility(View.GONE);
+            currentPieceButton.setEnabled(false);
         }
         else if( v == flipButton){
             game.sendAction(new FlipPiece(this,currentPiece));
         }
         else if(v == rotateButton){
             game.sendAction(new Rotate90(this,currentPiece));
+        }
+        else if ( v == helpButton){
+            //this needs to open a popup screen with the rules of something.
         }
     }
 
@@ -236,6 +241,7 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
             state = (BlokusGameState) info;
             //TODO make setState method in Master GUI class
             surfaceView.setState(state);
+            currentInventory = state.getAllPieceInventory().get(playerID);
             updatePlayerScores();
             updatePlayerPiecesRemaining();
             surfaceView.invalidate();

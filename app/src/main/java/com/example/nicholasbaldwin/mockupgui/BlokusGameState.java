@@ -359,7 +359,6 @@ public class BlokusGameState extends GameState {
         return this.board;
     }
 
-    ;
 }
 /**
  * External Citation
