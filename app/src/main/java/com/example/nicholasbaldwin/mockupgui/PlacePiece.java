@@ -1,6 +1,7 @@
 package com.example.nicholasbaldwin.mockupgui;
 
 import android.util.Log;
+import android.widget.TextView;
 
 import com.example.nicholasbaldwin.mockupgui.game.actionMsg.GameAction;
 import com.example.nicholasbaldwin.mockupgui.game.util.GamePlayer;
@@ -12,6 +13,7 @@ public class PlacePiece extends GameAction {
     private int y;
     private int x;
     private Piece currentPiece;
+
 
     /**
      * constructor for GameAction
@@ -65,8 +67,12 @@ public class PlacePiece extends GameAction {
                     }
 
                     //Special check for bottom row of board:
-                    else if(y == 19){
+                    else if(y >= 15){
 
+                        if (currentPiece.getPieceLength() > 20-y) {
+
+                            return false;
+                        }
                         //checks adjacent tiles to the left, right, and top of a selected tile, respectively
                         isAdjacent = boardCopy[x + xOffset - 1][y + yOffset] == pID || boardCopy[x + xOffset + 1][y + yOffset] == pID
                                 || boardCopy[x + xOffset][y + yOffset - 1] == pID;
@@ -89,7 +95,12 @@ public class PlacePiece extends GameAction {
                     //Log.i("x+1", boardCopy[x+1] + "");
 
                     //Special check for last column of board:
-                    else if(x ==19){
+                    else if(x >= 15){
+
+                        if (currentPiece.getPieceWidth() > 20-x) {
+
+                            return false;
+                        }
 
                         //checks adjacent tiles to the left, top, and bottom of a selected tile, respectively
                         isAdjacent = boardCopy[x + xOffset - 1][y + yOffset] == pID

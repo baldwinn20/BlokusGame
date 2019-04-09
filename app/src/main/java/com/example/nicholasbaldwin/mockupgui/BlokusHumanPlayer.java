@@ -56,6 +56,7 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
 
 
 
+
     /**
      * constructor
      *
@@ -162,6 +163,8 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
         flipButton.setOnClickListener(this);
         helpButton = myActivity.findViewById(R.id.helpButton);
         helpButton.setOnClickListener(this);
+
+        this.state = new BlokusGameState();
     }
 
     @Override
@@ -282,7 +285,13 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
             // is touching out of bounds
             messageBox.setText("Invalid Touch, out of bounds.\n");
             return false;
-        } else {
+        }
+        //TODO create and call PlacePiece object
+        /*
+        else if(!isValidMove) {
+            messageBox.setText("That piece cannot be placed here!");
+        }*/
+        else {
             //game.sendAction(new PlacePiece(this, x, y, currentPiece));
             messageBox.setText("Placing Piece.\n");
             game.sendAction(new PlacePiece(this, p.x, p.y, currentPiece));

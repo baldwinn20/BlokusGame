@@ -88,7 +88,7 @@ public class BlokusBoard extends SurfaceView {
         Paint dividerColor = new Paint();
         dividerColor.setColor(Color.GRAY);
 
-//        //this is used to test the update board algorythm
+//        //this is used to test the update board algorithm
 //        for (int a = 0; a < BOARD_LENGTH; a++) {
 //            for (int b = 0; b < BOARD_LENGTH; b++) {
 //                boardCopy[a][b] = -1;
