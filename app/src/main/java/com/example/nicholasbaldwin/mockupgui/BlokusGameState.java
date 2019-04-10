@@ -359,6 +359,9 @@ public class BlokusGameState extends GameState {
         return this.board;
     }
 
+    public void setBoard(int[][] board) {
+        this.board = board;
+    }
 }
 /**
  * External Citation

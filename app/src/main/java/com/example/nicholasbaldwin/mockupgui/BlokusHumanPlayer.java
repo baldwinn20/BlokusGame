@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.util.Log;
+import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -40,7 +41,7 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
     private int playerScore;
     private int stage;
     private int playerID;
-    private Piece currentPiece;
+//    private Piece currentPiece;
     private TextView redScore, blueScore, greenScore, yellowScore;
     private TextView redPR, bluePR, greenPR, yellowPR;
     private ScrollView scrollView;
@@ -52,8 +53,9 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
     //TODO Remove instance var private ArrayList<Piece> piecesInventory;
     public int INITIAL_PIECES_REMAINING = 21;
     public int INITIAL_SCORE = 89;
+    private PlacePiece pp = null;
     private ArrayList<Piece> currentInventory = null;
-
+    ImageButton currentPieceButton = null;
 
 
 
@@ -165,69 +167,104 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
         helpButton.setOnClickListener(this);
 
         this.state = new BlokusGameState();
+        currentInventory = state.getAllPieceInventory().get(playerID);
+
+        placePieceButton.setEnabled(false);
     }
 
     @Override
     public void onClick(View v) {
-        ImageButton currentPieceButton = null;
         if (v == oneButton) {
-            setCurrentPiece(currentInventory.get(0));
+            surfaceView.setCurrentPiece(currentInventory.get(0));
+            currentPieceButton = oneButton;
         } else if (v == twoButton) {
-            setCurrentPiece(currentInventory.get(1));
+            surfaceView.setCurrentPiece(currentInventory.get(1));
+            currentPieceButton = twoButton;
         } else if (v == sButton) {
-            setCurrentPiece(currentInventory.get(2));
+            surfaceView.setCurrentPiece(currentInventory.get(2));
+            currentPieceButton = sButton;
         } else if (v == threeButton) {
-            setCurrentPiece(currentInventory.get(3));
+            surfaceView.setCurrentPiece(currentInventory.get(3));
+            currentPieceButton = threeButton;
         } else if (v == smallTButton) {
-            setCurrentPiece(currentInventory.get(4));
+            surfaceView.setCurrentPiece(currentInventory.get(4));
+            currentPieceButton = smallTButton;
         } else if (v == fourButton) {
-            setCurrentPiece(currentInventory.get(5));
+            surfaceView.setCurrentPiece(currentInventory.get(5));
+            currentPieceButton = fourButton;
         } else if (v == fourLButton) {
-            setCurrentPiece(currentInventory.get(6));
+            surfaceView.setCurrentPiece(currentInventory.get(6));
+            currentPieceButton = fourLButton;
         } else if (v == fiveButton) {
-            setCurrentPiece(currentInventory.get(7));
+            surfaceView.setCurrentPiece(currentInventory.get(7));
+            currentPieceButton = fiveButton;
         } else if (v == fiveLButton) {
-            setCurrentPiece(currentInventory.get(8));
+            surfaceView.setCurrentPiece(currentInventory.get(8));
+            currentPieceButton = fiveLButton;
         } else if (v == nButton) {
-            setCurrentPiece(currentInventory.get(9));
+            surfaceView.setCurrentPiece(currentInventory.get(9));
+            currentPieceButton = nButton;
         } else if (v == yButton) {
-            setCurrentPiece(currentInventory.get(10));
+            surfaceView.setCurrentPiece(currentInventory.get(10));
+            currentPieceButton = yButton;
         } else if (v == v3Button) {
-            setCurrentPiece(currentInventory.get(11));
+            surfaceView.setCurrentPiece(currentInventory.get(11));
+            currentPieceButton = v3Button;
         } else if (v == cubeButton) {
-            setCurrentPiece(currentInventory.get(12));
+            surfaceView.setCurrentPiece(currentInventory.get(12));
+            currentPieceButton = cubeButton;
         } else if (v == cButton) {
-            setCurrentPiece(currentInventory.get(13));
+            surfaceView.setCurrentPiece(currentInventory.get(13));
+            currentPieceButton = cButton;
         } else if (v == bButton) {
-            setCurrentPiece(currentInventory.get(14));
+            surfaceView.setCurrentPiece(currentInventory.get(14));
+            currentPieceButton = bButton;
         } else if (v == zButton) {
-            setCurrentPiece(currentInventory.get(15));
+            surfaceView.setCurrentPiece(currentInventory.get(15));
+            currentPieceButton = zButton;
         } else if (v == mButton) {
-            setCurrentPiece(currentInventory.get(16));
+            surfaceView.setCurrentPiece(currentInventory.get(16));
+            currentPieceButton = mButton;
         } else if (v == xButton) {
-            setCurrentPiece(currentInventory.get(17));
+            surfaceView.setCurrentPiece(currentInventory.get(17));
+            currentPieceButton = xButton;
         } else if (v == fButton) {
-            setCurrentPiece(currentInventory.get(18));
+            surfaceView.setCurrentPiece(currentInventory.get(18));
+            currentPieceButton = fButton;
         } else if (v == bigTButton) {
-            setCurrentPiece(currentInventory.get(19));
+            surfaceView.setCurrentPiece(currentInventory.get(19));
+            currentPieceButton = bigTButton;
         } else if (v == cornerButton) {
-            setCurrentPiece(currentInventory.get(20));
+            surfaceView.setCurrentPiece(currentInventory.get(20));
+            currentPieceButton = cornerButton;
         }
 
-        //TODO THESE BUTTONS DON'T WORK AND WILL CRASH THE GAME
-        if(v == placePieceButton) {
-            //This makes the button disappear when pressed
-            currentPieceButton.setEnabled(false);
+        Piece currentPiece = surfaceView.getCurrentPiece();
+        pp = new PlacePiece(this, 9, 9, surfaceView.getCurrentPiece());
+        if(currentPiece != null) {
+            //BlokusGameState testState = new BlokusGameState();
+            surfaceView.setCurrentPiece(currentPiece);
+            surfaceView.invalidate();
         }
+
+
+        if(v == placePieceButton ) {
+            //This makes the button disappear when pressed
+            game.sendAction(pp);
+            currentPieceButton.setVisibility(View.GONE);
+        }
+        //TODO THESE BUTTONS DON'T WORK AND WILL CRASH THE GAME
         else if( v == flipButton){
-            game.sendAction(new FlipPiece(this,currentPiece));
+            //game.sendAction(new FlipPiece(this,currentPiece));
         }
         else if(v == rotateButton){
-            game.sendAction(new Rotate90(this,currentPiece));
+            //game.sendAction(new Rotate90(this,currentPiece));
         }
         else if ( v == helpButton){
             //this needs to open a popup screen with the rules of something.
         }
+
+        //this draws a preview on the middle of the board
     }
 
     @Override
@@ -242,9 +279,9 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
             return;
         else {
             state = (BlokusGameState) info;
+            currentInventory = state.getAllPieceInventory().get(playerID);
             //TODO make setState method in Master GUI class
             surfaceView.setState(state);
-            currentInventory = state.getAllPieceInventory().get(playerID);
             updatePlayerScores();
             updatePlayerPiecesRemaining();
             surfaceView.invalidate();
@@ -256,17 +293,14 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
         return playerColor;
     }
 
-    public Piece getCurrentPiece() {
-        return currentPiece;
-    }
-
-    public void setCurrentPiece(Piece currentPiece) {
-        this.currentPiece = currentPiece;
-    }
 
     @Override
     public boolean onTouch(View v, MotionEvent event) {
 
+        if(surfaceView.getCurrentPiece() == null){
+            messageBox.setText("Invalid Move: Select a Piece.");
+            return false;
+        }
 
         // get the x and y coordinates of the touch-location;
         // convert them to square coordinates (where both
@@ -274,27 +308,27 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
         int x = (int) event.getX();
         int y = (int) event.getY();
 
-        if(currentPiece == null){
-            messageBox.setText("Invalid Move: Select a Piece.");
-            return false;
-        }
-
         Point p = surfaceView.mapPixelToTile(x, y);
         if (p == null) {
             //Makes a message to the widget stating that the player
             // is touching out of bounds
             messageBox.setText("Invalid Touch, out of bounds.\n");
             return false;
-        }
-        //TODO create and call PlacePiece object
-        /*
-        else if(!isValidMove) {
-            messageBox.setText("That piece cannot be placed here!");
-        }*/
-        else {
+        } else {
+            //if the player makes a dragging motion the board will draw the piece
+            // were the persons finger is
+            messageBox.setText("ITS MOVING\n");
+            surfaceView.getCurrentPiece().setxPosition(p.x);
+            surfaceView.getCurrentPiece().setyPosition(p.y);
+            if(pp.checkForValidMove(playerID)){
+                placePieceButton.setEnabled(true);
+            }
             //game.sendAction(new PlacePiece(this, x, y, currentPiece));
-            messageBox.setText("Placing Piece.\n");
-            game.sendAction(new PlacePiece(this, p.x, p.y, currentPiece));
+            //messageBox.setText("Placing Piece.\n");
+            //game.sendAction(new PlacePiece(this, p.x, p.y, currentPiece, false));
+            //makes sure only one of this piece is on the board.
+            //currentPiece.setOnBoard(true);
+
             surfaceView.invalidate();
             return true;
         }

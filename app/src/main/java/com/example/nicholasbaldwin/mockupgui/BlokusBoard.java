@@ -26,7 +26,10 @@ public class BlokusBoard extends SurfaceView {
     private final float LEFT_BOARDER_PERCENT = 0.5f;
     private int boardWidth;
     private int boardHeight;
-
+    private boolean hasPlacedPiece = false;
+    private Piece currentPiece = null;
+    private int xCurPiece = 9;
+    private int yCurPiece = 9;
     /*  instance variables that are used to create the board
      */
     protected BlokusGameState state; // the current games state
@@ -53,10 +56,15 @@ public class BlokusBoard extends SurfaceView {
 
     private void init() {
         setBackgroundColor(Color.DKGRAY);
-    }
+        //Initializes the Board to simulate the start of a Blokus Game
+        for (int i = 0; i < BOARD_LENGTH; i++) {
+            for (int j = 0; j < BOARD_LENGTH; j++) {
+                //-1 means there are no pieces on that place
+                //and 0,1,2,3 correspond to a players ID
+                boardCopy[i][j] = -1;
+            }
+        }
 
-    public void setState(BlokusGameState bgs) {
-        state = bgs;
     }
 
     private void updateDimensions(Canvas canvas) {
@@ -83,34 +91,9 @@ public class BlokusBoard extends SurfaceView {
         //this allows the message widget to have more space
         this.getHolder().setFixedSize(canvas.getWidth(), 100);
 
-
         updateDimensions(canvas);
         Paint dividerColor = new Paint();
-        dividerColor.setColor(Color.GRAY);
-
-//        //this is used to test the update board algorithm
-//        for (int a = 0; a < BOARD_LENGTH; a++) {
-//            for (int b = 0; b < BOARD_LENGTH; b++) {
-//                boardCopy[a][b] = -1;
-//            }
-//        }
-
-//        for(int k = 0; k < BOARD_LENGTH; k++){
-//            for (int h = 0; h < BOARD_LENGTH; h++){
-//                if(k == 0 && h == 0){
-//                    boardCopy[k][h] = 0; // the tile that should be colored
-//                }
-//                if(k == 19 && h == 0){
-//                    boardCopy[k][h] = 1;
-//                }
-//                if(k == 0 && h == 19){
-//                    boardCopy[k][h] = 2;
-//                }
-//                if(k == 19 && h == 19){
-//                    boardCopy[k][h] = 3;
-//                }
-//            }
-//        }
+        dividerColor.setColor(Color.BLACK);
 
         //this draws the starting points for each respective color
         Paint startingColor = new Paint();
@@ -159,22 +142,47 @@ public class BlokusBoard extends SurfaceView {
         }
 
 
-        //gets the current state of the board
-        boardCopy = state.getBoard();
 
-        //this updates the board based on what the board has in the game state
-        for (int i = 0; i < BOARD_LENGTH; i++) {
-            for (int j = 0; j < BOARD_LENGTH; j++) {
-                if (boardCopy[i][j] != -1) {
-                    drawTile(i, j, boardCopy[i][j], canvas);
+
+        //this draws the new board once a new piece has been placed
+        if(hasPlacedPiece ){
+            state.setBoard(boardCopy);
+            for (int i = 0; i < BOARD_LENGTH; i++) {
+                for (int j = 0; j < BOARD_LENGTH; j++) {
+                    if (state.getBoard()[i][j] != -1) {
+                        drawTile(i, j, state.getBoard()[i][j], canvas);
+                    }
                 }
             }
+            hasPlacedPiece = false;
+            return;
         }
+
+        //Draw the current piece on top of the board
+        if(currentPiece != null) {
+            xCurPiece = currentPiece.getXPosition();
+            yCurPiece = currentPiece.getYPosition();
+            for(int i = 0; i < Piece.PIECE_LAYOUT_SIZE; i++) {
+                for (int j = 0; j < Piece.PIECE_LAYOUT_SIZE; j++) {
+                    if (currentPiece.getPieceLayout()[i][j] != Piece.EMPTY) {
+                        drawTile(i + xCurPiece,
+                                j + yCurPiece,
+                                currentPiece.getPieceLayout()[i][j],  //player id
+                                canvas);
+                    }
+                }
+            }
+            //state.placePiece(xCurPiece, yCurPiece, currentPiece);
+            //gets the current state of the board
+            return;
+        }
+
 
     }
 
     protected void drawTile(int xPosition, int yPosition, int playerID, Canvas canvas) {
         Paint tilePaint = new Paint();
+
 
         //chooses the color based on the playersID
         if (playerID == 0) {
@@ -185,8 +193,8 @@ public class BlokusBoard extends SurfaceView {
             tilePaint.setColor(Color.YELLOW);
         } else if (playerID == 3) {
             tilePaint.setColor(Color.GREEN);
-        } else {
-
+        }else {
+            tilePaint.setColor(Color.DKGRAY);
         }
 
         //draw one tile based on the location
@@ -228,8 +236,23 @@ public class BlokusBoard extends SurfaceView {
     private float vLocation(float percent) {
         return vBase + percent * fullSquare / 100;
     }
+    public void setState(BlokusGameState bgs) {
+        state = bgs;
+    }
+
+
+    public void setHasPlacedPiece(boolean init){this.hasPlacedPiece = init;}
+
 
     //getters
+    public void setCurrentPiece(Piece currentPiece) {
+        this.currentPiece = currentPiece;
+    }
+
+    public Piece getCurrentPiece() {
+        return this.currentPiece;
+    }
+
     public int getBoardHeight() {
         return boardHeight;
     }

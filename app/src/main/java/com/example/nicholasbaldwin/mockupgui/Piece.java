@@ -14,6 +14,9 @@ import android.graphics.Color;
  * @author <Nicholas Baldwin>
  */
 public class Piece {
+    public static final int PIECE_LAYOUT_SIZE = 5;
+    public static final int EMPTY = -1;
+
     //This will be used to identify the type of piece created
     //for this instance
     private String pieceName;
@@ -21,15 +24,15 @@ public class Piece {
     //How much the piece is worth in terms of points
     private int pieceValue;
     private int pieceColor;
-    protected int xPosition = -1;
-    protected int yPosition = -1;
+    protected int xPosition = 9;
+    protected int yPosition = 9;
     private int colorNum;
 
     //0,1,2,3 are different orientation displays
     protected int orientationVal = 0;
 
     //how the pieces are arranged in terms of ints
-    protected int[][] pieceLayout = new int[5][5];
+    protected int[][] pieceLayout = new int[PIECE_LAYOUT_SIZE][PIECE_LAYOUT_SIZE];
 
     //if true, remove from a player's inventory user interface
     protected boolean isOnBoard = false;
@@ -66,9 +69,10 @@ public class Piece {
             colorNum = 1;
         } else if (pieceColor == Color.GREEN) {
             colorNum = 2;
-        } else {
+        } else if(pieceColor == Color.YELLOW){
             colorNum = 3;
         }
+
 
         //the setups for each piece
         if (pieceName.equals("one")) {
@@ -244,6 +248,8 @@ public class Piece {
         this.pieceLayout = layout;
     }
 
+    public boolean getIsOnBoard(){return isOnBoard;}
+
     public void setxPosition(int xPosition) {
         this.xPosition = xPosition;
     }
@@ -251,6 +257,10 @@ public class Piece {
     public void setyPosition(int yPosition) {
         this.yPosition = yPosition;
     }
+
+    public void setPieceColor(int initColor){this.pieceColor = initColor; }
+
+    public void setOnBoard(boolean init){this.isOnBoard = init;}
 
     public int getYPosition() {
         return yPosition;

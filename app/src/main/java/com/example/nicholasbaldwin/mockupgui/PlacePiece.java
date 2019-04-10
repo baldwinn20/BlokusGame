@@ -31,6 +31,10 @@ public class PlacePiece extends GameAction {
     //TODO if a player tries to tap on a opponent's empty starting corner
     public boolean checkForValidMove(int pID){
 
+        if (currentPiece.isOnBoard){
+            return false;
+        }
+
         boolean isCorner = false;
         boolean isAdjacent = false;
 
