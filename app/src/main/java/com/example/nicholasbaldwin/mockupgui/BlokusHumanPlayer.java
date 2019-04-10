@@ -239,11 +239,7 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
             currentPieceButton = cornerButton;
         }
 
-        Piece currentPiece = surfaceView.getCurrentPiece();
-        pp = new PlacePiece(this, 9, 9, surfaceView.getCurrentPiece());
-        if(currentPiece != null) {
-            //BlokusGameState testState = new BlokusGameState();
-            surfaceView.setCurrentPiece(currentPiece);
+        if(surfaceView.getCurrentPiece() != null) {
             surfaceView.invalidate();
         }
 
@@ -252,6 +248,8 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
             //This makes the button disappear when pressed
             game.sendAction(pp);
             currentPieceButton.setVisibility(View.GONE);
+            surfaceView.setCurrentPiece(null);
+            placePieceButton.setEnabled(false);
         }
         //TODO THESE BUTTONS DON'T WORK AND WILL CRASH THE GAME
         else if( v == flipButton){
@@ -301,7 +299,6 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
             messageBox.setText("Invalid Move: Select a Piece.");
             return false;
         }
-
         // get the x and y coordinates of the touch-location;
         // convert them to square coordinates (where both
         // values are in the range 0..2)
@@ -320,8 +317,15 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
             messageBox.setText("ITS MOVING\n");
             surfaceView.getCurrentPiece().setxPosition(p.x);
             surfaceView.getCurrentPiece().setyPosition(p.y);
+            pp = new PlacePiece(this, surfaceView.getCurrentPiece().getXPosition(),
+                    surfaceView.getCurrentPiece().getYPosition(), surfaceView.getCurrentPiece());
+            pp.setBoard(state.getBoard());
+            //this checks to see of the current piece is a valid move
             if(pp.checkForValidMove(playerID)){
                 placePieceButton.setEnabled(true);
+            }
+            else{
+                placePieceButton.setEnabled(false);
             }
             //game.sendAction(new PlacePiece(this, x, y, currentPiece));
             //messageBox.setText("Placing Piece.\n");

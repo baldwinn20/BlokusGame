@@ -37,7 +37,6 @@ public class BlokusBoard extends SurfaceView {
     protected float hBase;
     protected float vBase;
     protected float fullSquare; // the size of the surfaceView
-    protected int[][] boardCopy = new int[20][20];
 
     public BlokusBoard(Context context) {
         super(context);
@@ -57,13 +56,6 @@ public class BlokusBoard extends SurfaceView {
     private void init() {
         setBackgroundColor(Color.DKGRAY);
         //Initializes the Board to simulate the start of a Blokus Game
-        for (int i = 0; i < BOARD_LENGTH; i++) {
-            for (int j = 0; j < BOARD_LENGTH; j++) {
-                //-1 means there are no pieces on that place
-                //and 0,1,2,3 correspond to a players ID
-                boardCopy[i][j] = -1;
-            }
-        }
 
     }
 
@@ -145,8 +137,6 @@ public class BlokusBoard extends SurfaceView {
 
 
         //this draws the new board once a new piece has been placed
-        if(hasPlacedPiece ){
-            state.setBoard(boardCopy);
             for (int i = 0; i < BOARD_LENGTH; i++) {
                 for (int j = 0; j < BOARD_LENGTH; j++) {
                     if (state.getBoard()[i][j] != -1) {
@@ -154,14 +144,18 @@ public class BlokusBoard extends SurfaceView {
                     }
                 }
             }
-            hasPlacedPiece = false;
-            return;
-        }
 
         //Draw the current piece on top of the board
         if(currentPiece != null) {
             xCurPiece = currentPiece.getXPosition();
             yCurPiece = currentPiece.getYPosition();
+            //TODO constants for edges
+            //This ensures that the preview piece doesn't go out of the bounds
+            //There is no need for a check on the left and top of the board because
+            //TODO explain why
+            if(xCurPiece > state.getBoard().length-1 && yCurPiece > state.getBoard().length-1 ){
+                return;
+            }
             for(int i = 0; i < Piece.PIECE_LAYOUT_SIZE; i++) {
                 for (int j = 0; j < Piece.PIECE_LAYOUT_SIZE; j++) {
                     if (currentPiece.getPieceLayout()[i][j] != Piece.EMPTY) {
@@ -172,9 +166,6 @@ public class BlokusBoard extends SurfaceView {
                     }
                 }
             }
-            //state.placePiece(xCurPiece, yCurPiece, currentPiece);
-            //gets the current state of the board
-            return;
         }
 
 

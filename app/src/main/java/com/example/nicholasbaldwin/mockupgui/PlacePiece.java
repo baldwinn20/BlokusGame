@@ -29,9 +29,9 @@ public class PlacePiece extends GameAction {
     }
 
     //TODO if a player tries to tap on a opponent's empty starting corner
-    public boolean checkForValidMove(int pID){
+    public boolean checkForValidMove(int pID) {
 
-        if (currentPiece.isOnBoard){
+        if (currentPiece.isOnBoard) {
             return false;
         }
 
@@ -40,27 +40,27 @@ public class PlacePiece extends GameAction {
 
         //Continues check only if there is no piece in the starting corner and
         //its not the first turn of the game
-        if((boardCopy[x][y] == -1)){
+        if ((boardCopy[x][y] == -1)) {
             isCorner |= checkStartingCorner(pID);
-            if(isCorner){
+            if (isCorner) {
                 return true;
             }
         }
 
-        for(int i = x; i < x + currentPiece.getPieceWidth(); i++){
-            for(int j = y; j < y + currentPiece.getPieceLength(); j++){
+        for (int i = x; i < x + currentPiece.getPieceWidth(); i++) {
+            for (int j = y; j < y + currentPiece.getPieceLength(); j++) {
                 int xOffset = i - x;
                 int yOffset = j - y;
 
                 //Check inside a piece's array to see if its individual tiles can be placed on the board
                 //Make sure there is no other tile already placed at this board position
-                if(pieceLayout[xOffset][yOffset] != -1 && boardCopy[x][y] == -1){
+                if (pieceLayout[xOffset][yOffset] != -1 && boardCopy[x][y] == -1) {
                     //Check for out of bound piece tiles
                     Log.i("x val:", x + xOffset + "");
                     Log.i("y val: ", y + yOffset + "");
 
                     //Special check for top row of board:
-                    if(y == 0){
+                    if (y == 0) {
 
                         //checks adjacent tiles to the left, right, and bottom of a selected tile, respectively
                         isAdjacent = boardCopy[x + xOffset - 1][y + yOffset] == pID || boardCopy[x + xOffset + 1][y + yOffset] == pID
@@ -71,12 +71,8 @@ public class PlacePiece extends GameAction {
                     }
 
                     //Special check for bottom row of board:
-                    else if(y >= 15){
+                    else if (y + currentPiece.getPieceLength() < boardCopy.length) {
 
-                        if (currentPiece.getPieceLength() > 20-y) {
-
-                            return false;
-                        }
                         //checks adjacent tiles to the left, right, and top of a selected tile, respectively
                         isAdjacent = boardCopy[x + xOffset - 1][y + yOffset] == pID || boardCopy[x + xOffset + 1][y + yOffset] == pID
                                 || boardCopy[x + xOffset][y + yOffset - 1] == pID;
@@ -86,7 +82,7 @@ public class PlacePiece extends GameAction {
                     }
 
                     //Special check for first column of board:
-                    else if(x ==0){
+                    else if (x == 0) {
 
                         //checks adjacent tiles to the right, top, and bottom of a selected tile, respectively
                         isAdjacent = boardCopy[x + xOffset + 1][y + yOffset] == pID
@@ -96,15 +92,10 @@ public class PlacePiece extends GameAction {
                         isCorner |= boardCopy[x + xOffset + 1][y + yOffset + 1] == pID || boardCopy[x + xOffset + 1][y + yOffset - 1] == pID;
 
                     }
-                    //Log.i("x+1", boardCopy[x+1] + "");
 
                     //Special check for last column of board:
-                    else if(x >= 15){
+                    else if (x + currentPiece.getPieceWidth() < boardCopy.length) {
 
-                        if (currentPiece.getPieceWidth() > 20-x) {
-
-                            return false;
-                        }
 
                         //checks adjacent tiles to the left, top, and bottom of a selected tile, respectively
                         isAdjacent = boardCopy[x + xOffset - 1][y + yOffset] == pID
@@ -116,13 +107,13 @@ public class PlacePiece extends GameAction {
                     }
 
                     //Check middle positions of the board
-                    else if(x + xOffset >0 && y + yOffset >0 && x + xOffset <19 && y + yOffset <19) {
+                    else if (x + xOffset > 0 && y + yOffset > 0 && x + xOffset < 19 && y + yOffset < 19) {
                         isAdjacent = boardCopy[x + xOffset - 1][y + yOffset] == pID || boardCopy[x + xOffset + 1][y + yOffset] == pID
                                 || boardCopy[x + xOffset][y + yOffset - 1] == pID || boardCopy[x + xOffset][y + yOffset + 1] == pID;
                         isCorner |= boardCopy[x + xOffset + 1][y + yOffset + 1] == pID || boardCopy[x + xOffset - 1][y + yOffset - 1] == pID;
                         isCorner |= boardCopy[x + xOffset - 1][y + yOffset + 1] == pID || boardCopy[x + xOffset + 1][y + yOffset - 1] == pID;
                     }
-                    if(isAdjacent){
+                    if (isAdjacent) {
                         return false;
                     }
 
@@ -135,38 +126,38 @@ public class PlacePiece extends GameAction {
     }
 
     //TODO placing pieces from the starting corners
-    private boolean checkStartingCorner( int pID){
+    private boolean checkStartingCorner(int pID) {
 
-        if(boardCopy[x][y] != -1){
+        if (boardCopy[x][y] != -1) {
             return false;
         }
 
         boolean isStartCorner = false;
-        switch (pID){
+        switch (pID) {
 
             //Checks the top left board corner
             case 0:
-                if(x == y && x == 0){
+                if (x == y && x == 0) {
                     isStartCorner = true;
                 }
                 break;
             //Checks the top right board corner
             case 1:
-                if(x == 19 && y == 0){
+                if (x == 19 && y == 0) {
                     isStartCorner = true;
                 }
                 break;
 
             //Checks the bottom left board corner
             case 2:
-                if(x == 0 && y == 19){
+                if (x == 0 && y == 19) {
                     isStartCorner = true;
                 }
                 break;
 
             //Checks the bottom right board corner
             case 3:
-                if(x == 19 && x == 19){
+                if (x == 19 && x == 19) {
                     isStartCorner = true;
                 }
                 break;
@@ -183,21 +174,32 @@ public class PlacePiece extends GameAction {
      *
      * @return the y selected
      */
-    public int getY() { return y; }
+    public int getY() {
+        return y;
+    }
 
     /**
      * get the object's column
      *
      * @return the column selected
      */
-    public int getX() { return x; }
-    public void setX(int x){this.x = x;}
-    public void setY(int y){this.y= y;}
+    public int getX() {
+        return x;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
 
     public Piece getCurrentPiece() {
         return currentPiece;
     }
-    public void setBoard(int[][] orig){
+
+    public void setBoard(int[][] orig) {
         this.boardCopy = orig;
     }
 }
