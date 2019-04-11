@@ -55,9 +55,11 @@ public class PlacePiece extends GameAction {
                 //Check inside a piece's array to see if its individual tiles can be placed on the board
                 //Make sure there is no other tile already placed at this board position
                 if (pieceLayout[xOffset][yOffset] != -1 && boardCopy[x][y] == -1) {
-                    //Check for out of bound piece tiles
-                    Log.i("x val:", x + xOffset + "");
-                    Log.i("y val: ", y + yOffset + "");
+
+                    //if a tile in a pieces layout goes past the board
+                    if(x + xOffset >= 20 || y + yOffset >= 20){
+                        return false;
+                    }
 
                     //Special check for top row of board:
                     if (y == 0) {
@@ -71,7 +73,7 @@ public class PlacePiece extends GameAction {
                     }
 
                     //Special check for bottom row of board:
-                    else if (y + currentPiece.getPieceLength() < boardCopy.length) {
+                    else if (y == 19 || y+ yOffset == 19) {
 
                         //checks adjacent tiles to the left, right, and top of a selected tile, respectively
                         isAdjacent = boardCopy[x + xOffset - 1][y + yOffset] == pID || boardCopy[x + xOffset + 1][y + yOffset] == pID
@@ -94,7 +96,7 @@ public class PlacePiece extends GameAction {
                     }
 
                     //Special check for last column of board:
-                    else if (x + currentPiece.getPieceWidth() < boardCopy.length) {
+                    else if (x == 19 || x + xOffset == 19) {
 
 
                         //checks adjacent tiles to the left, top, and bottom of a selected tile, respectively
