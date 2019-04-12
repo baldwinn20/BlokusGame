@@ -55,8 +55,6 @@ public class BlokusBoard extends SurfaceView {
 
     private void init() {
         setBackgroundColor(Color.DKGRAY);
-        //Initializes the Board to simulate the start of a Blokus Game
-
     }
 
     private void updateDimensions(Canvas canvas) {
@@ -132,9 +130,6 @@ public class BlokusBoard extends SurfaceView {
         if (state == null) {
             return;
         }
-
-
-
 
         //this draws the new board once a new piece has been placed
             for (int i = 0; i < BOARD_LENGTH; i++) {

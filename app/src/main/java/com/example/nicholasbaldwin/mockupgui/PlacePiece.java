@@ -61,8 +61,28 @@ public class PlacePiece extends GameAction {
                         return false;
                     }
 
+                    //TODO need Special checks for the corners there is a bug since it crashes
+                    //TODO depends on the player id 
+                    //special checks for the 4 corners of the board
+                    //top left corner
+                    if(x + xOffset == 0 && y + yOffset == 0){
+                        return false;
+                    }
+                    //top right corner
+                    else if( x + xOffset >= 19 && y + yOffset == 0){
+                        return false;
+                    }
+                    //bottom left
+                    else if(x + xOffset == 0 && y + yOffset == 19 ){
+                        return false;
+                    }
+                    //bottom right corner
+                    else if(x + xOffset == 19 && y + yOffset == 19 ){
+                       return false;
+                    }
+
                     //Special check for top row of board:
-                    if (y == 0) {
+                    if (y == 0 && x != 0 && x != 19 && x + xOffset != 19){
 
                         //checks adjacent tiles to the left, right, and bottom of a selected tile, respectively
                         isAdjacent = boardCopy[x + xOffset - 1][y + yOffset] == pID || boardCopy[x + xOffset + 1][y + yOffset] == pID
@@ -73,7 +93,7 @@ public class PlacePiece extends GameAction {
                     }
 
                     //Special check for bottom row of board:
-                    else if (y == 19 || y+ yOffset == 19) {
+                    else if (y == 19 || y + yOffset == 19) {
 
                         //checks adjacent tiles to the left, right, and top of a selected tile, respectively
                         isAdjacent = boardCopy[x + xOffset - 1][y + yOffset] == pID || boardCopy[x + xOffset + 1][y + yOffset] == pID
@@ -84,7 +104,7 @@ public class PlacePiece extends GameAction {
                     }
 
                     //Special check for first column of board:
-                    else if (x == 0) {
+                    else if (x == 0 && y != 0) {
 
                         //checks adjacent tiles to the right, top, and bottom of a selected tile, respectively
                         isAdjacent = boardCopy[x + xOffset + 1][y + yOffset] == pID
@@ -97,7 +117,6 @@ public class PlacePiece extends GameAction {
 
                     //Special check for last column of board:
                     else if (x == 19 || x + xOffset == 19) {
-
 
                         //checks adjacent tiles to the left, top, and bottom of a selected tile, respectively
                         isAdjacent = boardCopy[x + xOffset - 1][y + yOffset] == pID
@@ -115,6 +134,7 @@ public class PlacePiece extends GameAction {
                         isCorner |= boardCopy[x + xOffset + 1][y + yOffset + 1] == pID || boardCopy[x + xOffset - 1][y + yOffset - 1] == pID;
                         isCorner |= boardCopy[x + xOffset - 1][y + yOffset + 1] == pID || boardCopy[x + xOffset + 1][y + yOffset - 1] == pID;
                     }
+
                     if (isAdjacent) {
                         return false;
                     }
@@ -139,8 +159,8 @@ public class PlacePiece extends GameAction {
 
             //Checks the top left board corner
             case 0:
-                if (x == y && x == 0) {
-                    isStartCorner = true;
+                if (x == y && x == 0 && pieceLayout[x][y] == pID) {
+                        isStartCorner = true;
                 }
                 break;
             //Checks the top right board corner
