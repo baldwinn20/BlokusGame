@@ -1,6 +1,7 @@
 package com.example.nicholasbaldwin.mockupgui;
 
 import android.graphics.Color;
+import android.util.Log;
 
 /**
  * <!-- class Piece -->
@@ -188,6 +189,110 @@ public class Piece {
         }
 
     }
+    //method that flips the piece's layout horizontally
+    public int[][] flip(){
+        //checks to see if this can be flipped. if not return original
+        if(!this.canBeFlipped()){
+            return this.getPieceLayout();
+        }
+        int[][] currentLayout = this.getPieceLayout();
+        int yOffset = 5;
+        //flips the piece horizontally at the middle
+        for (int i = 0; i < PIECE_LAYOUT_SIZE; i++) {
+            for (int j = 0; j < PIECE_LAYOUT_SIZE / 2; j++) {
+                //swaps values across the center line
+                int temp = currentLayout[i][j];
+                currentLayout[i][j] = currentLayout[i][PIECE_LAYOUT_SIZE - j -1];
+                currentLayout[i][PIECE_LAYOUT_SIZE - j -1] = temp;
+            }
+        }
+
+        //counts the y offset when rotating
+        for (int i = 0; i < PIECE_LAYOUT_SIZE; i++) {
+            for (int j = 0; j < PIECE_LAYOUT_SIZE; j++) {
+                if(currentLayout[i][j] != Piece.EMPTY && j < yOffset){
+                    yOffset = j;
+                    break;
+                }
+            }
+        }
+        // if there is no change in y
+        if(yOffset == 5){
+            yOffset = 0;
+        }
+        //this moves the piece back up to the top
+        for (int i = 0; i < PIECE_LAYOUT_SIZE; i++) {
+            for (int j = 0; j < PIECE_LAYOUT_SIZE; j++) {
+                if(currentLayout[i][j] != Piece.EMPTY ){
+                    int temp = currentLayout[i][j-yOffset];
+                    currentLayout[i][j-yOffset] = currentLayout[i][j];
+                    currentLayout[i][j] = temp;
+                }
+            }
+        }
+        return currentLayout;
+    }
+
+    public int[][] rotate90(){
+        int[][] currentLayout = this.getPieceLayout();
+        int[][] newLayout = new int[PIECE_LAYOUT_SIZE][PIECE_LAYOUT_SIZE];
+        int xOffset = 5;
+        int yOffset = 5;
+        //this rotates the entire layout clockwise 90
+        for (int i = 0; i < PIECE_LAYOUT_SIZE; i++) {
+            for (int j = 0; j < PIECE_LAYOUT_SIZE; j++) {
+                    newLayout[i][j] = currentLayout[j][PIECE_LAYOUT_SIZE - i -1];
+            }
+        }
+        //counts the y offset when rotating
+        for (int i = 0; i < PIECE_LAYOUT_SIZE; i++) {
+            for (int j = 0; j < PIECE_LAYOUT_SIZE; j++) {
+                if(newLayout[i][j] != Piece.EMPTY && j < yOffset){
+                    yOffset = j;
+                    break;
+                }
+            }
+        }
+        //counts the x offset when rotating
+        for (int i = 0; i < PIECE_LAYOUT_SIZE; i++) {
+            for (int j = 0; j < PIECE_LAYOUT_SIZE; j++) {
+                if(newLayout[i][j] != Piece.EMPTY && i < xOffset){
+                    xOffset = i;
+                    break;
+                }
+            }
+        }
+        //if there is no offset, which means the original values are the same
+        if(xOffset == 5){
+            xOffset =0;
+        }
+        if(yOffset == 5){
+            yOffset =0;
+        }
+        //puts the value back into the left corner
+        //counts the y offset when rotating
+        for (int i = 0; i < PIECE_LAYOUT_SIZE; i++) {
+            for (int j = 0; j < PIECE_LAYOUT_SIZE; j++) {
+                if(newLayout[i][j] != Piece.EMPTY ){
+                    int temp = newLayout[i-xOffset][j-yOffset];
+                    newLayout[i-xOffset][j-yOffset] = newLayout[i][j];
+                    newLayout[i][j] = temp;
+                }
+            }
+        }
+        return newLayout;
+    }
+
+    //helper method to see if this piece can be flipped
+    public boolean canBeFlipped(){
+        String pName = this.getName();
+        if(pName.equals("one") || pName.equals("two") || pName.equals("three")
+            || pName.equals("four") || pName.equals("five")|| pName.equals("cube")
+            || pName.equals("X")) {
+            return false;
+        }
+        return true;
+    }
 
     //getters for the length and widths or each piece
     public int getPieceLength() {
@@ -274,3 +379,10 @@ public class Piece {
         this.orientationVal = val;
     }
 }
+/**
+ External Citation:
+ Date: 30 March 2019
+ Problem: I didn't know the algorythm for rotating things in
+ a 2D array
+ Source:https://stackoverflow.com/questions/53110374/how-to-rotate-2-d-array-in-java
+ */

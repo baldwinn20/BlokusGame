@@ -1,11 +1,8 @@
 package com.example.nicholasbaldwin.mockupgui;
 
 import android.app.Activity;
-import android.graphics.Color;
 import android.graphics.Point;
-import android.support.v4.content.res.TypedArrayUtils;
 import android.util.Log;
-import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -16,13 +13,10 @@ import android.widget.TextView;
 import com.example.nicholasbaldwin.mockupgui.game.infoMsg.GameInfo;
 import com.example.nicholasbaldwin.mockupgui.game.infoMsg.IllegalMoveInfo;
 import com.example.nicholasbaldwin.mockupgui.game.infoMsg.NotYourTurnInfo;
-import com.example.nicholasbaldwin.mockupgui.game.util.Game;
 import com.example.nicholasbaldwin.mockupgui.game.util.GameHumanPlayer;
 import com.example.nicholasbaldwin.mockupgui.game.util.GameMainActivity;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Collections;
 
 public class BlokusHumanPlayer extends GameHumanPlayer implements
         View.OnTouchListener, ScrollView.OnClickListener {
@@ -80,7 +74,7 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
         myActivity = activity;
 
         //TODO replace xml layout with layout id
-        activity.setContentView(R.layout.activity_main);
+        activity.setContentView(R.layout.red_player_gui);
         surfaceView = myActivity.findViewById(R.id.blokusBoard);
         messageBox = myActivity.findViewById(R.id.messageTV);
 
@@ -102,7 +96,6 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
         greenPR.setText("21");
         yellowPR.setText("21");
 
-        Log.i("set listener", "OnTouch");
         surfaceView.setOnTouchListener(this);
 
         scrollView = myActivity.findViewById(R.id.piecesScrollView);
@@ -245,33 +238,11 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
             currentPieceButton.setVisibility(View.GONE);
             surfaceView.setCurrentPiece(null);
             placePieceButton.setEnabled(false);
-        } else if (v == flipButton) {
-            //TODO this is currently here to test the algorythm, kinda works, idk if we need flip to actually be a class
-            //TODO will crash with pieces longer than 3
-            //TODO add exceptions for certain pieces, check names
-            int[][] currentLayout = surfaceView.getCurrentPiece().getPieceLayout();
-            int layoutHeight = surfaceView.getCurrentPiece().getPieceLength();
-            int layoutWidth = surfaceView.getCurrentPiece().getPieceWidth();
-            //flips the piece horizontally at the middle
-            for (int i = 0; i < layoutWidth; i++) {
-                for (int j = 0; j < layoutHeight / 2; j++) {
-                    //swaps values across the center line
-                    int temp = currentLayout[i][j];
-                    currentLayout[i][j] = currentLayout[i][layoutHeight - j];
-                    currentLayout[i][layoutHeight - j] = temp;
-                }
-            }
-            //the algorithm above moves the piece down one when flipping
-            //so this moves it back up one row
-            for (int i = 0; i < currentLayout.length; i++) {
-                for (int j = 1; j < currentLayout.length; j++) {
-                    //swaps values across the center line
-                        int temp = currentLayout[i][j];
-                        currentLayout[i][j - 1] = currentLayout[i][j];
-                        currentLayout[i][j] = temp;
-                }
-            }
-
+        }
+        //TODO there is still a minor bug where it doesn't check if it is a valid move when pressing rotate or flip
+        else if (v == flipButton) {
+            Piece p = surfaceView.getCurrentPiece();
+            surfaceView.getCurrentPiece().setPieceLayout(p.flip());
             //checks to see if you can place a piece after you flipped the piece
             if(pp != null) {
                 if (pp.checkForValidMove(playerID)) {
@@ -280,21 +251,19 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
                     placePieceButton.setEnabled(false);
                 }
             }
-            surfaceView.getCurrentPiece().setPieceLayout(currentLayout);
-        } else if (v == rotateButton) {
-            int[][] currentLayout = surfaceView.getCurrentPiece().getPieceLayout();
-            int layoutHeight = surfaceView.getCurrentPiece().getPieceLength();
-            int layoutWidth = surfaceView.getCurrentPiece().getPieceWidth();
-            //TODO THIS KINDA DOESN'T WORK & is just here to test the algorythm
-            //this flips the piece horizontally
-            for (int i = 0; i < currentLayout.length; i++) {
-                for (int j = currentLayout.length - 1; j > 0; j--) {
-                    int temp = currentLayout[i][j];
-                    currentLayout[i][j] = currentLayout[j][i];
-                    currentLayout[j][i] = temp;
+
+        }
+        else if (v == rotateButton) {
+            Piece p = surfaceView.getCurrentPiece();
+            surfaceView.getCurrentPiece().setPieceLayout(p.rotate90());
+            //checks to see if you can place a piece after you flipped the piece
+            if(pp != null) {
+                if (pp.checkForValidMove(playerID)) {
+                    placePieceButton.setEnabled(true);
+                } else if (!pp.checkForValidMove(playerID)) {
+                    placePieceButton.setEnabled(false);
                 }
             }
-            surfaceView.getCurrentPiece().setPieceLayout(currentLayout);
         } else if (v == helpButton) {
             //this needs to open a popup screen with the rules of something.
         }
@@ -382,13 +351,6 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
         greenPR.setText(state.getAllPiecesRemaining()[2] + "");
         yellowPR.setText(state.getAllPiecesRemaining()[3] + "");
     }
-    /**
-     External Citation:
-     Date: 30 March 2019
-     Problem: I didn't know the algorythm for rotating things in
-     a 2D array
-     Source:https://stackoverflow.com/questions/2799755/rotate-array-clockwise
-     */
     /**
      External Citation:
      Date: 8 April 2019

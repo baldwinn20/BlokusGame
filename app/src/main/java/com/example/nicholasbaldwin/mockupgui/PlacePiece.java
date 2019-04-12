@@ -60,24 +60,21 @@ public class PlacePiece extends GameAction {
                     if(x + xOffset >= 20 || y + yOffset >= 20){
                         return false;
                     }
-
-                    //TODO need Special checks for the corners there is a bug since it crashes
-                    //TODO depends on the player id 
-                    //special checks for the 4 corners of the board
+                    // special checks for the 4 corners of the board depending on the player
                     //top left corner
-                    if(x + xOffset == 0 && y + yOffset == 0){
+                    if(x + xOffset == 0 && y + yOffset == 0 && pID != 0){
                         return false;
                     }
                     //top right corner
-                    else if( x + xOffset >= 19 && y + yOffset == 0){
+                    else if( x + xOffset >= 19 && y + yOffset == 0 && pID != 1){
                         return false;
                     }
                     //bottom left
-                    else if(x + xOffset == 0 && y + yOffset == 19 ){
+                    else if(x + xOffset == 0 && y + yOffset == 19  && pID != 2){
                         return false;
                     }
                     //bottom right corner
-                    else if(x + xOffset == 19 && y + yOffset == 19 ){
+                    else if(x + xOffset == 19 && y + yOffset == 19 && pID !=3 ){
                        return false;
                     }
 
@@ -165,21 +162,21 @@ public class PlacePiece extends GameAction {
                 break;
             //Checks the top right board corner
             case 1:
-                if (x == 19 && y == 0) {
+                if (x == 19 && y == 0 && pieceLayout[x][y] == pID) {
                     isStartCorner = true;
                 }
                 break;
 
             //Checks the bottom left board corner
             case 2:
-                if (x == 0 && y == 19) {
+                if (x == 0 && y == 19 && pieceLayout[x][y] == pID) {
                     isStartCorner = true;
                 }
                 break;
 
             //Checks the bottom right board corner
             case 3:
-                if (x == 19 && x == 19) {
+                if (x == 19 && x == 19 && pieceLayout[x][y] == pID) {
                     isStartCorner = true;
                 }
                 break;
