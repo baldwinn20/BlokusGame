@@ -29,14 +29,16 @@ public class BlokusGameState extends GameState {
 
     private int[] allPiecesRemaining = new int[4];
     private int[] allPlayerScores = new int[4];
+    private int[] allPlayerTilesRemaining = new int[4];
 
     //0 for placement stage, 1 for waiting stage (Will be used with Network/AI)
     private int stage; //TODO Remove reduncant?
 
+    public static final int BOARD_LENGTH = 20;
     //An integer array will help differentiate whose pieces are on the board.
-    private int[][] board = new int[20][20];
-    private static final int BOARD_LENGTH = 20;
-    private static final int initTilesRemaining = 89;
+    private int[][] board = new int[BOARD_LENGTH][BOARD_LENGTH];
+    public final static int MAXIMUM_PLAYER_SCORE = 89;
+    private static final int INITIAL_PLAYER_PIECE_COUNT = 21;
     private int playerToMove;
 
     /**
@@ -52,15 +54,16 @@ public class BlokusGameState extends GameState {
             for (int j = 0; j < BOARD_LENGTH; j++) {
                 //-1 means there are no pieces on that place
                 //and 0,1,2,3 correspond to a players ID
-                board[i][j] = -1;
+                board[i][j] = Piece.EMPTY;
             }
         }
 
 
         for (int i = 0; i < 4; i++) {
             allPieceInventory.add(initializeInventories(i));
-            allPiecesRemaining[i] = 20;
+            allPiecesRemaining[i] = INITIAL_PLAYER_PIECE_COUNT;
             allPlayerScores[i] = 0;
+            allPlayerTilesRemaining[i] = MAXIMUM_PLAYER_SCORE;
         }
         //When the game starts, the first player will be able to place a piece on the board
         stage = 0;
@@ -191,7 +194,7 @@ public class BlokusGameState extends GameState {
                 }
             }
         }
-
+        this.allPlayerTilesRemaining[playerToMove] -= pc.getPieceValue();
         //TODO testing green, blue, and yellow should be removed
         this.board[0][19] = 2;
         this.board[19][0] = 1;
@@ -321,11 +324,13 @@ public class BlokusGameState extends GameState {
     }
 
     public void updatePlayerScores(Piece curPiece) {
-        if(allPlayerScores[playerToMove] < initTilesRemaining) {
+        if(allPlayerScores[playerToMove] < MAXIMUM_PLAYER_SCORE) {
             allPlayerScores[playerToMove] += curPiece.getPieceValue();
         }
 
     }
+
+    public int[] getAllPlayerTilesRemaining(){return this.allPlayerTilesRemaining;}
 
     //TODO check to see if deepy copy is needed
     public int[] getAllPlayerScores() {

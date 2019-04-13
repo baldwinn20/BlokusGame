@@ -66,20 +66,41 @@ public class BlokusLocalGame extends LocalGame {
      */
     @Override
     protected String checkIfGameOver() {
-        //TODO check who has the highest score if no one can move
         //TODO check who has pieceRemaining = 0 and win the game
 
-        int winner = -1;
-//        for (int i = 0; i < players.length; i++) {
-//            if(mainState.getAllPiecesRemaining()[i] == 0){
-//                winner = i;
-//                break;
-//            }
-//        }
-        if (winner == -1) {
-            return null;
+        int winner;
+        for (int i = 0; i < players.length; i++) {
+            if(mainState.getAllPiecesRemaining()[i] == 0){
+                winner = i;
+                return playerNames[winner] + " is the winner.";
+            }
         }
-        return playerNames[winner] + " is the winner.";
+
+        //TODO check who has the highest score if no one can move
+        //Look for all the empty tiles on the board
+        PlacePiece unusedPieceChecker;
+        int rotationCount = 3;
+        for (int i = 0; i < players.length; i++) {
+            for(Piece unusedPiece : mainState.getAllPieceInventory().get(i)) {
+                for (int j = 0; j < BlokusGameState.BOARD_LENGTH; j++) {
+                    for (int k = 0; k < BlokusGameState.BOARD_LENGTH; k++) {
+                        if (mainState.getBoard()[j][k] == Piece.EMPTY &&
+                                !unusedPiece.isOnBoard) {
+                            for (int l = 0; l < rotationCount; l++) {
+                                unusedPiece.setPieceLayout(unusedPiece.rotate90());
+                                unusedPieceChecker = new PlacePiece(players[i],j , k, unusedPiece);
+
+                                if(unusedPieceChecker.checkForValidMove(mainState.getPlayerTurn())){
+                                    return null;
+                                }
+                            }
+
+                        }
+                    }
+                }
+            }
+        }
+        return null;
     }
 
     /**

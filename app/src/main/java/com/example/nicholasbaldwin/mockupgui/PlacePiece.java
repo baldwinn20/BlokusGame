@@ -29,12 +29,14 @@ public class PlacePiece extends GameAction {
     }
 
     //TODO if a player tries to tap on a opponent's empty starting corner
+    //TODO if player flips/rotate, needs to check if starting corner is valid
     public boolean checkForValidMove(int pID) {
 
         if (currentPiece.isOnBoard) {
             return false;
         }
 
+        pieceLayout = currentPiece.getPieceLayout();
         boolean isCorner = false;
         boolean isAdjacent = false;
 
@@ -220,5 +222,8 @@ public class PlacePiece extends GameAction {
 
     public void setBoard(int[][] orig) {
         this.boardCopy = orig;
+    }
+    public void setPieceLayout(int[][] orig) {
+        this.pieceLayout = orig;
     }
 }

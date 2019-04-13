@@ -10,6 +10,7 @@ import android.widget.ImageButton;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.example.nicholasbaldwin.mockupgui.game.GameOverCheck;
 import com.example.nicholasbaldwin.mockupgui.game.infoMsg.GameInfo;
 import com.example.nicholasbaldwin.mockupgui.game.infoMsg.IllegalMoveInfo;
 import com.example.nicholasbaldwin.mockupgui.game.infoMsg.NotYourTurnInfo;
@@ -34,6 +35,7 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
 
     private int playerColor;
     private int piecesRemaining;
+    //TODO remove this variable?
     private int playerID;
     //    private Piece currentPiece;
     private TextView redScore, blueScore, greenScore, yellowScore;
@@ -227,6 +229,7 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
             currentPieceButton = cornerButton;
         }
 
+        //TODO is this needed?
         if (surfaceView.getCurrentPiece() != null) {
             surfaceView.invalidate();
         }
@@ -234,16 +237,19 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
 
         if (v == placePieceButton) {
             //This makes the button disappear when pressed
-            game.sendAction(pp);
+            //Starts a separate thread to determine whether or not the game can be ended after this turn
+            GameOverCheck gOverChecker = new GameOverCheck(game, pp);
+            gOverChecker.start();
             currentPieceButton.setVisibility(View.GONE);
             surfaceView.setCurrentPiece(null);
             placePieceButton.setEnabled(false);
         }
         //TODO there is still a minor bug where it doesn't check if it is a valid move when pressing rotate or flip
-        else if (v == flipButton) {
+        else if (v == flipButton && surfaceView.getCurrentPiece() != null) {
             Piece p = surfaceView.getCurrentPiece();
-            surfaceView.getCurrentPiece().setPieceLayout(p.flip());
+            p.setPieceLayout(p.flip());
             //checks to see if you can place a piece after you flipped the piece
+            pp.setPieceLayout(p.getPieceLayout());
             if(pp != null) {
                 if (pp.checkForValidMove(playerID)) {
                     placePieceButton.setEnabled(true);
@@ -253,10 +259,11 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
             }
 
         }
-        else if (v == rotateButton) {
+        else if (v == rotateButton && surfaceView.getCurrentPiece() != null) {
             Piece p = surfaceView.getCurrentPiece();
-            surfaceView.getCurrentPiece().setPieceLayout(p.rotate90());
+            p.setPieceLayout(p.rotate90());
             //checks to see if you can place a piece after you flipped the piece
+            pp.setPieceLayout(p.getPieceLayout());
             if(pp != null) {
                 if (pp.checkForValidMove(playerID)) {
                     placePieceButton.setEnabled(true);
