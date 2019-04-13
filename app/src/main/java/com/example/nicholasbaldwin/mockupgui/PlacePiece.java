@@ -28,6 +28,7 @@ public class PlacePiece extends GameAction {
         pieceLayout = curPiece.getPieceLayout();
     }
 
+
     //TODO if a player tries to tap on a opponent's empty starting corner
     //TODO if player flips/rotate, needs to check if starting corner is valid
     public boolean checkForValidMove(int pID) {

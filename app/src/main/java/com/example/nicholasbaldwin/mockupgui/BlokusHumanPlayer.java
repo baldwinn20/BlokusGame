@@ -249,7 +249,6 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
             Piece p = surfaceView.getCurrentPiece();
             p.setPieceLayout(p.flip());
             //checks to see if you can place a piece after you flipped the piece
-            pp.setPieceLayout(p.getPieceLayout());
             if(pp != null) {
                 if (pp.checkForValidMove(playerID)) {
                     placePieceButton.setEnabled(true);
@@ -263,7 +262,6 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
             Piece p = surfaceView.getCurrentPiece();
             p.setPieceLayout(p.rotate90());
             //checks to see if you can place a piece after you flipped the piece
-            pp.setPieceLayout(p.getPieceLayout());
             if(pp != null) {
                 if (pp.checkForValidMove(playerID)) {
                     placePieceButton.setEnabled(true);
