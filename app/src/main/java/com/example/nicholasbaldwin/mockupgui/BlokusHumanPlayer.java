@@ -10,6 +10,7 @@ import android.widget.ImageButton;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.example.nicholasbaldwin.mockupgui.game.GameOverCheck;
 import com.example.nicholasbaldwin.mockupgui.game.infoMsg.GameInfo;
 import com.example.nicholasbaldwin.mockupgui.game.infoMsg.IllegalMoveInfo;
 import com.example.nicholasbaldwin.mockupgui.game.infoMsg.NotYourTurnInfo;
@@ -43,14 +44,19 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
     private TextView messageBox = null;
 
     private int playerColor;
+    private int piecesRemaining;
+    //TODO remove this variable?
     private int playerID;
-    private TextView redScore, blueScore, greenScore, yellowScore, redPR, bluePR, greenPR, yellowPR;
+    //    private Piece currentPiece;
+    private TextView redScore, blueScore, greenScore, yellowScore;
+    private TextView redPR, bluePR, greenPR, yellowPR;
     private ScrollView scrollView;
     private ImageButton oneButton, twoButton, sButton, threeButton, smallTButton,
             fourButton, fourLButton, fiveButton, fiveLButton, nButton, yButton,
             v3Button, cubeButton, cButton, bButton, zButton, mButton, xButton,
-            fButton, bigTButton, cornerButton;
+            fButton, bigTButton, cornerButton, imageButton;
     private Button placePieceButton, rotateButton, flipButton, helpButton;
+    //TODO Remove instance var private ArrayList<Piece> piecesInventory;
     private PlacePiece pp = null;
     private ArrayList<Piece> currentInventory = null;
     ImageButton currentPieceButton = null;
@@ -233,6 +239,7 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
             currentPieceButton = cornerButton;
         }
 
+        //TODO is this needed?
         if (surfaceView.getCurrentPiece() != null) {
             surfaceView.invalidate();
         }
@@ -240,6 +247,10 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
 
         if (v == placePieceButton) {
             //This makes the button disappear when pressed
+            //Starts a separate thread to determine whether or not the game can be ended after this turn
+            GameOverCheck gOverChecker = new GameOverCheck(game, pp);
+            gOverChecker.start();
+            surfaceView.getCurrentPiece().setOnBoard(true);
             game.sendAction(pp);
             surfaceView.getCurrentPiece().setOnBoard(true);
             currentPieceButton.setVisibility(View.GONE);
@@ -247,11 +258,11 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
             placePieceButton.setEnabled(false);
         }
         //TODO there is still a minor bug where it doesn't check if it is a valid move when pressing rotate or flip
-        else if (v == flipButton) {
+        else if (v == flipButton && surfaceView.getCurrentPiece() != null) {
             Piece p = surfaceView.getCurrentPiece();
-            surfaceView.getCurrentPiece().setPieceLayout(p.flip());
+            p.setPieceLayout(p.flip());
             //checks to see if you can place a piece after you flipped the piece
-            if (pp != null) {
+            if(pp != null) {
                 if (pp.checkForValidMove(playerID)) {
                     placePieceButton.setEnabled(true);
                 } else if (!pp.checkForValidMove(playerID)) {
@@ -259,11 +270,12 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
                 }
             }
 
-        } else if (v == rotateButton) {
+        }
+        else if (v == rotateButton && surfaceView.getCurrentPiece() != null) {
             Piece p = surfaceView.getCurrentPiece();
-            surfaceView.getCurrentPiece().setPieceLayout(p.rotate90());
+            p.setPieceLayout(p.rotate90());
             //checks to see if you can place a piece after you flipped the piece
-            if (pp != null) {
+            if(pp != null) {
                 if (pp.checkForValidMove(playerID)) {
                     placePieceButton.setEnabled(true);
                 } else if (!pp.checkForValidMove(playerID)) {

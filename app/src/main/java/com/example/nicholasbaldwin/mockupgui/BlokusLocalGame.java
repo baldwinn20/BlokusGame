@@ -4,8 +4,6 @@ import com.example.nicholasbaldwin.mockupgui.game.actionMsg.GameAction;
 import com.example.nicholasbaldwin.mockupgui.game.util.GamePlayer;
 import com.example.nicholasbaldwin.mockupgui.game.util.LocalGame;
 
-import java.util.ArrayList;
-
 /**
  * <!-- class BlokusLocalGame-->
  * <p>
@@ -67,50 +65,42 @@ public class BlokusLocalGame extends LocalGame {
      */
     @Override
     protected String checkIfGameOver() {
-        //TODO check who has the highest score if no one can move
         //TODO check who has pieceRemaining = 0 and win the game
 
-        //this will store all of the current pieces that have not been played by
-        //any of the players
-        ArrayList<Piece> piecesInInventory = null;
-        for (int i = 0; i < BlokusGameState.TOTAL_NUM_PLAYERS; i++) {
-            for (int j = 0; j < BlokusGameState.TOTAL_NUM_PIECES; j++) {
-                if (mainState.getAllPieceInventory().get(i).get(j).isOnBoard == false) {
-                    piecesInInventory.add(mainState.getAllPieceInventory().get(i).get(j));
-                }
+        int winner;
+        for (int i = 0; i < players.length; i++) {
+            if(mainState.getAllPiecesRemaining()[i] == 0){
+                winner = i;
+                return playerNames[winner] + " is the winner.";
             }
         }
 
-        //TODO finish the algorythm that checks to see if there are still moves to be made, need to figure out how to flip
-        //checks every possible combination of each players remaining pieces
-        //to see if they can still place a piece
-        int[][] currentBoard = mainState.getBoard();
-        PlacePiece pp = null;
-        int flipCount = 0;//used to see how many times the piece has been flipped
-        for (int i = 0; i < piecesInInventory.size(); i++) {
-            for (int j = 0; j < currentBoard.length; j++) {
-                for (int k = 0; k < currentBoard.length; k++) {
-                    pp = new PlacePiece(null, j, k, piecesInInventory.get(i));
-                    if (pp.checkForValidMove(piecesInInventory.get(i).getColorNum())) {
-                        return null; //this means that piece can be placed
+        //TODO check who has the highest score if no one can move
+        //Look for all the empty tiles on the board
+        PlacePiece unusedPieceChecker;
+        int rotationCount = 3;
+        for (int i = 0; i < players.length; i++) {
+            for(Piece unusedPiece : mainState.getAllPieceInventory().get(i)) {
+                for (int j = 0; j < BlokusGameState.BOARD_LENGTH; j++) {
+                    for (int k = 0; k < BlokusGameState.BOARD_LENGTH; k++) {
+                        if (mainState.getBoard()[j][k] == Piece.EMPTY &&
+                                !unusedPiece.isOnBoard) {
+                            for (int l = 0; l < rotationCount; l++) {
+                                unusedPiece.setPieceLayout(unusedPiece.rotate90());
+                                unusedPieceChecker = new PlacePiece(players[i],j , k, unusedPiece);
+
+                                if(unusedPieceChecker.checkForValidMove(mainState.getPlayerTurn())){
+                                    return null;
+                                }
+                            }
+
+                        }
                     }
                 }
             }
         }
-
-        int winner = -1;
-        for (int i = 0; i < players.length; i++) {
-            if (mainState.getAllPiecesRemaining()[i] == 0) {
-                winner = 1;
-                //break;
-            }
-        }
-        if (winner == -1) {
-            return null;
-        }
-        return playerNames[winner] + " is the winner.";
+        return null;
     }
-
 
     /**
      * Makes a move on behalf of a player.
@@ -125,14 +115,14 @@ public class BlokusLocalGame extends LocalGame {
         int x = pp.getX();
         pp.setBoard(mainState.getBoard());
 
-        if (!pp.checkForValidMove(mainState.getPlayerTurn())) {
+        if(!pp.checkForValidMove(mainState.getPlayerTurn())){
             return false;
         }
 
         mainState.placePiece(x, y, pp.getCurrentPiece());
         mainState.updatePiecesRemaining();
         mainState.updatePlayerScores(pp.getCurrentPiece());
-        mainState.setPlayerTurn(mainState.getPlayerTurn());
+        //mainState.setPlayerTurn(mainState.getPlayerTurn());
 
         return true;
     }
