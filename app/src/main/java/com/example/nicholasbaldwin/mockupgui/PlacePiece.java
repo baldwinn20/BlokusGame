@@ -82,7 +82,7 @@ public class PlacePiece extends GameAction {
                     }
 
                     //Special check for top row of board:
-                    if (y == 0 && x != 0 && x != 19 && x + xOffset != 19){
+                    if (y == 0 && x != 0 && x != 19 && y + yOffset == 0){
 
                         //checks adjacent tiles to the left, right, and bottom of a selected tile, respectively
                         isAdjacent = boardCopy[x + xOffset - 1][y + yOffset] == pID || boardCopy[x + xOffset + 1][y + yOffset] == pID

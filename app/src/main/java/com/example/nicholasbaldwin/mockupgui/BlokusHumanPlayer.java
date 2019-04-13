@@ -240,6 +240,7 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
             //Starts a separate thread to determine whether or not the game can be ended after this turn
             GameOverCheck gOverChecker = new GameOverCheck(game, pp);
             gOverChecker.start();
+            surfaceView.getCurrentPiece().setOnBoard(true);
             currentPieceButton.setVisibility(View.GONE);
             surfaceView.setCurrentPiece(null);
             placePieceButton.setEnabled(false);
