@@ -19,12 +19,9 @@ import java.util.ArrayList;
 public class BlokusSmartAI extends GameComputerPlayer {
     //All instance variables
     public BlokusGameState localState;
-    private int playerColor;
-    private int piecesRemaining;
+    private int playerColor, piecesRemaining, PlayerScore, stage, playerID;
     private int playerType = 1; // Dumb AI players are all of type 1
     private int playerScore;
-    private int stage;
-    private int playerID;
     private Piece currentPiece;
     private ArrayList<Piece> piecesInventory;
     public int INITIAL_PIECES_rEMAINING = 21;

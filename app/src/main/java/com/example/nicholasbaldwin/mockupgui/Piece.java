@@ -25,7 +25,6 @@ public class Piece {
     private int pieceValue, pieceColor, colorNum;
     protected int xPosition, yPosition = 9;
 
-
     //0,1,2,3 are different orientation displays
     protected int orientationVal = 0;
 

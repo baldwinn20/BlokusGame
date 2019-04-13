@@ -27,8 +27,8 @@ public class BlokusDumbAI extends GameComputerPlayer {
     private Activity myActivity = null;
     private BlokusBoard surfaceView = null;
     private TextView messageBox = null;
-    private TextView redScore, blueScore, greenScore, yellowScore;
-    private TextView redPR, bluePR, greenPR, yellowPR;
+    private TextView redScore, blueScore, greenScore, yellowScore,
+            redPR, bluePR, greenPR, yellowPR;
     private int playerColor, piecesRemaining, playerScore, playerID, x, y;
     private final int INITIAL_PIECES_REMAINING = 21;
     private final int INITIAL_SCORE = 89;

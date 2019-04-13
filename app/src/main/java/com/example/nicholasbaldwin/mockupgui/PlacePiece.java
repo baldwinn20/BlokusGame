@@ -1,7 +1,5 @@
 package com.example.nicholasbaldwin.mockupgui;
 
-import android.util.Log;
-import android.widget.TextView;
 
 import com.example.nicholasbaldwin.mockupgui.game.actionMsg.GameAction;
 import com.example.nicholasbaldwin.mockupgui.game.util.GamePlayer;
@@ -68,29 +66,29 @@ public class PlacePiece extends GameAction {
                 if (pieceLayout[xOffset][yOffset] != -1 && boardCopy[x][y] == -1) {
 
                     //if a tile in a pieces layout goes past the board
-                    if(x + xOffset >= 20 || y + yOffset >= 20){
+                    if (x + xOffset >= 20 || y + yOffset >= 20) {
                         return false;
                     }
                     // special checks for the 4 corners of the board depending on the player
                     //top left corner
-                    if(x + xOffset == 0 && y + yOffset == 0 && pID != 0){
+                    if (x + xOffset == 0 && y + yOffset == 0 && pID != 0) {
                         return false;
                     }
                     //top right corner
-                    else if( x + xOffset >= 19 && y + yOffset == 0 && pID != 1){
+                    else if (x + xOffset >= 19 && y + yOffset == 0 && pID != 1) {
                         return false;
                     }
                     //bottom left
-                    else if(x + xOffset == 0 && y + yOffset == 19  && pID != 2){
+                    else if (x + xOffset == 0 && y + yOffset == 19 && pID != 2) {
                         return false;
                     }
                     //bottom right corner
-                    else if(x + xOffset == 19 && y + yOffset == 19 && pID !=3 ){
-                       return false;
+                    else if (x + xOffset == 19 && y + yOffset == 19 && pID != 3) {
+                        return false;
                     }
 
                     //Special check for top row of board:
-                    if (y == 0 && x != 0 && x != 19 && y + yOffset == 0){
+                    if (y == 0 && x != 0 && x != 19 && y + yOffset == 0) {
 
                         //checks adjacent tiles to the left, right, and bottom of a selected tile, respectively
                         isAdjacent = boardCopy[x + xOffset - 1][y + yOffset] == pID || boardCopy[x + xOffset + 1][y + yOffset] == pID
@@ -168,7 +166,7 @@ public class PlacePiece extends GameAction {
             //Checks the top left board corner
             case 0:
                 if (x == y && x == 0 && pieceLayout[x][y] == pID) {
-                        isStartCorner = true;
+                    isStartCorner = true;
                 }
                 break;
             //Checks the top right board corner
@@ -232,6 +230,7 @@ public class PlacePiece extends GameAction {
     public void setBoard(int[][] orig) {
         this.boardCopy = orig;
     }
+
     public void setPieceLayout(int[][] orig) {
         this.pieceLayout = orig;
     }

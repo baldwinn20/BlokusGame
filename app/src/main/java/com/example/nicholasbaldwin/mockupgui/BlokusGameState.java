@@ -322,13 +322,15 @@ public class BlokusGameState extends GameState {
     }
 
     public void updatePlayerScores(Piece curPiece) {
-        if(allPlayerScores[playerToMove] < MAXIMUM_PLAYER_SCORE) {
+        if (allPlayerScores[playerToMove] < MAXIMUM_PLAYER_SCORE) {
             allPlayerScores[playerToMove] += curPiece.getPieceValue();
         }
 
     }
 
-    public int[] getAllPlayerTilesRemaining(){return this.allPlayerTilesRemaining;}
+    public int[] getAllPlayerTilesRemaining() {
+        return this.allPlayerTilesRemaining;
+    }
 
     //TODO check to see if deepy copy is needed
     public int[] getAllPlayerScores() {
