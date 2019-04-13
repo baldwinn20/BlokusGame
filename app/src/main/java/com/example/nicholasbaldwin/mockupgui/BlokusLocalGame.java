@@ -4,6 +4,8 @@ import com.example.nicholasbaldwin.mockupgui.game.actionMsg.GameAction;
 import com.example.nicholasbaldwin.mockupgui.game.util.GamePlayer;
 import com.example.nicholasbaldwin.mockupgui.game.util.LocalGame;
 
+import java.util.ArrayList;
+
 /**
  * <!-- class BlokusLocalGame-->
  * <p>
@@ -69,6 +71,34 @@ public class BlokusLocalGame extends LocalGame {
         //TODO check who has the highest score if no one can move
         //TODO check who has pieceRemaining = 0 and win the game
 
+        //this will store all of the current pieces that have not been played by
+        //any of the players
+       ArrayList<Piece> piecesInInventory = null;
+       for(int i = 0; i < BlokusGameState.TOTAL_NUM_PLAYERS; i++){
+           for(int j = 0 ; j < BlokusGameState.TOTAL_NUM_PIECES; j++){
+               if(mainState.getAllPieceInventory().get(i).get(j).isOnBoard == false){
+                   piecesInInventory.add(mainState.getAllPieceInventory().get(i).get(j));
+               }
+           }
+       }
+
+       //TODO finish the algorythm that checks to see if there are still moves to be made, need to figure out how to flip
+        //checks every possible combination of each players remaining pieces
+        //to see if they can still place a piece
+       int[][] currentBoard = mainState.getBoard();
+       PlacePiece pp = null;
+       int flipCount = 0;//used to see how many times the piece has been flipped
+        for(int i = 0; i < piecesInInventory.size(); i++){
+            for(int j = 0 ; j < currentBoard.length; j++){
+                for(int k = 0; k < currentBoard.length; k++){
+                    pp = new PlacePiece(null, j, k, piecesInInventory.get(i));
+                    if(pp.checkForValidMove(piecesInInventory.get(i).getColorNum())){
+                        return null; //this means that piece can be placed
+                    }
+                }
+            }
+        }
+
         int winner = -1;
 //        for (int i = 0; i < players.length; i++) {
 //            if(mainState.getAllPiecesRemaining()[i] == 0){
@@ -81,6 +111,7 @@ public class BlokusLocalGame extends LocalGame {
         }
         return playerNames[winner] + " is the winner.";
     }
+
 
     /**
      * Makes a move on behalf of a player.

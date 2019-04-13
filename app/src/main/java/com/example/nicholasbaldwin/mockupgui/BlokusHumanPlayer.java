@@ -234,6 +234,7 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
 
         if (v == placePieceButton) {
             //This makes the button disappear when pressed
+            surfaceView.getCurrentPiece().setOnBoard(true);
             game.sendAction(pp);
             currentPieceButton.setVisibility(View.GONE);
             surfaceView.setCurrentPiece(null);

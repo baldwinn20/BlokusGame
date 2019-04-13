@@ -27,15 +27,18 @@ public class BlokusGameState extends GameState {
     //for easier access to specific player pieces
     private ArrayList<ArrayList<Piece>> allPieceInventory = new ArrayList<>();
 
-    private int[] allPiecesRemaining = new int[4];
-    private int[] allPlayerScores = new int[4];
+    public static final int TOTAL_NUM_PLAYERS = 4;
+    public static final int BOARD_LENGTH = 20;
+    public static final int TOTAL_NUM_PIECES = 20;
+
+    private int[] allPiecesRemaining = new int[TOTAL_NUM_PLAYERS];
+    private int[] allPlayerScores = new int[TOTAL_NUM_PLAYERS];
 
     //0 for placement stage, 1 for waiting stage (Will be used with Network/AI)
     private int stage; //TODO Remove reduncant?
 
     //An integer array will help differentiate whose pieces are on the board.
-    private int[][] board = new int[20][20];
-    private static final int BOARD_LENGTH = 20;
+    private int[][] board = new int[BOARD_LENGTH][BOARD_LENGTH];
     private static final int initTilesRemaining = 89;
     private int playerToMove;
 
