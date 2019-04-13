@@ -265,7 +265,7 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
                 }
             }
         } else if (v == helpButton) {
-            //this needs to open a popup screen with the rules of something.
+            //TODO someone needs to put the rules down here or something
         }
 
         //this draws a preview on the middle of the board
