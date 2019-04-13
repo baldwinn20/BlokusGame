@@ -11,6 +11,15 @@ import android.view.MotionEvent;
 import android.view.SurfaceView;
 import android.view.View;
 
+/**
+ * <!-- class BlokusBoard -->
+ * <p>
+ * This class creates the Blokus board and sets piece color based on player.
+ *
+ * @author <Nicholas Baldwin, Justin Cao, Dylan Pascua>
+ * @version <Spring 2019>
+ */
+
 public class BlokusBoard extends SurfaceView {
 
     /*variables for creating the board
@@ -24,18 +33,15 @@ public class BlokusBoard extends SurfaceView {
     private final float TILE_TOTAL_PERCENT = TILE_SIZE_PERCENT
             + DIVIDER_PERCENT;
     private final float LEFT_BOARDER_PERCENT = 0.5f;
-    private int boardWidth;
-    private int boardHeight;
+    private int boardWidth, boardHeight;
     private boolean hasPlacedPiece = false;
     private Piece currentPiece = null;
-    private int xCurPiece = 9;
-    private int yCurPiece = 9;
+    private int xCurPiece, yCurPiece = 9;
     /*  instance variables that are used to create the board
      */
     protected BlokusGameState state; // the current games state
     //the offset from the left and top to the beginning of the board
-    protected float hBase;
-    protected float vBase;
+    protected float hBase, vBase;
     protected float fullSquare; // the size of the surfaceView
 
     public BlokusBoard(Context context) {
@@ -132,26 +138,26 @@ public class BlokusBoard extends SurfaceView {
         }
 
         //this draws the new board once a new piece has been placed
-            for (int i = 0; i < BOARD_LENGTH; i++) {
-                for (int j = 0; j < BOARD_LENGTH; j++) {
-                    if (state.getBoard()[i][j] != -1) {
-                        drawTile(i, j, state.getBoard()[i][j], canvas);
-                    }
+        for (int i = 0; i < BOARD_LENGTH; i++) {
+            for (int j = 0; j < BOARD_LENGTH; j++) {
+                if (state.getBoard()[i][j] != -1) {
+                    drawTile(i, j, state.getBoard()[i][j], canvas);
                 }
             }
+        }
 
         //Draw the current piece on top of the board
-        if(currentPiece != null) {
+        if (currentPiece != null) {
             xCurPiece = currentPiece.getXPosition();
             yCurPiece = currentPiece.getYPosition();
             //TODO constants for edges
             //This ensures that the preview piece doesn't go out of the bounds
             //There is no need for a check on the left and top of the board because
             //TODO explain why
-            if(xCurPiece > state.getBoard().length-1 && yCurPiece > state.getBoard().length-1 ){
+            if (xCurPiece > state.getBoard().length - 1 && yCurPiece > state.getBoard().length - 1) {
                 return;
             }
-            for(int i = 0; i < Piece.PIECE_LAYOUT_SIZE; i++) {
+            for (int i = 0; i < Piece.PIECE_LAYOUT_SIZE; i++) {
                 for (int j = 0; j < Piece.PIECE_LAYOUT_SIZE; j++) {
                     if (currentPiece.getPieceLayout()[i][j] != Piece.EMPTY) {
                         drawTile(i + xCurPiece,
@@ -179,7 +185,7 @@ public class BlokusBoard extends SurfaceView {
             tilePaint.setColor(Color.YELLOW);
         } else if (playerID == 3) {
             tilePaint.setColor(Color.GREEN);
-        }else {
+        } else {
             tilePaint.setColor(Color.DKGRAY);
         }
 
@@ -222,12 +228,15 @@ public class BlokusBoard extends SurfaceView {
     private float vLocation(float percent) {
         return vBase + percent * fullSquare / 100;
     }
+
     public void setState(BlokusGameState bgs) {
         state = bgs;
     }
 
 
-    public void setHasPlacedPiece(boolean init){this.hasPlacedPiece = init;}
+    public void setHasPlacedPiece(boolean init) {
+        this.hasPlacedPiece = init;
+    }
 
 
     //getters

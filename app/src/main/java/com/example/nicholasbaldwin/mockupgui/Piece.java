@@ -10,9 +10,8 @@ import android.util.Log;
  * Each player is to have 21 pieces in their inventories each with
  * different shapes and point values.
  *
- * @author <Justin Cao>
- * @author <Dylan Pascua>
- * @author <Nicholas Baldwin>
+ * @author <Justin Cao, Dylan Pascua, Nicholas Baldwin>
+ * @version <Spring 2019>
  */
 public class Piece {
     public static final int PIECE_LAYOUT_SIZE = 5;
@@ -23,11 +22,9 @@ public class Piece {
     private String pieceName;
 
     //How much the piece is worth in terms of points
-    private int pieceValue;
-    private int pieceColor;
-    protected int xPosition = 9;
-    protected int yPosition = 9;
-    private int colorNum;
+    private int pieceValue, pieceColor, colorNum;
+    protected int xPosition, yPosition = 9;
+
 
     //0,1,2,3 are different orientation displays
     protected int orientationVal = 0;
@@ -70,7 +67,7 @@ public class Piece {
             colorNum = 1;
         } else if (pieceColor == Color.GREEN) {
             colorNum = 2;
-        } else if(pieceColor == Color.YELLOW){
+        } else if (pieceColor == Color.YELLOW) {
             colorNum = 3;
         }
 
@@ -189,10 +186,11 @@ public class Piece {
         }
 
     }
+
     //method that flips the piece's layout horizontally
-    public int[][] flip(){
+    public int[][] flip() {
         //checks to see if this can be flipped. if not return original
-        if(!this.canBeFlipped()){
+        if (!this.canBeFlipped()) {
             return this.getPieceLayout();
         }
         int[][] currentLayout = this.getPieceLayout();
@@ -202,30 +200,30 @@ public class Piece {
             for (int j = 0; j < PIECE_LAYOUT_SIZE / 2; j++) {
                 //swaps values across the center line
                 int temp = currentLayout[i][j];
-                currentLayout[i][j] = currentLayout[i][PIECE_LAYOUT_SIZE - j -1];
-                currentLayout[i][PIECE_LAYOUT_SIZE - j -1] = temp;
+                currentLayout[i][j] = currentLayout[i][PIECE_LAYOUT_SIZE - j - 1];
+                currentLayout[i][PIECE_LAYOUT_SIZE - j - 1] = temp;
             }
         }
 
         //counts the y offset when rotating
         for (int i = 0; i < PIECE_LAYOUT_SIZE; i++) {
             for (int j = 0; j < PIECE_LAYOUT_SIZE; j++) {
-                if(currentLayout[i][j] != Piece.EMPTY && j < yOffset){
+                if (currentLayout[i][j] != Piece.EMPTY && j < yOffset) {
                     yOffset = j;
                     break;
                 }
             }
         }
         // if there is no change in y
-        if(yOffset == 5){
+        if (yOffset == 5) {
             yOffset = 0;
         }
         //this moves the piece back up to the top
         for (int i = 0; i < PIECE_LAYOUT_SIZE; i++) {
             for (int j = 0; j < PIECE_LAYOUT_SIZE; j++) {
-                if(currentLayout[i][j] != Piece.EMPTY ){
-                    int temp = currentLayout[i][j-yOffset];
-                    currentLayout[i][j-yOffset] = currentLayout[i][j];
+                if (currentLayout[i][j] != Piece.EMPTY) {
+                    int temp = currentLayout[i][j - yOffset];
+                    currentLayout[i][j - yOffset] = currentLayout[i][j];
                     currentLayout[i][j] = temp;
                 }
             }
@@ -233,7 +231,7 @@ public class Piece {
         return currentLayout;
     }
 
-    public int[][] rotate90(){
+    public int[][] rotate90() {
         int[][] currentLayout = this.getPieceLayout();
         int[][] newLayout = new int[PIECE_LAYOUT_SIZE][PIECE_LAYOUT_SIZE];
         int xOffset = 5;
@@ -241,13 +239,13 @@ public class Piece {
         //this rotates the entire layout clockwise 90
         for (int i = 0; i < PIECE_LAYOUT_SIZE; i++) {
             for (int j = 0; j < PIECE_LAYOUT_SIZE; j++) {
-                    newLayout[i][j] = currentLayout[j][PIECE_LAYOUT_SIZE - i -1];
+                newLayout[i][j] = currentLayout[j][PIECE_LAYOUT_SIZE - i - 1];
             }
         }
         //counts the y offset when rotating
         for (int i = 0; i < PIECE_LAYOUT_SIZE; i++) {
             for (int j = 0; j < PIECE_LAYOUT_SIZE; j++) {
-                if(newLayout[i][j] != Piece.EMPTY && j < yOffset){
+                if (newLayout[i][j] != Piece.EMPTY && j < yOffset) {
                     yOffset = j;
                     break;
                 }
@@ -256,26 +254,26 @@ public class Piece {
         //counts the x offset when rotating
         for (int i = 0; i < PIECE_LAYOUT_SIZE; i++) {
             for (int j = 0; j < PIECE_LAYOUT_SIZE; j++) {
-                if(newLayout[i][j] != Piece.EMPTY && i < xOffset){
+                if (newLayout[i][j] != Piece.EMPTY && i < xOffset) {
                     xOffset = i;
                     break;
                 }
             }
         }
         //if there is no offset, which means the original values are the same
-        if(xOffset == 5){
-            xOffset =0;
+        if (xOffset == 5) {
+            xOffset = 0;
         }
-        if(yOffset == 5){
-            yOffset =0;
+        if (yOffset == 5) {
+            yOffset = 0;
         }
         //puts the value back into the left corner
         //counts the y offset when rotating
         for (int i = 0; i < PIECE_LAYOUT_SIZE; i++) {
             for (int j = 0; j < PIECE_LAYOUT_SIZE; j++) {
-                if(newLayout[i][j] != Piece.EMPTY ){
-                    int temp = newLayout[i-xOffset][j-yOffset];
-                    newLayout[i-xOffset][j-yOffset] = newLayout[i][j];
+                if (newLayout[i][j] != Piece.EMPTY) {
+                    int temp = newLayout[i - xOffset][j - yOffset];
+                    newLayout[i - xOffset][j - yOffset] = newLayout[i][j];
                     newLayout[i][j] = temp;
                 }
             }
@@ -284,11 +282,11 @@ public class Piece {
     }
 
     //helper method to see if this piece can be flipped
-    public boolean canBeFlipped(){
+    public boolean canBeFlipped() {
         String pName = this.getName();
-        if(pName.equals("one") || pName.equals("two") || pName.equals("three")
-            || pName.equals("four") || pName.equals("five")|| pName.equals("cube")
-            || pName.equals("X")) {
+        if (pName.equals("one") || pName.equals("two") || pName.equals("three")
+                || pName.equals("four") || pName.equals("five") || pName.equals("cube")
+                || pName.equals("X")) {
             return false;
         }
         return true;
@@ -353,7 +351,9 @@ public class Piece {
         this.pieceLayout = layout;
     }
 
-    public boolean getIsOnBoard(){return isOnBoard;}
+    public boolean getIsOnBoard() {
+        return isOnBoard;
+    }
 
     public void setxPosition(int xPosition) {
         this.xPosition = xPosition;
@@ -363,9 +363,13 @@ public class Piece {
         this.yPosition = yPosition;
     }
 
-    public void setPieceColor(int initColor){this.pieceColor = initColor; }
+    public void setPieceColor(int initColor) {
+        this.pieceColor = initColor;
+    }
 
-    public void setOnBoard(boolean init){this.isOnBoard = init;}
+    public void setOnBoard(boolean init) {
+        this.isOnBoard = init;
+    }
 
     public int getYPosition() {
         return yPosition;
@@ -380,9 +384,9 @@ public class Piece {
     }
 }
 /**
- External Citation:
- Date: 30 March 2019
- Problem: I didn't know the algorythm for rotating things in
- a 2D array
- Source:https://stackoverflow.com/questions/53110374/how-to-rotate-2-d-array-in-java
+ * External Citation:
+ * Date: 30 March 2019
+ * Problem: I didn't know the algorythm for rotating things in
+ * a 2D array
+ * Source:https://stackoverflow.com/questions/53110374/how-to-rotate-2-d-array-in-java
  */

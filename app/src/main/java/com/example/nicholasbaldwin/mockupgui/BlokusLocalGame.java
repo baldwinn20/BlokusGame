@@ -12,9 +12,8 @@ import java.util.ArrayList;
  * This class defines and enforces
  * the game rules; handles interactions with players.
  *
- * @author <Justin Cao>
- * @author <Dylan Pascua>
- * @author <Nicholas Baldwin>
+ * @author <Justin Cao, Dylan Pascua, Nicholas Baldwin>
+ * @version <Spring 2019>
  */
 
 public class BlokusLocalGame extends LocalGame {
@@ -73,26 +72,26 @@ public class BlokusLocalGame extends LocalGame {
 
         //this will store all of the current pieces that have not been played by
         //any of the players
-       ArrayList<Piece> piecesInInventory = null;
-       for(int i = 0; i < BlokusGameState.TOTAL_NUM_PLAYERS; i++){
-           for(int j = 0 ; j < BlokusGameState.TOTAL_NUM_PIECES; j++){
-               if(mainState.getAllPieceInventory().get(i).get(j).isOnBoard == false){
-                   piecesInInventory.add(mainState.getAllPieceInventory().get(i).get(j));
-               }
-           }
-       }
+        ArrayList<Piece> piecesInInventory = null;
+        for (int i = 0; i < BlokusGameState.TOTAL_NUM_PLAYERS; i++) {
+            for (int j = 0; j < BlokusGameState.TOTAL_NUM_PIECES; j++) {
+                if (mainState.getAllPieceInventory().get(i).get(j).isOnBoard == false) {
+                    piecesInInventory.add(mainState.getAllPieceInventory().get(i).get(j));
+                }
+            }
+        }
 
-       //TODO finish the algorythm that checks to see if there are still moves to be made, need to figure out how to flip
+        //TODO finish the algorythm that checks to see if there are still moves to be made, need to figure out how to flip
         //checks every possible combination of each players remaining pieces
         //to see if they can still place a piece
-       int[][] currentBoard = mainState.getBoard();
-       PlacePiece pp = null;
-       int flipCount = 0;//used to see how many times the piece has been flipped
-        for(int i = 0; i < piecesInInventory.size(); i++){
-            for(int j = 0 ; j < currentBoard.length; j++){
-                for(int k = 0; k < currentBoard.length; k++){
+        int[][] currentBoard = mainState.getBoard();
+        PlacePiece pp = null;
+        int flipCount = 0;//used to see how many times the piece has been flipped
+        for (int i = 0; i < piecesInInventory.size(); i++) {
+            for (int j = 0; j < currentBoard.length; j++) {
+                for (int k = 0; k < currentBoard.length; k++) {
                     pp = new PlacePiece(null, j, k, piecesInInventory.get(i));
-                    if(pp.checkForValidMove(piecesInInventory.get(i).getColorNum())){
+                    if (pp.checkForValidMove(piecesInInventory.get(i).getColorNum())) {
                         return null; //this means that piece can be placed
                     }
                 }
@@ -100,12 +99,12 @@ public class BlokusLocalGame extends LocalGame {
         }
 
         int winner = -1;
-//        for (int i = 0; i < players.length; i++) {
-//            if(mainState.getAllPiecesRemaining()[i] == 0){
-//                winner = i;
-//                break;
-//            }
-//        }
+        for (int i = 0; i < players.length; i++) {
+            if (mainState.getAllPiecesRemaining()[i] == 0) {
+                winner = 1;
+                //break;
+            }
+        }
         if (winner == -1) {
             return null;
         }
@@ -126,14 +125,14 @@ public class BlokusLocalGame extends LocalGame {
         int x = pp.getX();
         pp.setBoard(mainState.getBoard());
 
-        if(!pp.checkForValidMove(mainState.getPlayerTurn())){
+        if (!pp.checkForValidMove(mainState.getPlayerTurn())) {
             return false;
         }
 
         mainState.placePiece(x, y, pp.getCurrentPiece());
         mainState.updatePiecesRemaining();
         mainState.updatePlayerScores(pp.getCurrentPiece());
-        //mainState.setPlayerTurn(mainState.getPlayerTurn());
+        mainState.setPlayerTurn(mainState.getPlayerTurn());
 
         return true;
     }

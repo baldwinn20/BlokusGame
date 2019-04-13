@@ -12,13 +12,11 @@ import java.util.ArrayList;
  * <!-- class BlokusGameState-->
  * <p>
  * This class contains all the information needed about the current
- * state of the Blokus game in order to display it properly for a human user or allow a computer
- * player to make decisions.
- * and the board.
+ * state of the Blokus game in order to display it properly for a human
+ * user or allow a computer player to make decisions.
  *
- * @author <Justin Cao>
- * @author <Dylan Pascua>
- * @author <Nicholas Baldwin>
+ * @author <Justin Cao, Dylan Pascua, Nicholas Baldwin>
+ * @version <Spring 2019>
  */
 
 public class BlokusGameState extends GameState {
@@ -35,7 +33,7 @@ public class BlokusGameState extends GameState {
     private int[] allPlayerScores = new int[TOTAL_NUM_PLAYERS];
 
     //0 for placement stage, 1 for waiting stage (Will be used with Network/AI)
-    private int stage; //TODO Remove reduncant?
+    private int stage; //TODO Remove redundant?
 
     //An integer array will help differentiate whose pieces are on the board.
     private int[][] board = new int[BOARD_LENGTH][BOARD_LENGTH];
@@ -312,7 +310,7 @@ public class BlokusGameState extends GameState {
     }
 
     public void updatePiecesRemaining() {
-        if(allPiecesRemaining[playerToMove] > 0) { //not < 0 pieces
+        if (allPiecesRemaining[playerToMove] > 0) { //not < 0 pieces
             --allPiecesRemaining[playerToMove];
         }
 
@@ -324,7 +322,7 @@ public class BlokusGameState extends GameState {
     }
 
     public void updatePlayerScores(Piece curPiece) {
-        if(allPlayerScores[playerToMove] < initTilesRemaining) {
+        if (allPlayerScores[playerToMove] < initTilesRemaining) {
             allPlayerScores[playerToMove] += curPiece.getPieceValue();
         }
 
@@ -353,6 +351,7 @@ public class BlokusGameState extends GameState {
                 break;
         }
     }
+
 
     public int getPlayerTurn() {
         return this.playerToMove;

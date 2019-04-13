@@ -1,4 +1,5 @@
 package com.example.nicholasbaldwin.mockupgui;
+
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -17,16 +18,14 @@ import java.util.ArrayList;
 
 /**
  * <!-- class BlokusMainActivity-->
- *
+ * <p>
  * This class initializes a user interface that contains
  * a Button and EditText to test multiple instances of
- * the Blokus game state.
- * It also initializes the button
+ * the Blokus game state.It also initializes the button
  * with an event listener
  *
- * @author <Justin Cao>
- * @author <Dylan Pascua>
- * @author <Nicholas Baldwin>
+ * @author <Justin Cao, Dylan Pascua, Nicholas Baldwin>
+ * @version <Spring 2019>
  */
 public class BlokusMainActivity extends GameMainActivity {
 
@@ -45,9 +44,19 @@ public class BlokusMainActivity extends GameMainActivity {
         });
 
         // dumb computer player
-        playerTypes.add(new GamePlayerType("Dumb AI Player") {
+        playerTypes.add(new GamePlayerType("Blue Dumb AI Player") {
             public GamePlayer createPlayer(String name) {
-                return new BlokusDumbAI(name, Color.GREEN, 1);
+                return new BlokusDumbAI(name, Color.BLUE, 1);
+            }
+        });
+        playerTypes.add(new GamePlayerType("Yellow Dumb AI Player") {
+            public GamePlayer createPlayer(String name) {
+                return new BlokusDumbAI(name, Color.YELLOW, 2);
+            }
+        });
+        playerTypes.add(new GamePlayerType("Green Dumb AI Player") {
+            public GamePlayer createPlayer(String name) {
+                return new BlokusDumbAI(name, Color.GREEN, 3);
             }
         });
 
@@ -66,7 +75,7 @@ public class BlokusMainActivity extends GameMainActivity {
 //        });
 
         // Create a game configuration class for Tic-tac-toe
-        GameConfig defaultConfig = new GameConfig(playerTypes, 4,4, "Blokus", PORT_NUMBER);
+        GameConfig defaultConfig = new GameConfig(playerTypes, 4, 4, "Blokus", PORT_NUMBER);
 
         // Add the default players
         defaultConfig.addPlayer("Human", 0); // yellow-on-blue GUI

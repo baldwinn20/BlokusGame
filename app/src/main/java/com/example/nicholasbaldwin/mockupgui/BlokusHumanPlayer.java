@@ -18,6 +18,16 @@ import com.example.nicholasbaldwin.mockupgui.game.util.GameMainActivity;
 
 import java.util.ArrayList;
 
+/**
+ * <!-- class BlokusHumanPlayer -->
+ * <p>
+ * This class allows the human player to select, place, and rotate
+ * pieces on the board.
+ *
+ * @author <Nicholas Baldwin, Justin Cao, Dylan Pascua>
+ * @version <Spring 2019>
+ */
+
 public class BlokusHumanPlayer extends GameHumanPlayer implements
         View.OnTouchListener, ScrollView.OnClickListener {
     //All the instance variables
@@ -33,18 +43,14 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
     private TextView messageBox = null;
 
     private int playerColor;
-    private int piecesRemaining;
     private int playerID;
-    //    private Piece currentPiece;
-    private TextView redScore, blueScore, greenScore, yellowScore;
-    private TextView redPR, bluePR, greenPR, yellowPR;
+    private TextView redScore, blueScore, greenScore, yellowScore, redPR, bluePR, greenPR, yellowPR;
     private ScrollView scrollView;
     private ImageButton oneButton, twoButton, sButton, threeButton, smallTButton,
             fourButton, fourLButton, fiveButton, fiveLButton, nButton, yButton,
             v3Button, cubeButton, cButton, bButton, zButton, mButton, xButton,
-            fButton, bigTButton, cornerButton, imageButton;
+            fButton, bigTButton, cornerButton;
     private Button placePieceButton, rotateButton, flipButton, helpButton;
-    //TODO Remove instance var private ArrayList<Piece> piecesInventory;
     private PlacePiece pp = null;
     private ArrayList<Piece> currentInventory = null;
     ImageButton currentPieceButton = null;
@@ -234,8 +240,8 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
 
         if (v == placePieceButton) {
             //This makes the button disappear when pressed
-            surfaceView.getCurrentPiece().setOnBoard(true);
             game.sendAction(pp);
+            surfaceView.getCurrentPiece().setOnBoard(true);
             currentPieceButton.setVisibility(View.GONE);
             surfaceView.setCurrentPiece(null);
             placePieceButton.setEnabled(false);
@@ -245,7 +251,7 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
             Piece p = surfaceView.getCurrentPiece();
             surfaceView.getCurrentPiece().setPieceLayout(p.flip());
             //checks to see if you can place a piece after you flipped the piece
-            if(pp != null) {
+            if (pp != null) {
                 if (pp.checkForValidMove(playerID)) {
                     placePieceButton.setEnabled(true);
                 } else if (!pp.checkForValidMove(playerID)) {
@@ -253,12 +259,11 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
                 }
             }
 
-        }
-        else if (v == rotateButton) {
+        } else if (v == rotateButton) {
             Piece p = surfaceView.getCurrentPiece();
             surfaceView.getCurrentPiece().setPieceLayout(p.rotate90());
             //checks to see if you can place a piece after you flipped the piece
-            if(pp != null) {
+            if (pp != null) {
                 if (pp.checkForValidMove(playerID)) {
                     placePieceButton.setEnabled(true);
                 } else if (!pp.checkForValidMove(playerID)) {
