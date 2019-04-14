@@ -165,27 +165,27 @@ public class PlacePiece extends GameAction {
 
             //Checks the top left board corner
             case 0:
-                if (x == y && x == 0 && pieceLayout[x][y] == pID) {
+                if (x == y && x == 0 && pieceLayout[0][0] == pID) {
                     isStartCorner = true;
                 }
                 break;
             //Checks the top right board corner
             case 1:
-                if (x == 19 && y == 0 && pieceLayout[x][y] == pID) {
+                if (x == 19 && y == 0 && pieceLayout[0][0] == pID) {
                     isStartCorner = true;
                 }
                 break;
 
             //Checks the bottom left board corner
             case 2:
-                if (x == 0 && y == 19 && pieceLayout[x][y] == pID) {
+                if (x == 0 && y == 19 && pieceLayout[0][0] == pID) {
                     isStartCorner = true;
                 }
                 break;
 
             //Checks the bottom right board corner
             case 3:
-                if (x == 19 && x == 19 && pieceLayout[x][y] == pID) {
+                if (x == 19 && x == 19 && pieceLayout[0][0] == pID) {
                     isStartCorner = true;
                 }
                 break;

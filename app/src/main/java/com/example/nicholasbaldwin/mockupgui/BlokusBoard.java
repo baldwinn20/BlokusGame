@@ -36,7 +36,7 @@ public class BlokusBoard extends SurfaceView {
     private int boardWidth, boardHeight;
     private boolean hasPlacedPiece = false;
     private Piece currentPiece = null;
-    private int xCurPiece, yCurPiece = 9;
+    private int xCurPiece = 9, yCurPiece = 9;
     /*  instance variables that are used to create the board
      */
     protected BlokusGameState state; // the current games state

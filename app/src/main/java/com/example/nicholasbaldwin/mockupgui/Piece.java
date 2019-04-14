@@ -23,7 +23,7 @@ public class Piece {
 
     //How much the piece is worth in terms of points
     private int pieceValue, pieceColor, colorNum;
-    protected int xPosition, yPosition = 9;
+    protected int xPosition = 9, yPosition = 9;
 
     //0,1,2,3 are different orientation displays
     protected int orientationVal = 0;

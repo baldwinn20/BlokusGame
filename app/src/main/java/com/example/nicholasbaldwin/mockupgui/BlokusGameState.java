@@ -192,11 +192,8 @@ public class BlokusGameState extends GameState {
                 }
             }
         }
+        pc.setOnBoard(true);
         this.allPlayerTilesRemaining[playerToMove] -= pc.getPieceValue();
-        //TODO testing green, blue, and yellow should be removed
-        this.board[0][19] = 2;
-        this.board[19][0] = 1;
-        this.board[19][19] = 3;
         return true;
     }
 
