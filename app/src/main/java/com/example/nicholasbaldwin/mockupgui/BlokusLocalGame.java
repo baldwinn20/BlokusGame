@@ -122,7 +122,7 @@ public class BlokusLocalGame extends LocalGame {
         mainState.placePiece(x, y, pp.getCurrentPiece());
         mainState.updatePiecesRemaining();
         mainState.updatePlayerScores(pp.getCurrentPiece());
-        //mainState.setPlayerTurn(mainState.getPlayerTurn());
+        mainState.setPlayerTurn(mainState.getPlayerTurn());
 
         return true;
     }
