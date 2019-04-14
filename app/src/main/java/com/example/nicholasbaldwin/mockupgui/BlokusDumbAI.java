@@ -40,7 +40,7 @@ public class BlokusDumbAI extends GameComputerPlayer {
         // pick x and y positions at random (0-2)
         int xVal = (int)(21*Math.random());
         int yVal = (int)(21*Math.random());
-//        PlacePiece unusedPieceChecker;
+        PlacePiece unusedPieceChecker = null;
 //        int rotationCount = 3;
 //        for(Piece unusedPiece : localState.getAllPieceInventory().get(playerID)) {
 //            for (int j = 0; j < BlokusGameState.BOARD_LENGTH; j++) {
@@ -49,9 +49,9 @@ public class BlokusDumbAI extends GameComputerPlayer {
 //                            !unusedPiece.isOnBoard) {
 //                        for (int l = 0; l < rotationCount; l++) {
 //                            unusedPiece.setPieceLayout(unusedPiece.rotate90());
-////                            unusedPiece.setxPosition(j);
-////                            unusedPiece.setyPosition(k);
-//                            unusedPieceChecker = new PlacePiece(this,19 , 0, unusedPiece);
+//                            unusedPiece.setxPosition(j);
+//                            unusedPiece.setyPosition(k);
+//                            unusedPieceChecker = new PlacePiece(this,j , k, unusedPiece);
 //                            if(unusedPieceChecker.checkForValidMove(playerID)){
 //                                game.sendAction(unusedPieceChecker);
 //                            }
@@ -61,8 +61,19 @@ public class BlokusDumbAI extends GameComputerPlayer {
 //                }
 //            }
 //        }
-        PlacePiece pp = new PlacePiece(this, 19, 0, localState.getAllPieceInventory().get(playerID).get(0));
-        game.sendAction(pp);
+        //fot testing purposes
+        switch (playerID) {
+            case 1:
+                unusedPieceChecker = new PlacePiece(this, 19, 0, localState.getAllPieceInventory().get(playerID).get(0));
+                break;
+            case 2:
+                unusedPieceChecker = new PlacePiece(this, 0, 19, localState.getAllPieceInventory().get(playerID).get(0));
+                break;
+            case 3:
+                unusedPieceChecker = new PlacePiece(this, 19, 19, localState.getAllPieceInventory().get(playerID).get(0));
+                break;
+        }
+        game.sendAction(unusedPieceChecker);
     }
 
     public Piece selectRandomPiece(){

@@ -250,8 +250,6 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
             //Starts a separate thread to determine whether or not the game can be ended after this turn
             GameOverCheck gOverChecker = new GameOverCheck(game, pp);
             gOverChecker.start();
-            //game.sendAction(pp);
-            //surfaceView.getCurrentPiece().setOnBoard(true);
             currentPieceButton.setVisibility(View.GONE);
             surfaceView.setCurrentPiece(null);
             placePieceButton.setEnabled(false);
@@ -260,9 +258,9 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
         else if (v == flipButton && surfaceView.getCurrentPiece() != null) {
             Piece p = surfaceView.getCurrentPiece();
             p.setPieceLayout(p.flip());
-            pp.setPieceLayout(p.getPieceLayout());
             //checks to see if you can place a piece after you flipped the piece
             if (pp != null) {
+                pp.setPieceLayout(p.getPieceLayout());
                 if (pp.checkForValidMove(playerID)) {
                     placePieceButton.setEnabled(true);
                 } else if (!pp.checkForValidMove(playerID)) {
@@ -273,9 +271,9 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
         } else if (v == rotateButton && surfaceView.getCurrentPiece() != null) {
             Piece p = surfaceView.getCurrentPiece();
             p.setPieceLayout(p.rotate90());
-            pp.setPieceLayout(p.getPieceLayout());
             //checks to see if you can place a piece after you flipped the piece
             if (pp != null) {
+                pp.setPieceLayout(p.getPieceLayout());
                 if (pp.checkForValidMove(playerID)) {
                     placePieceButton.setEnabled(true);
                 } else if (!pp.checkForValidMove(playerID)) {

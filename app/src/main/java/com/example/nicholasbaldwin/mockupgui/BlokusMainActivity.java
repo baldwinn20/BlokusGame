@@ -39,7 +39,7 @@ public class BlokusMainActivity extends GameMainActivity {
         // human GUI
         playerTypes.add(new GamePlayerType("Local Human Player") {
             public GamePlayer createPlayer(String name) {
-                return new BlokusHumanPlayer(name, Color.BLUE, 0);
+                return new BlokusHumanPlayer(name, Color.RED, 0);
             }
         });
 
@@ -49,14 +49,14 @@ public class BlokusMainActivity extends GameMainActivity {
                 return new BlokusDumbAI(name, Color.BLUE, 1);
             }
         });
-        playerTypes.add(new GamePlayerType("Yellow Dumb AI Player") {
-            public GamePlayer createPlayer(String name) {
-                return new BlokusDumbAI(name, Color.YELLOW, 2);
-            }
-        });
         playerTypes.add(new GamePlayerType("Green Dumb AI Player") {
             public GamePlayer createPlayer(String name) {
-                return new BlokusDumbAI(name, Color.GREEN, 3);
+                return new BlokusDumbAI(name, Color.GREEN, 2);
+            }
+        });
+        playerTypes.add(new GamePlayerType("Yellow Dumb AI Player") {
+            public GamePlayer createPlayer(String name) {
+                return new BlokusDumbAI(name, Color.YELLOW, 3);
             }
         });
 
@@ -77,11 +77,12 @@ public class BlokusMainActivity extends GameMainActivity {
         // Create a game configuration class for Tic-tac-toe
         GameConfig defaultConfig = new GameConfig(playerTypes, 4, 4, "Blokus", PORT_NUMBER);
 
+        //TODO for some reason the type index messes with the AI's turns
         // Add the default players
         defaultConfig.addPlayer("Human", 0); // yellow-on-blue GUI
         defaultConfig.addPlayer("Dumb 1", 1); // dumb computer player
-        defaultConfig.addPlayer("Dumb 2", 1); // dumb computer player
-        defaultConfig.addPlayer("Dumb 3", 1); // dumb computer player
+        defaultConfig.addPlayer("Dumb 2", 2); // dumb computer player
+        defaultConfig.addPlayer("Dumb 3", 3); // dumb computer player
 
         // Set the initial information for the remote player
         defaultConfig.setRemoteData("Remote Player", "", 1); // red-on-yellow GUI
