@@ -5,6 +5,7 @@ import com.example.nicholasbaldwin.mockupgui.game.util.GamePlayer;
 import com.example.nicholasbaldwin.mockupgui.game.util.LocalGame;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static java.lang.Thread.sleep;
 
@@ -89,20 +90,20 @@ public class BlokusLocalGame extends LocalGame {
         //Look for all the empty tiles on the board
         PlacePiece unusedPieceChecker;
         int rotationCount = 3;
-        synchronized (this) {
-            for (int i = 0; i < players.length; i++) {
-                for (Piece unusedPiece : mainState.getAllPieceInventory().get(i)) {
-                    for (int j = 0; j < BlokusGameState.BOARD_LENGTH; j++) {
-                        for (int k = 0; k < BlokusGameState.BOARD_LENGTH; k++) {
-                            if (mainState.getBoard()[j][k] == Piece.EMPTY &&
-                                    !unusedPiece.isOnBoard) {
-                                for (int l = 0; l < rotationCount; l++) {
-                                    unusedPiece.setPieceLayout(unusedPiece.rotate90());
-                                    unusedPieceChecker = new PlacePiece(players[i], j, k, unusedPiece);
+        for (int i = 0; i < players.length; i++) {
+            List<Piece> unusedPiecesList = mainState.getAllPieceInventory().get(i);
+             for (Piece unusedPiece : unusedPiecesList) {
+                 for (int j = 0; j < BlokusGameState.BOARD_LENGTH; j++) {
+                     for (int k = 0; k < BlokusGameState.BOARD_LENGTH; k++) {
+                         if (mainState.getBoard()[j][k] == Piece.EMPTY &&
+                                 !unusedPiece.isOnBoard) {
+                             for (int l = 0; l < rotationCount; l++) {
+                                 unusedPiece.setPieceLayout(unusedPiece.rotate90());
+                                 unusedPieceChecker = new PlacePiece(players[i], j, k, unusedPiece);
 
-                                    if (unusedPieceChecker.checkForValidMove(mainState.getPlayerTurn())) {
-                                        return null;
-                                    }
+                                 if (unusedPieceChecker.checkForValidMove(mainState.getPlayerTurn())) {
+                                     return null;
+                                 }
                                 }
 
                             }
@@ -110,7 +111,6 @@ public class BlokusLocalGame extends LocalGame {
                     }
                 }
             }
-        }
         return null;
     }
 
