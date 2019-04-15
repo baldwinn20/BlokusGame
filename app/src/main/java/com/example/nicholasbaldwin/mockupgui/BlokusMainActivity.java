@@ -1,13 +1,13 @@
-/** Blokus Beta Release Known Issues
- *
+/**
+ * Blokus Beta Release Known Issues
+ * <p>
  * - Game does not let human player choose a piece every time game is
- *   launched. Not sure why this happens, but relaunching the app fixes it.
+ * launched. Not sure why this happens, but relaunching the app fixes it.
  * - Network play is not functional.
  * - Smart AI is not functional because implementing the Dumb AI took longer
- *   than expected.
+ * than expected.
  * - We chose not to implement zoom functionality because the board is plenty visible
- *   without a zoom feature
- *
+ * without a zoom feature
  */
 
 package com.example.nicholasbaldwin.mockupgui;
