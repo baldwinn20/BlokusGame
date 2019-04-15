@@ -5,7 +5,6 @@ import com.example.nicholasbaldwin.mockupgui.game.util.GamePlayer;
 import com.example.nicholasbaldwin.mockupgui.game.util.LocalGame;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import static java.lang.Thread.sleep;
 
@@ -90,10 +89,8 @@ public class BlokusLocalGame extends LocalGame {
         //Look for all the empty tiles on the board
         PlacePiece unusedPieceChecker;
         int rotationCount = 3;
-        synchronized (this) {
             for (int i = 0; i < players.length; i++) {
-                List<Piece> unusedPieceList = mainState.getAllPieceInventory().get(i);
-                for (Piece unusedPiece : unusedPieceList) {
+                for (Piece unusedPiece : mainState.getAllPieceInventory().get(i)) {
                     for (int j = 0; j < BlokusGameState.BOARD_LENGTH; j++) {
                         for (int k = 0; k < BlokusGameState.BOARD_LENGTH; k++) {
                             if (mainState.getBoard()[j][k] == Piece.EMPTY &&
@@ -112,7 +109,7 @@ public class BlokusLocalGame extends LocalGame {
                     }
                 }
             }
-        }
+
         return null;
     }
 
@@ -126,7 +123,7 @@ public class BlokusLocalGame extends LocalGame {
     protected boolean makeMove(GameAction action) {
         PlacePiece pp = (PlacePiece) action;
         //the AI cant make a move
-        if (pp.getCantMove()) {
+        if(pp.getCantMove()){
             mainState.setPlayerTurn(mainState.getPlayerTurn());
             return true;
         }
@@ -140,10 +137,11 @@ public class BlokusLocalGame extends LocalGame {
         }
 
 
+
         mainState.placePiece(x, y, pp.getCurrentPiece());
         mainState.updatePiecesRemaining();
         mainState.updatePlayerScores(pp.getCurrentPiece());
-        mainState.removePiece(pp.getCurrentPiece(), mainState.getPlayerTurn());
+        mainState.removePiece(pp.getCurrentPiece(),mainState.getPlayerTurn());
 
         mainState.setPlayerTurn(mainState.getPlayerTurn());
 

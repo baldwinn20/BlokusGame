@@ -48,7 +48,9 @@ public class BlokusDumbAI extends GameComputerPlayer {
 //        sleep(1);
 
         PlacePiece unusedPieceChecker = null;
+        Piece pieceToRemove = null;
         int rotationCount = 3;
+        boolean letMeOut = false;
         //TODO there is a bug where if the AI cant move, the other players cannot make a move.
         for (Piece unusedPiece : localState.getAllPieceInventory().get(playerID)) {
             for (int j = 0; j < BlokusGameState.BOARD_LENGTH; j++) {
@@ -63,13 +65,27 @@ public class BlokusDumbAI extends GameComputerPlayer {
                             unusedPieceChecker.setBoard(localState.getBoard());
                             if (unusedPieceChecker.checkForValidMove(playerID)) {
                                 game.sendAction(unusedPieceChecker);
-                                localState.getAllPieceInventory().get(playerID).remove(unusedPiece);
-                                return;
+                                pieceToRemove = unusedPiece;
+                                letMeOut = true;
+                                break;
                             }
                         }
                     }
+                    if(letMeOut){
+                        break;
+                    }
                 }
+                if(letMeOut){
+                    break;
+                }
+            }//for
+            if(letMeOut){
+                break;
             }
+        }//for
+        if(pieceToRemove != null){
+            localState.getAllPieceInventory().get(playerID).remove(pieceToRemove);
+            return;
         }
         //if the AI cant make a move
         unusedPieceChecker.setCantMove(true);

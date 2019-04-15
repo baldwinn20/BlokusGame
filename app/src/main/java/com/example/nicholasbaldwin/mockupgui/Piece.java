@@ -3,6 +3,8 @@ package com.example.nicholasbaldwin.mockupgui;
 import android.graphics.Color;
 import android.util.Log;
 
+import java.io.Serializable;
+
 /**
  * <!-- class Piece -->
  * <p>
@@ -13,7 +15,7 @@ import android.util.Log;
  * @author <Justin Cao, Dylan Pascua, Nicholas Baldwin>
  * @version <Spring 2019>
  */
-public class Piece {
+public class Piece implements Serializable {
     public static final int PIECE_LAYOUT_SIZE = 5;
     public static final int EMPTY = -1;
 
