@@ -6,6 +6,8 @@ import android.widget.TextView;
 import com.example.nicholasbaldwin.mockupgui.game.actionMsg.GameAction;
 import com.example.nicholasbaldwin.mockupgui.game.util.GamePlayer;
 
+import java.io.Serializable;
+
 
 /**
  * <!-- class PlacePiece -->
@@ -17,7 +19,7 @@ import com.example.nicholasbaldwin.mockupgui.game.util.GamePlayer;
  * @version <Spring 2019>
  */
 
-public class PlacePiece extends GameAction {
+public class PlacePiece extends GameAction implements Serializable {
     //instance variables
     private int[][] boardCopy = new int[20][20];
     private int[][] pieceLayout;
