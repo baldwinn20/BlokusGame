@@ -89,7 +89,6 @@ public class BlokusLocalGame extends LocalGame {
         //Look for all the empty tiles on the board
         PlacePiece unusedPieceChecker;
         int rotationCount = 3;
-        synchronized (this) {
             for (int i = 0; i < players.length; i++) {
                 for (Piece unusedPiece : mainState.getAllPieceInventory().get(i)) {
                     for (int j = 0; j < BlokusGameState.BOARD_LENGTH; j++) {
@@ -110,7 +109,7 @@ public class BlokusLocalGame extends LocalGame {
                     }
                 }
             }
-        }
+
         return null;
     }
 

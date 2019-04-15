@@ -6,6 +6,7 @@ import android.util.Log;
 import com.example.nicholasbaldwin.mockupgui.game.infoMsg.GameState;
 import com.example.nicholasbaldwin.mockupgui.game.util.GamePlayer;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -19,7 +20,7 @@ import java.util.ArrayList;
  * @version <Spring 2019>
  */
 
-public class BlokusGameState extends GameState {
+public class BlokusGameState extends GameState implements Serializable {
 
     //Every player's piece inventory will be stored in one encompassing inventory
     //for easier access to specific player pieces
