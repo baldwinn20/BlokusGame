@@ -90,20 +90,21 @@ public class BlokusLocalGame extends LocalGame {
         //Look for all the empty tiles on the board
         PlacePiece unusedPieceChecker;
         int rotationCount = 3;
-        for (int i = 0; i < players.length; i++) {
-            List<Piece> unusedPiecesList = mainState.getAllPieceInventory().get(i);
-             for (Piece unusedPiece : unusedPiecesList) {
-                 for (int j = 0; j < BlokusGameState.BOARD_LENGTH; j++) {
-                     for (int k = 0; k < BlokusGameState.BOARD_LENGTH; k++) {
-                         if (mainState.getBoard()[j][k] == Piece.EMPTY &&
-                                 !unusedPiece.isOnBoard) {
-                             for (int l = 0; l < rotationCount; l++) {
-                                 unusedPiece.setPieceLayout(unusedPiece.rotate90());
-                                 unusedPieceChecker = new PlacePiece(players[i], j, k, unusedPiece);
+        synchronized (this) {
+            for (int i = 0; i < players.length; i++) {
+                List<Piece> unusedPieceList = mainState.getAllPieceInventory().get(i);
+                for (Piece unusedPiece : unusedPieceList) {
+                    for (int j = 0; j < BlokusGameState.BOARD_LENGTH; j++) {
+                        for (int k = 0; k < BlokusGameState.BOARD_LENGTH; k++) {
+                            if (mainState.getBoard()[j][k] == Piece.EMPTY &&
+                                    !unusedPiece.isOnBoard) {
+                                for (int l = 0; l < rotationCount; l++) {
+                                    unusedPiece.setPieceLayout(unusedPiece.rotate90());
+                                    unusedPieceChecker = new PlacePiece(players[i], j, k, unusedPiece);
 
-                                 if (unusedPieceChecker.checkForValidMove(mainState.getPlayerTurn())) {
-                                     return null;
-                                 }
+                                    if (unusedPieceChecker.checkForValidMove(mainState.getPlayerTurn())) {
+                                        return null;
+                                    }
                                 }
 
                             }
@@ -111,6 +112,7 @@ public class BlokusLocalGame extends LocalGame {
                     }
                 }
             }
+        }
         return null;
     }
 
@@ -124,7 +126,7 @@ public class BlokusLocalGame extends LocalGame {
     protected boolean makeMove(GameAction action) {
         PlacePiece pp = (PlacePiece) action;
         //the AI cant make a move
-        if(pp.getCantMove()){
+        if (pp.getCantMove()) {
             mainState.setPlayerTurn(mainState.getPlayerTurn());
             return true;
         }
@@ -138,11 +140,10 @@ public class BlokusLocalGame extends LocalGame {
         }
 
 
-
         mainState.placePiece(x, y, pp.getCurrentPiece());
         mainState.updatePiecesRemaining();
         mainState.updatePlayerScores(pp.getCurrentPiece());
-        mainState.removePiece(pp.getCurrentPiece(),mainState.getPlayerTurn());
+        mainState.removePiece(pp.getCurrentPiece(), mainState.getPlayerTurn());
 
         mainState.setPlayerTurn(mainState.getPlayerTurn());
 
