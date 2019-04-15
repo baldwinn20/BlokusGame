@@ -370,10 +370,10 @@ public class BlokusGameState extends GameState {
         //this.allPieceInventory.get(playerTurn).remove(currentPiece);
         //for loop look for
         Piece save = null;
-        for(Piece p : this.allPieceInventory.get(playerTurn)){
-            if(p.getName().equals(currentPiece.getName())){
+        for (Piece p : this.allPieceInventory.get(playerTurn)) {
+            if (p.getName().equals(currentPiece.getName())) {
                 save = p;
-                
+
             }
         }
         this.allPieceInventory.get(playerTurn).remove(save);

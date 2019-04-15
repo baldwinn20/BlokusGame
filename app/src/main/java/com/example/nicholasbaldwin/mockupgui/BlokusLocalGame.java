@@ -71,7 +71,7 @@ public class BlokusLocalGame extends LocalGame {
 
         int winner;
         for (int i = 0; i < players.length; i++) {
-            if (mainState.getAllPiecesRemaining()[i] == 0) {
+            if(mainState.getAllPiecesRemaining()[i] == 0){
                 winner = i;
                 return playerNames[winner] + " is the winner.";
             }
@@ -82,16 +82,16 @@ public class BlokusLocalGame extends LocalGame {
         PlacePiece unusedPieceChecker;
         int rotationCount = 3;
         for (int i = 0; i < players.length; i++) {
-            for (Piece unusedPiece : mainState.getAllPieceInventory().get(i)) {
+            for(Piece unusedPiece : mainState.getAllPieceInventory().get(i)) {
                 for (int j = 0; j < BlokusGameState.BOARD_LENGTH; j++) {
                     for (int k = 0; k < BlokusGameState.BOARD_LENGTH; k++) {
                         if (mainState.getBoard()[j][k] == Piece.EMPTY &&
                                 !unusedPiece.isOnBoard) {
                             for (int l = 0; l < rotationCount; l++) {
                                 unusedPiece.setPieceLayout(unusedPiece.rotate90());
-                                unusedPieceChecker = new PlacePiece(players[i], j, k, unusedPiece);
+                                unusedPieceChecker = new PlacePiece(players[i],j , k, unusedPiece);
 
-                                if (unusedPieceChecker.checkForValidMove(mainState.getPlayerTurn())) {
+                                if(unusedPieceChecker.checkForValidMove(mainState.getPlayerTurn())){
                                     return null;
                                 }
                             }
@@ -117,7 +117,7 @@ public class BlokusLocalGame extends LocalGame {
         int x = pp.getX();
         pp.setBoard(mainState.getBoard());
 
-        if (!pp.checkForValidMove(mainState.getPlayerTurn())) {
+        if(!pp.checkForValidMove(mainState.getPlayerTurn())){
             return false;
         }
 

@@ -1,5 +1,7 @@
 package com.example.nicholasbaldwin.mockupgui;
 
+import android.util.Log;
+import android.widget.TextView;
 
 import com.example.nicholasbaldwin.mockupgui.game.actionMsg.GameAction;
 import com.example.nicholasbaldwin.mockupgui.game.util.GamePlayer;
@@ -14,11 +16,13 @@ import com.example.nicholasbaldwin.mockupgui.game.util.GamePlayer;
  * @author <Nicholas Baldwin, Justin Cao, Dylan Pascua>
  * @version <Spring 2019>
  */
+
 public class PlacePiece extends GameAction {
     //instance variables
     private int[][] boardCopy = new int[20][20];
     private int[][] pieceLayout;
-    private int x, y;
+    private int y;
+    private int x;
     private Piece currentPiece;
 
 
@@ -44,6 +48,7 @@ public class PlacePiece extends GameAction {
             return false;
         }
 
+        pieceLayout = currentPiece.getPieceLayout();
         boolean isCorner = false;
         boolean isAdjacent = false;
 

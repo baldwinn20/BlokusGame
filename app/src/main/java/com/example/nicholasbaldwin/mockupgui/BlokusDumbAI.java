@@ -21,16 +21,18 @@ public class BlokusDumbAI extends GameComputerPlayer {
 
     //private boolean[] onBoard
 
-    public BlokusDumbAI(String initName, int initColor,int initID){
+    public BlokusDumbAI(String initName, int initColor, int initID) {
         super(initName);
         playerColor = initColor;
         playerID = initID;
         piecesRemaining = INITIAL_PIECES_rEMAINING;
         playerScore = INITIAL_SCORE;
     }
-    public void dumbMove(ArrayList<Piece> currentList){
+
+    public void dumbMove(ArrayList<Piece> currentList) {
 
     }
+
     @Override
     protected void receiveInfo(GameInfo info) {
 
@@ -39,16 +41,16 @@ public class BlokusDumbAI extends GameComputerPlayer {
         // if it's not a BlokusGameState message, ignore it; otherwise
         // cast it
         if (!(info instanceof BlokusGameState)) return;
-        localState = (BlokusGameState)info;
-        if(localState.getPlayerTurn() != playerID) return;
+        localState = (BlokusGameState) info;
+        if (localState.getPlayerTurn() != playerID) return;
 
         // pick x and y positions at random (0-2)
-        int xVal = (int)(21*Math.random());
-        int yVal = (int)(21*Math.random());
+        int xVal = (int) (21 * Math.random());
+        int yVal = (int) (21 * Math.random());
         PlacePiece unusedPieceChecker = null;
         int rotationCount = 3;
         //TODO there is a bug where if the AI cant move, the other players cannot make a move. 
-        for(Piece unusedPiece : localState.getAllPieceInventory().get(playerID)) {
+        for (Piece unusedPiece : localState.getAllPieceInventory().get(playerID)) {
             for (int j = 0; j < BlokusGameState.BOARD_LENGTH; j++) {
                 for (int k = 0; k < BlokusGameState.BOARD_LENGTH; k++) {
                     Log.i("is on Board: ", unusedPiece.getIsOnBoard() + "");
@@ -58,9 +60,9 @@ public class BlokusDumbAI extends GameComputerPlayer {
                             unusedPiece.setPieceLayout(unusedPiece.rotate90());
                             unusedPiece.setxPosition(k);
                             unusedPiece.setyPosition(j);
-                            unusedPieceChecker = new PlacePiece(this,k , j, unusedPiece);
+                            unusedPieceChecker = new PlacePiece(this, k, j, unusedPiece);
                             unusedPieceChecker.setBoard(localState.getBoard());
-                            if(unusedPieceChecker.checkForValidMove(playerID)){
+                            if (unusedPieceChecker.checkForValidMove(playerID)) {
                                 game.sendAction(unusedPieceChecker);
                                 localState.getAllPieceInventory().get(playerID).remove(unusedPiece);
 //                                Log.i("is on Board: ", unusedPiece.getIsOnBoard() + "");
@@ -87,7 +89,7 @@ public class BlokusDumbAI extends GameComputerPlayer {
 //        game.sendAction(unusedPieceChecker);
     }
 
-    public Piece selectRandomPiece(){
+    public Piece selectRandomPiece() {
         return localState.getAllPieceInventory().get(localState.getPlayerTurn()).get(0);
     }
 

@@ -239,7 +239,9 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
             currentPieceButton = cornerButton;
         }
 
-        //TODO is this needed?
+
+        //Updates GUI to reflect user choosing new piece or
+        //user rotating or flipping a piece
         if (surfaceView.getCurrentPiece() != null) {
             surfaceView.invalidate();
         }
@@ -354,10 +356,10 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
     }
 
     //finds the piece in the the inventory based on name
-    public Piece findPiece(String pieceName){
-        if(currentInventory != null){
-            for(Piece p : currentInventory){
-                if(pieceName.equals(p.getName())){
+    public Piece findPiece(String pieceName) {
+        if (currentInventory != null) {
+            for (Piece p : currentInventory) {
+                if (pieceName.equals(p.getName())) {
                     return p;
                 }
             }

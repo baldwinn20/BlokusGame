@@ -95,4 +95,5 @@ public class BlokusMainActivity extends GameMainActivity {
     public LocalGame createLocalGame() {
         return new BlokusLocalGame();
     }
+
 }
