@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
+import com.example.nicholasbaldwin.mockupgui.game.BlokusNetworkPlayer;
 import com.example.nicholasbaldwin.mockupgui.game.config.GameConfig;
 import com.example.nicholasbaldwin.mockupgui.game.config.GamePlayerType;
 import com.example.nicholasbaldwin.mockupgui.game.util.GameMainActivity;
@@ -60,17 +61,17 @@ public class BlokusMainActivity extends GameMainActivity {
             }
         });
 
-//        // smarter computer player
-//        playerTypes.add(new GamePlayerType("Smart AI Player") {
-//            public GamePlayer createPlayer(String name) {
-//                return new TTTHumanPlayer2(name);
-//            }
-//        });
-//
-//        // network player
+        // smarter computer player
+        playerTypes.add(new GamePlayerType("Blue Smart AI Player") {
+            public GamePlayer createPlayer(String name) {
+                return new BlokusSmartAI(name, Color.BLUE, 1);
+            }
+        });
+
+        // network player
 //        playerTypes.add(new GamePlayerType("Computer Player (dumb)") {
 //            public GamePlayer createPlayer(String name) {
-//                return new TTTComputerPlayer1(name);
+//                return new BlokusNetworkPlayer(name);
 //            }
 //        });
 
@@ -85,7 +86,7 @@ public class BlokusMainActivity extends GameMainActivity {
         defaultConfig.addPlayer("Dumb 3", 3); // dumb computer player
 
         // Set the initial information for the remote player
-        defaultConfig.setRemoteData("Remote Player", "", 1); // red-on-yellow GUI
+        //defaultConfig.setRemoteData("Remote Player", "", 1); // red-on-yellow GUI
 
         //done!
         return defaultConfig;
