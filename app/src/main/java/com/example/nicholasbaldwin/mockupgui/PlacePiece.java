@@ -24,7 +24,7 @@ public class PlacePiece extends GameAction {
     private int y;
     private int x;
     private Piece currentPiece;
-
+    private boolean cantMove = false;
 
     /**
      * constructor for GameAction
@@ -69,7 +69,7 @@ public class PlacePiece extends GameAction {
                 //Check inside a piece's array to see if its individual tiles can be placed on the board
                 //Make sure there is no other tile already placed at this board position
                 //TODO check to see if piece can be placed even if anchor position is not empty
-                if (pieceLayout[xOffset][yOffset] != Piece.EMPTY && boardCopy[x][y] == Piece.EMPTY ){
+                if (pieceLayout[xOffset][yOffset] != Piece.EMPTY && boardCopy[x][y] == Piece.EMPTY){
                     //if a tile in a pieces layout goes past the board
                     if (x + xOffset >= 20 || y + yOffset >= 20) {
                         return false;
@@ -218,6 +218,10 @@ public class PlacePiece extends GameAction {
     public int getX() {
         return x;
     }
+
+    public boolean getCantMove(){return  cantMove;}
+
+    public void setCantMove(boolean init){ this.cantMove = init;}
 
     public void setX(int x) {
         this.x = x;
