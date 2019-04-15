@@ -47,6 +47,7 @@ public class BlokusDumbAI extends GameComputerPlayer {
         int yVal = (int)(21*Math.random());
         PlacePiece unusedPieceChecker = null;
         int rotationCount = 3;
+        //TODO there is a bug where if the AI cant move, the other players cannot make a move. 
         for(Piece unusedPiece : localState.getAllPieceInventory().get(playerID)) {
             for (int j = 0; j < BlokusGameState.BOARD_LENGTH; j++) {
                 for (int k = 0; k < BlokusGameState.BOARD_LENGTH; k++) {
