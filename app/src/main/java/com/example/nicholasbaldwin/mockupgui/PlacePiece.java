@@ -63,7 +63,9 @@ public class PlacePiece extends GameAction {
 
                 //Check inside a piece's array to see if its individual tiles can be placed on the board
                 //Make sure there is no other tile already placed at this board position
-                if (pieceLayout[xOffset][yOffset] != -1 && boardCopy[x][y] == -1) {
+
+                //TODO check to see if piece can be placed even if anchor position is not empty
+                if (pieceLayout[xOffset][yOffset] != Piece.EMPTY && boardCopy[x][y] == Piece.EMPTY) {
 
                     //if a tile in a pieces layout goes past the board
                     if (x + xOffset >= 20 || y + yOffset >= 20) {
@@ -99,7 +101,7 @@ public class PlacePiece extends GameAction {
                     }
 
                     //Special check for bottom row of board:
-                    else if (y == 19 || y + yOffset == 19) {
+                    else if ((y == 19 && x != 0) || y + yOffset == 19) {
 
                         //checks adjacent tiles to the left, right, and top of a selected tile, respectively
                         isAdjacent = boardCopy[x + xOffset - 1][y + yOffset] == pID || boardCopy[x + xOffset + 1][y + yOffset] == pID
@@ -145,7 +147,6 @@ public class PlacePiece extends GameAction {
                         return false;
                     }
 
-
                 }
             }
         }
@@ -155,37 +156,32 @@ public class PlacePiece extends GameAction {
 
     //TODO placing pieces from the starting corners
     private boolean checkStartingCorner(int pID) {
-
-        if (boardCopy[x][y] != -1) {
-            return false;
-        }
-
         boolean isStartCorner = false;
         switch (pID) {
-
+            //checks to see if your anchor is on a corner or one of the other tiles is
             //Checks the top left board corner
             case 0:
-                if (x == y && x == 0 && pieceLayout[0][0] == pID) {
+                if ((x == y && x == 0 && pieceLayout[0][0] == pID)) {
                     isStartCorner = true;
                 }
                 break;
             //Checks the top right board corner
             case 1:
-                if (x == 19 && y == 0 && pieceLayout[0][0] == pID) {
+                if ((x == 19 && y == 0 && pieceLayout[0][0] == pID)) {
                     isStartCorner = true;
                 }
                 break;
 
             //Checks the bottom left board corner
             case 2:
-                if (x == 0 && y == 19 && pieceLayout[0][0] == pID) {
+                if ((x == 0 && y == 19 && pieceLayout[0][0] == pID)) {
                     isStartCorner = true;
                 }
                 break;
 
             //Checks the bottom right board corner
             case 3:
-                if (x == 19 && x == 19 && pieceLayout[0][0] == pID) {
+                if ((x == y && x == 19 && pieceLayout[0][0] == pID)) {
                     isStartCorner = true;
                 }
                 break;

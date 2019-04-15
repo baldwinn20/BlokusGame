@@ -175,67 +175,67 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
     @Override
     public void onClick(View v) {
         if (v == oneButton) {
-            surfaceView.setCurrentPiece(currentInventory.get(0));
+            surfaceView.setCurrentPiece(this.findPiece("one"));
             currentPieceButton = oneButton;
         } else if (v == twoButton) {
-            surfaceView.setCurrentPiece(currentInventory.get(1));
+            surfaceView.setCurrentPiece(this.findPiece("two"));
             currentPieceButton = twoButton;
         } else if (v == sButton) {
-            surfaceView.setCurrentPiece(currentInventory.get(2));
+            surfaceView.setCurrentPiece(this.findPiece("S"));
             currentPieceButton = sButton;
         } else if (v == threeButton) {
-            surfaceView.setCurrentPiece(currentInventory.get(3));
+            surfaceView.setCurrentPiece(this.findPiece("three"));
             currentPieceButton = threeButton;
         } else if (v == smallTButton) {
-            surfaceView.setCurrentPiece(currentInventory.get(4));
+            surfaceView.setCurrentPiece(this.findPiece("smallT"));
             currentPieceButton = smallTButton;
         } else if (v == fourButton) {
-            surfaceView.setCurrentPiece(currentInventory.get(5));
+            surfaceView.setCurrentPiece(this.findPiece("four"));
             currentPieceButton = fourButton;
         } else if (v == fourLButton) {
-            surfaceView.setCurrentPiece(currentInventory.get(6));
+            surfaceView.setCurrentPiece(this.findPiece("fourL"));
             currentPieceButton = fourLButton;
         } else if (v == fiveButton) {
-            surfaceView.setCurrentPiece(currentInventory.get(7));
+            surfaceView.setCurrentPiece(this.findPiece("five"));
             currentPieceButton = fiveButton;
         } else if (v == fiveLButton) {
-            surfaceView.setCurrentPiece(currentInventory.get(8));
+            surfaceView.setCurrentPiece(this.findPiece("fiveL"));
             currentPieceButton = fiveLButton;
         } else if (v == nButton) {
-            surfaceView.setCurrentPiece(currentInventory.get(9));
+            surfaceView.setCurrentPiece(this.findPiece("N"));
             currentPieceButton = nButton;
         } else if (v == yButton) {
-            surfaceView.setCurrentPiece(currentInventory.get(10));
+            surfaceView.setCurrentPiece(this.findPiece("Y"));
             currentPieceButton = yButton;
         } else if (v == v3Button) {
-            surfaceView.setCurrentPiece(currentInventory.get(11));
+            surfaceView.setCurrentPiece(this.findPiece("v3"));
             currentPieceButton = v3Button;
         } else if (v == cubeButton) {
-            surfaceView.setCurrentPiece(currentInventory.get(12));
+            surfaceView.setCurrentPiece(this.findPiece("cube"));
             currentPieceButton = cubeButton;
         } else if (v == cButton) {
-            surfaceView.setCurrentPiece(currentInventory.get(13));
+            surfaceView.setCurrentPiece(this.findPiece("C"));
             currentPieceButton = cButton;
         } else if (v == bButton) {
-            surfaceView.setCurrentPiece(currentInventory.get(14));
+            surfaceView.setCurrentPiece(this.findPiece("B"));
             currentPieceButton = bButton;
         } else if (v == zButton) {
-            surfaceView.setCurrentPiece(currentInventory.get(15));
+            surfaceView.setCurrentPiece(this.findPiece("Z"));
             currentPieceButton = zButton;
         } else if (v == mButton) {
-            surfaceView.setCurrentPiece(currentInventory.get(16));
+            surfaceView.setCurrentPiece(this.findPiece("M"));
             currentPieceButton = mButton;
         } else if (v == xButton) {
-            surfaceView.setCurrentPiece(currentInventory.get(17));
+            surfaceView.setCurrentPiece(this.findPiece("X"));
             currentPieceButton = xButton;
         } else if (v == fButton) {
-            surfaceView.setCurrentPiece(currentInventory.get(18));
+            surfaceView.setCurrentPiece(this.findPiece("F"));
             currentPieceButton = fButton;
         } else if (v == bigTButton) {
-            surfaceView.setCurrentPiece(currentInventory.get(19));
+            surfaceView.setCurrentPiece(this.findPiece("bigT"));
             currentPieceButton = bigTButton;
         } else if (v == cornerButton) {
-            surfaceView.setCurrentPiece(currentInventory.get(20));
+            surfaceView.setCurrentPiece(this.findPiece("corner"));
             currentPieceButton = cornerButton;
         }
 
@@ -351,6 +351,18 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
             surfaceView.invalidate();
             return true;
         }
+    }
+
+    //finds the piece in the the inventory based on name
+    public Piece findPiece(String pieceName){
+        if(currentInventory != null){
+            for(Piece p : currentInventory){
+                if(pieceName.equals(p.getName())){
+                    return p;
+                }
+            }
+        }
+        return null;
     }
 
 

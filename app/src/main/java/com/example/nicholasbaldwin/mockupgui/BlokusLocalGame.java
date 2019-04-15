@@ -4,6 +4,8 @@ import com.example.nicholasbaldwin.mockupgui.game.actionMsg.GameAction;
 import com.example.nicholasbaldwin.mockupgui.game.util.GamePlayer;
 import com.example.nicholasbaldwin.mockupgui.game.util.LocalGame;
 
+import java.util.ArrayList;
+
 /**
  * <!-- class BlokusLocalGame-->
  * <p>
@@ -119,9 +121,13 @@ public class BlokusLocalGame extends LocalGame {
             return false;
         }
 
+
+
         mainState.placePiece(x, y, pp.getCurrentPiece());
         mainState.updatePiecesRemaining();
         mainState.updatePlayerScores(pp.getCurrentPiece());
+        mainState.removePiece(pp.getCurrentPiece(),mainState.getPlayerTurn());
+
         mainState.setPlayerTurn(mainState.getPlayerTurn());
 
         return true;

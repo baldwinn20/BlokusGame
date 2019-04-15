@@ -182,11 +182,9 @@ public class BlokusBoard extends SurfaceView {
         } else if (playerID == 1) {
             tilePaint.setColor(Color.BLUE);
         } else if (playerID == 2) {
-            tilePaint.setColor(Color.YELLOW);
-        } else if (playerID == 3) {
             tilePaint.setColor(Color.GREEN);
-        } else {
-            tilePaint.setColor(Color.DKGRAY);
+        } else if (playerID == 3) {
+            tilePaint.setColor(Color.YELLOW);
         }
 
         //draw one tile based on the location

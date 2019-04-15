@@ -93,10 +93,10 @@ public class BlokusGameState extends GameState {
 
         for (int i = 0; i < 4; i++) {
             this.allPieceInventory.add(new ArrayList<Piece>());
-            if (playerID >= 0 && playerID != i) {
-                continue;
-            }
-            for (int j = 0; j < 21; j++) {
+//            if (playerID >= 0 && playerID != i) {
+//                continue;
+//            }
+            for (int j = 0; j < bgs.allPieceInventory.get(i).size(); j++) {
                 Piece src = bgs.allPieceInventory.get(i).get(j);
                 Piece newPiece = new Piece(src.getName(),
                         src.getPieceValue(), src.getPieceColor());
@@ -306,6 +306,7 @@ public class BlokusGameState extends GameState {
         return this.allPieceInventory;
     }
 
+
     public void updatePiecesRemaining() {
         if (allPiecesRemaining[playerToMove] > 0) { //not < 0 pieces
             --allPiecesRemaining[playerToMove];
@@ -363,6 +364,19 @@ public class BlokusGameState extends GameState {
 
     public void setBoard(int[][] board) {
         this.board = board;
+    }
+
+    public void removePiece(Piece currentPiece, int playerTurn) {
+        //this.allPieceInventory.get(playerTurn).remove(currentPiece);
+        //for loop look for
+        Piece save = null;
+        for(Piece p : this.allPieceInventory.get(playerTurn)){
+            if(p.getName().equals(currentPiece.getName())){
+                save = p;
+                
+            }
+        }
+        this.allPieceInventory.get(playerTurn).remove(save);
     }
 }
 /**
