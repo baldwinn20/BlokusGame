@@ -1,5 +1,7 @@
 package com.example.nicholasbaldwin.mockupgui;
 
+import android.util.Log;
+import android.widget.TextView;
 
 import com.example.nicholasbaldwin.mockupgui.game.actionMsg.GameAction;
 import com.example.nicholasbaldwin.mockupgui.game.util.GamePlayer;
@@ -14,13 +16,15 @@ import com.example.nicholasbaldwin.mockupgui.game.util.GamePlayer;
  * @author <Nicholas Baldwin, Justin Cao, Dylan Pascua>
  * @version <Spring 2019>
  */
+
 public class PlacePiece extends GameAction {
     //instance variables
     private int[][] boardCopy = new int[20][20];
     private int[][] pieceLayout;
-    private int x, y;
+    private int y;
+    private int x;
     private Piece currentPiece;
-
+    private boolean cantMove = false;
 
     /**
      * constructor for GameAction
@@ -44,6 +48,7 @@ public class PlacePiece extends GameAction {
             return false;
         }
 
+        pieceLayout = currentPiece.getPieceLayout();
         boolean isCorner = false;
         boolean isAdjacent = false;
 
@@ -64,7 +69,7 @@ public class PlacePiece extends GameAction {
                 //Check inside a piece's array to see if its individual tiles can be placed on the board
                 //Make sure there is no other tile already placed at this board position
                 //TODO check to see if piece can be placed even if anchor position is not empty
-                if (pieceLayout[xOffset][yOffset] != Piece.EMPTY && boardCopy[x][y] == Piece.EMPTY ){
+                if (pieceLayout[xOffset][yOffset] != Piece.EMPTY && boardCopy[x][y] == Piece.EMPTY){
                     //if a tile in a pieces layout goes past the board
                     if (x + xOffset >= 20 || y + yOffset >= 20) {
                         return false;
@@ -213,6 +218,10 @@ public class PlacePiece extends GameAction {
     public int getX() {
         return x;
     }
+
+    public boolean getCantMove(){return  cantMove;}
+
+    public void setCantMove(boolean init){ this.cantMove = init;}
 
     public void setX(int x) {
         this.x = x;
