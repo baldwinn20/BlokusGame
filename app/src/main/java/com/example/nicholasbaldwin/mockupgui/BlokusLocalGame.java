@@ -80,11 +80,11 @@ public class BlokusLocalGame extends LocalGame {
             }
         }
 
-//        try {
-//            Thread.sleep(1000);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
+        try {
+            Thread.sleep(100);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
         //TODO check who has the highest score if no one can move
         //Look for all the empty tiles on the board
