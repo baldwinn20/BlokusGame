@@ -23,6 +23,7 @@ public class BlokusLocalGame extends LocalGame {
     // the game's state
     private BlokusGameState mainState;
 
+    private int skipTurnCount = 0;
     /**
      * Constructor for the BlokusLocalGame.
      */
@@ -71,7 +72,7 @@ public class BlokusLocalGame extends LocalGame {
     protected String checkIfGameOver() {
         //TODO check who has pieceRemaining = 0 and win the game
 
-        int winner;
+        int winner = 0;
         for (int i = 0; i < players.length; i++) {
             if (mainState.getAllPiecesRemaining()[i] == 0) {
                 winner = i;
@@ -83,6 +84,17 @@ public class BlokusLocalGame extends LocalGame {
             Thread.sleep(100);
         } catch (InterruptedException e) {
             e.printStackTrace();
+        }
+
+        //TODO possibly add skips for human players as well? 
+        //if there has been more than 3 skips by the AIs, end the game
+        if(skipTurnCount > 3){
+            for(int i = 0; i < players.length; i++){
+                if(mainState.getAllPlayerScores()[i] > mainState.getAllPlayerScores()[winner]){
+                    winner = i;
+                }
+            }
+            return playerNames[winner] + " is the winner.";
         }
 
         //TODO check who has the highest score if no one can move
@@ -125,6 +137,7 @@ public class BlokusLocalGame extends LocalGame {
         //the AI cant make a move
         if(pp.getCantMove()){
             mainState.setPlayerTurn(mainState.getPlayerTurn());
+            skipTurnCount++;
             return true;
         }
         int y = pp.getY();

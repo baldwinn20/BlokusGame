@@ -7,6 +7,7 @@ import com.example.nicholasbaldwin.mockupgui.game.infoMsg.NotYourTurnInfo;
 import com.example.nicholasbaldwin.mockupgui.game.util.GameComputerPlayer;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * <!-- class BlokusSmartAI -->
@@ -49,38 +50,101 @@ public class BlokusSmartAI extends GameComputerPlayer {
         // if it's not a BlokusGameState message, ignore it; otherwise
         // cast it
         if (!(info instanceof BlokusGameState)) return;
-        localState = (BlokusGameState)info;
-        if(localState.getPlayerTurn() != playerID) return;
+        localState = (BlokusGameState) info;
+        if (localState.getPlayerTurn() != playerID) return;
 
         // pick x and y positions at random (0-2)
-        int xVal = (int)(21*Math.random());
-        int yVal = (int)(21*Math.random());
         PlacePiece unusedPieceChecker = null;
+        Piece pieceToRemove = null;
         int rotationCount = 3;
-        for(int i = localState.getAllPieceInventory().get(playerID).size()-1; i >= 0; i--) {
-            Piece unusedPiece = localState.getAllPieceInventory().get(playerID).get(i);
+        boolean letMeOut = false;
+
+        //the first move will always be the one piece
+        if(findOnePiece(localState.getAllPieceInventory().get(playerID))){
+            Piece p = localState.getAllPieceInventory().get(playerID).get(0);
             for (int j = 0; j < BlokusGameState.BOARD_LENGTH; j++) {
                 for (int k = 0; k < BlokusGameState.BOARD_LENGTH; k++) {
-                    Log.i("is on Board: ", unusedPiece.getIsOnBoard() + "");
+                    if (localState.getBoard()[k][j] == Piece.EMPTY){
+                        unusedPieceChecker = new PlacePiece(this,k,j, p);
+                        unusedPieceChecker.setBoard(localState.getBoard());
+                        if(unusedPieceChecker.checkForValidMove(playerID)){
+                            game.sendAction(unusedPieceChecker);
+                            pieceToRemove = p;
+                            letMeOut = true;
+                            break;
+                        }
+                    }
+                    if (letMeOut) {
+                        break;
+                    }
+                }
+                if (letMeOut) {
+                    break;
+                }
+            }
+            if (pieceToRemove != null) {
+                localState.getAllPieceInventory().get(playerID).remove(pieceToRemove);
+                return;
+            }
+        }
+        //this reverses the  order of the piece inventory so the smart AI places the biggest piece first
+        Collections.reverse(localState.getAllPieceInventory().get(playerID));
+
+        //TODO there is a bug where if the AI cant move, the other players cannot make a move.
+        for (Piece unusedPiece : localState.getAllPieceInventory().get(playerID)) {
+            for (int j = 1; j < BlokusGameState.BOARD_LENGTH; j++) {
+                for (int k = 0; k < BlokusGameState.BOARD_LENGTH; k++) {
                     if (localState.getBoard()[k][j] == Piece.EMPTY &&
                             !unusedPiece.isOnBoard) {
                         for (int l = 0; l < rotationCount; l++) {
                             unusedPiece.setPieceLayout(unusedPiece.rotate90());
                             unusedPiece.setxPosition(k);
                             unusedPiece.setyPosition(j);
-                            unusedPieceChecker = new PlacePiece(this,k , j, unusedPiece);
+                            unusedPieceChecker = new PlacePiece(this, k, j, unusedPiece);
                             unusedPieceChecker.setBoard(localState.getBoard());
-                            if(unusedPieceChecker.checkForValidMove(playerID)){
+                            if (unusedPieceChecker.checkForValidMove(playerID)) {
                                 game.sendAction(unusedPieceChecker);
-                                localState.getAllPieceInventory().get(playerID).remove(unusedPiece);
-//                                Log.i("is on Board: ", unusedPiece.getIsOnBoard() + "");
-                                return;
+                                pieceToRemove = unusedPiece;
+                                letMeOut = true;
+                                break;
                             }
                         }
-
+                    }
+                    if (letMeOut) {
+                        break;
                     }
                 }
+                if (letMeOut) {
+                    break;
+                }
+            }//for
+            if (letMeOut) {
+                break;
+            }
+        }//for
+        if (pieceToRemove != null) {
+            localState.getAllPieceInventory().get(playerID).remove(pieceToRemove);
+            return;
+        }
+        //if the AI cant make a move
+        unusedPieceChecker.setCantMove(true);
+        game.sendAction(unusedPieceChecker);
+        return;
+    }
+
+    private boolean findOnePiece( ArrayList<Piece> pieceList){
+        for( Piece p : pieceList){
+            if(p.getName().equals("one")){
+                return true;
             }
         }
+        return false;
     }
+
 }
+/**
+ * External Citation:
+ * Date: 15 April 2019
+ * Problem: I wanted to know of a way to reverse the order of an array list
+ * Source:https: https://stackoverflow.com/questions/580269/reverse-iteration-through-arraylist-gives-indexoutofboundsexception
+ */
