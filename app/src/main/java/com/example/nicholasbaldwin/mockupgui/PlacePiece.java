@@ -67,24 +67,12 @@ public class PlacePiece extends GameAction implements Serializable {
             for (int j = y; j < y + currentPiece.getPieceLength(); j++) {
                 int xOffset = i - x;
                 int yOffset = j - y;
-                //there is an already placed piece that is on-top of the anchor but there is space to place a piece
-                if(pieceLayout[xOffset][yOffset] != Piece.EMPTY && boardCopy[x][y] != pID){
-                    if(x + xOffset > 0 && y + yOffset > 0 && x + xOffset < 19 && y + yOffset < 19) {
-                        //the top and right are touching
-                        isCorner |= boardCopy[x + xOffset][y + yOffset - 1] == pID && boardCopy[x + xOffset + 1][y + yOffset] == pID;
-                        //the top and left are touching
-                        isCorner |= boardCopy[x + xOffset][y + yOffset - 1] == pID && boardCopy[x + xOffset - 1][y + yOffset] == pID;
-                        //the left and bottom are touching
-                        isCorner |= boardCopy[x + xOffset][y + yOffset + 1] == pID && boardCopy[x + xOffset - 1][y + yOffset] == pID;
-                        //the bottom and right are touching
-                        isCorner |= boardCopy[x + xOffset][y + yOffset + 1] == pID && boardCopy[x + xOffset + 1][y + yOffset] == pID;
-                    }
-                }
+
 
                 //Check inside a piece's array to see if its individual tiles can be placed on the board
                 //Make sure there is no other tile already placed at this board position
                 //TODO check to see if piece can be placed even if anchor position is not empty
-                if (pieceLayout[xOffset][yOffset] != Piece.EMPTY && boardCopy[x][y] == Piece.EMPTY ){
+                if (pieceLayout[xOffset][yOffset] != Piece.EMPTY && boardCopy[x][y] == Piece.EMPTY) {
                     //if a tile in a pieces layout goes past the board
                     if (x + xOffset >= 20 || y + yOffset >= 20) {
                         return false;
@@ -108,7 +96,7 @@ public class PlacePiece extends GameAction implements Serializable {
                     }
 
                     //there is overlap with other already placed pieces
-                    if (boardCopy[x+xOffset][y+yOffset] != Piece.EMPTY && pieceLayout[xOffset][yOffset] == pID){
+                    if (boardCopy[x + xOffset][y + yOffset] != Piece.EMPTY && pieceLayout[xOffset][yOffset] == pID) {
                         return false;
                     }
 
@@ -124,7 +112,7 @@ public class PlacePiece extends GameAction implements Serializable {
                     }
 
                     //Special check for bottom row of board:
-                    else if ((y == 19 && x != 0) || y + yOffset == 19 ) {
+                    else if ((y == 19 && x != 0) || y + yOffset == 19) {
 
                         //checks adjacent tiles to the left, right, and top of a selected tile, respectively
                         isAdjacent = boardCopy[x + xOffset - 1][y + yOffset] == pID || boardCopy[x + xOffset + 1][y + yOffset] == pID
@@ -166,6 +154,19 @@ public class PlacePiece extends GameAction implements Serializable {
                         isCorner |= boardCopy[x + xOffset - 1][y + yOffset + 1] == pID || boardCopy[x + xOffset + 1][y + yOffset - 1] == pID;
                     }
 
+                    //there is an already placed piece that is on-top of the anchor but there is space to place a piece
+                    if (pieceLayout[xOffset][yOffset] != Piece.EMPTY && boardCopy[x][y] != pID) {
+                        if (x + xOffset > 0 && y + yOffset > 0 && x + xOffset < 19 && y + yOffset < 19) {
+                            //the top and right are touching
+                            isCorner |= boardCopy[x + xOffset][y + yOffset - 1] == pID && boardCopy[x + xOffset + 1][y + yOffset] == pID;
+                            //the top and left are touching
+                            isCorner |= boardCopy[x + xOffset][y + yOffset - 1] == pID && boardCopy[x + xOffset - 1][y + yOffset] == pID;
+                            //the left and bottom are touching
+                            isCorner |= boardCopy[x + xOffset][y + yOffset + 1] == pID && boardCopy[x + xOffset - 1][y + yOffset] == pID;
+                            //the bottom and right are touching
+                            isCorner |= boardCopy[x + xOffset][y + yOffset + 1] == pID && boardCopy[x + xOffset + 1][y + yOffset] == pID;
+                        }
+                    }
                     if (isAdjacent) {
                         return false;
                     }
@@ -234,9 +235,13 @@ public class PlacePiece extends GameAction implements Serializable {
         return x;
     }
 
-    public boolean getCantMove(){return  cantMove;}
+    public boolean getCantMove() {
+        return cantMove;
+    }
 
-    public void setCantMove(boolean init){ this.cantMove = init;}
+    public void setCantMove(boolean init) {
+        this.cantMove = init;
+    }
 
     public void setX(int x) {
         this.x = x;
