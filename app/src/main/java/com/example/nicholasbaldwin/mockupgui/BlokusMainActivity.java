@@ -42,7 +42,7 @@ import java.util.ArrayList;
  */
 public class BlokusMainActivity extends GameMainActivity {
 
-    public static final int PORT_NUMBER = 5213;
+    public static final int PORT_NUMBER = 5613;
 
     @Override
     public GameConfig createDefaultConfig() {
@@ -52,31 +52,21 @@ public class BlokusMainActivity extends GameMainActivity {
         // human GUI
         playerTypes.add(new GamePlayerType("Local Human Player") {
             public GamePlayer createPlayer(String name) {
-                return new BlokusHumanPlayer(name, Color.RED, 0);
+                return new BlokusHumanPlayer(name);
             }
         });
 
         // dumb computer player
-        playerTypes.add(new GamePlayerType("Blue Dumb AI Player") {
+        playerTypes.add(new GamePlayerType("Dumb AI Player") {
             public GamePlayer createPlayer(String name) {
-                return new BlokusDumbAI(name, Color.BLUE, 1);
-            }
-        });
-        playerTypes.add(new GamePlayerType("Green Dumb AI Player") {
-            public GamePlayer createPlayer(String name) {
-                return new BlokusDumbAI(name, Color.GREEN, 2);
-            }
-        });
-        playerTypes.add(new GamePlayerType("Yellow Dumb AI Player") {
-            public GamePlayer createPlayer(String name) {
-                return new BlokusDumbAI(name, Color.YELLOW, 3);
+                return new BlokusDumbAI(name);
             }
         });
 
         // smarter computer player
-        playerTypes.add(new GamePlayerType("Blue Smart AI Player") {
+        playerTypes.add(new GamePlayerType("Smart AI Player") {
             public GamePlayer createPlayer(String name) {
-                return new BlokusSmartAI(name, Color.BLUE, 1);
+                return new BlokusSmartAI(name);
             }
         });
 
@@ -94,11 +84,11 @@ public class BlokusMainActivity extends GameMainActivity {
         // Add the default players
         defaultConfig.addPlayer("Human", 0); // yellow-on-blue GUI
         defaultConfig.addPlayer("Dumb 1", 1); // dumb computer player
-        defaultConfig.addPlayer("Dumb 2", 2); // dumb computer player
-        defaultConfig.addPlayer("Dumb 3", 3); // dumb computer player
+        defaultConfig.addPlayer("Dumb 2", 1); // dumb computer player
+        defaultConfig.addPlayer("Dumb 3", 1); // dumb computer player
 
         // Set the initial information for the remote player
-        defaultConfig.setRemoteData("Remote Player", "", 1); // red-on-yellow GUI
+        defaultConfig.setRemoteData("Remote Player", "", 0); // red-on-yellow GUI
 
         //done!
         return defaultConfig;

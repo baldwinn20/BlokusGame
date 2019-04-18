@@ -50,13 +50,14 @@ public class PlacePiece extends GameAction implements Serializable {
             return false;
         }
 
+
         pieceLayout = currentPiece.getPieceLayout();
         boolean isCorner = false;
         boolean isAdjacent = false;
 
         //Continues check only if there is no piece in the starting corner and
         //its not the first turn of the game
-        if ((boardCopy[x][y] == -1)) {
+        if ((boardCopy[x][y] == Piece.EMPTY)) {
             isCorner |= checkStartingCorner(pID);
             if (isCorner) {
                 return true;
@@ -72,14 +73,19 @@ public class PlacePiece extends GameAction implements Serializable {
                 //Check inside a piece's array to see if its individual tiles can be placed on the board
                 //Make sure there is no other tile already placed at this board position
                 //TODO check to see if piece can be placed even if anchor position is not empty
-                if (pieceLayout[xOffset][yOffset] != Piece.EMPTY && boardCopy[x][y] == Piece.EMPTY) {
+                if (pieceLayout[xOffset][yOffset] != Piece.EMPTY ) {
                     //if a tile in a pieces layout goes past the board
-                    if (x + xOffset >= 20 || y + yOffset >= 20) {
+                    if (x + currentPiece.getPieceWidth() - 1 >= 20 || y + currentPiece.getPieceLength() -1 >= 20) {
                         return false;
                     }
+
                     // special checks for the 4 corners of the board depending on the player
                     //top left corner
                     if (x + xOffset == 0 && y + yOffset == 0 && pID != 0) {
+                        return false;
+                    }
+                    //there is overlap with other already placed pieces
+                    if (boardCopy[x + xOffset][y + yOffset] != Piece.EMPTY && pieceLayout[xOffset][yOffset] == pID) {
                         return false;
                     }
                     //top right corner
@@ -95,10 +101,6 @@ public class PlacePiece extends GameAction implements Serializable {
                         return false;
                     }
 
-                    //there is overlap with other already placed pieces
-                    if (boardCopy[x + xOffset][y + yOffset] != Piece.EMPTY && pieceLayout[xOffset][yOffset] == pID) {
-                        return false;
-                    }
 
                     //Special check for top row of board:
                     if (y == 0 && x != 0 && x != 19 && y + yOffset == 0 && x + xOffset != 19) {
@@ -185,27 +187,38 @@ public class PlacePiece extends GameAction implements Serializable {
             //checks to see if your anchor is on a corner or one of the other tiles is
             //Checks the top left board corner
             case 0:
-                if ((x == y && x == 0 && pieceLayout[0][0] == pID)) {
+                if (((x+currentPiece.getPieceWidth() - 1) == 0
+                        && (y+currentPiece.getPieceLength() - 1) == 0
+                        && boardCopy[0][0] == Piece.EMPTY)
+                        || (x == y && x == 0 && pieceLayout[0][0] == pID )) {
                     isStartCorner = true;
                 }
                 break;
             //Checks the top right board corner
             case 1:
-                if ((x == 19 && y == 0 && pieceLayout[0][0] == pID)) {
+                if (((x+currentPiece.getPieceWidth() - 1) == 19
+                        && (y+currentPiece.getPieceLength() - 1) == 0
+                        && boardCopy[19][0] == Piece.EMPTY)
+                        || (x == 19 && y == 0 && pieceLayout[0][0] == pID )) {
                     isStartCorner = true;
                 }
                 break;
 
             //Checks the bottom left board corner
             case 2:
-                if ((x == 0 && y == 19 && pieceLayout[0][0] == pID)) {
+                if (((x+currentPiece.getPieceWidth() - 1) == 0
+                        && (y+currentPiece.getPieceLength() - 1) == 19
+                        && boardCopy[0][19] == Piece.EMPTY)
+                        || (x == 0 && y == 19 && pieceLayout[0][0] == pID )) {
                     isStartCorner = true;
                 }
                 break;
 
             //Checks the bottom right board corner
             case 3:
-                if ((x == y && x == 19 && pieceLayout[0][0] == pID)) {
+                if ((x+currentPiece.getPieceWidth() - 1) == 19
+                        && (y+currentPiece.getPieceLength() - 1) == 19
+                        && boardCopy[19][19] == Piece.EMPTY) {
                     isStartCorner = true;
                 }
                 break;

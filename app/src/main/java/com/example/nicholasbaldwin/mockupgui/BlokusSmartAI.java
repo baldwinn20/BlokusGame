@@ -1,7 +1,5 @@
 package com.example.nicholasbaldwin.mockupgui;
 
-import android.util.Log;
-
 import com.example.nicholasbaldwin.mockupgui.game.infoMsg.GameInfo;
 import com.example.nicholasbaldwin.mockupgui.game.infoMsg.NotYourTurnInfo;
 import com.example.nicholasbaldwin.mockupgui.game.util.GameComputerPlayer;
@@ -23,25 +21,11 @@ import java.util.Collections;
 public class BlokusSmartAI extends GameComputerPlayer {
     //All instance variables
     public BlokusGameState localState;
-    private int playerColor, piecesRemaining, PlayerScore, stage, playerID;
-    private int playerType = 1; // Dumb AI players are all of type 1
-    private int playerScore;
-    private Piece currentPiece;
-    private ArrayList<Piece> piecesInventory;
-    public int INITIAL_PIECES_rEMAINING = 21;
-    public int INITIAL_SCORE = 89;
 
-    public BlokusSmartAI(String initName, int initColor, int initID) {
+    public BlokusSmartAI(String initName) {
         super(initName);
-        playerColor = initColor;
-        playerID = initID;
-        piecesRemaining = INITIAL_PIECES_rEMAINING;
-        playerScore = INITIAL_SCORE;
     }
 
-    public void smartMove(ArrayList<Piece> currentList) {
-
-    }
 
     @Override
     protected void receiveInfo(GameInfo info) {
@@ -51,7 +35,7 @@ public class BlokusSmartAI extends GameComputerPlayer {
         // cast it
         if (!(info instanceof BlokusGameState)) return;
         localState = (BlokusGameState) info;
-        if (localState.getPlayerTurn() != playerID) return;
+        if (localState.getPlayerTurn() != playerNum) return;
 
         // pick x and y positions at random (0-2)
         PlacePiece unusedPieceChecker = null;
@@ -60,14 +44,14 @@ public class BlokusSmartAI extends GameComputerPlayer {
         boolean letMeOut = false;
 
         //the first move will always be the one piece
-        if(findOnePiece(localState.getAllPieceInventory().get(playerID))){
-            Piece p = localState.getAllPieceInventory().get(playerID).get(0);
+        if(findOnePiece(localState.getAllPieceInventory().get(playerNum))){
+            Piece p = localState.getAllPieceInventory().get(playerNum).get(0);
             for (int j = 0; j < BlokusGameState.BOARD_LENGTH; j++) {
                 for (int k = 0; k < BlokusGameState.BOARD_LENGTH; k++) {
                     if (localState.getBoard()[k][j] == Piece.EMPTY){
                         unusedPieceChecker = new PlacePiece(this,k,j, p);
                         unusedPieceChecker.setBoard(localState.getBoard());
-                        if(unusedPieceChecker.checkForValidMove(playerID)){
+                        if(unusedPieceChecker.checkForValidMove(playerNum)){
                             game.sendAction(unusedPieceChecker);
                             pieceToRemove = p;
                             letMeOut = true;
@@ -83,15 +67,15 @@ public class BlokusSmartAI extends GameComputerPlayer {
                 }
             }
             if (pieceToRemove != null) {
-                localState.getAllPieceInventory().get(playerID).remove(pieceToRemove);
+                localState.getAllPieceInventory().get(playerNum).remove(pieceToRemove);
                 return;
             }
         }
         //this reverses the  order of the piece inventory so the smart AI places the biggest piece first
-        Collections.reverse(localState.getAllPieceInventory().get(playerID));
+        Collections.reverse(localState.getAllPieceInventory().get(playerNum));
 
         //TODO there is a bug where if the AI cant move, the other players cannot make a move.
-        for (Piece unusedPiece : localState.getAllPieceInventory().get(playerID)) {
+        for (Piece unusedPiece : localState.getAllPieceInventory().get(playerNum)) {
             for (int j = 1; j < BlokusGameState.BOARD_LENGTH; j++) {
                 for (int k = 0; k < BlokusGameState.BOARD_LENGTH; k++) {
                     if (localState.getBoard()[k][j] == Piece.EMPTY &&
@@ -102,7 +86,7 @@ public class BlokusSmartAI extends GameComputerPlayer {
                             unusedPiece.setyPosition(j);
                             unusedPieceChecker = new PlacePiece(this, k, j, unusedPiece);
                             unusedPieceChecker.setBoard(localState.getBoard());
-                            if (unusedPieceChecker.checkForValidMove(playerID)) {
+                            if (unusedPieceChecker.checkForValidMove(playerNum)) {
                                 game.sendAction(unusedPieceChecker);
                                 pieceToRemove = unusedPiece;
                                 letMeOut = true;
@@ -123,7 +107,7 @@ public class BlokusSmartAI extends GameComputerPlayer {
             }
         }//for
         if (pieceToRemove != null) {
-            localState.getAllPieceInventory().get(playerID).remove(pieceToRemove);
+            localState.getAllPieceInventory().get(playerNum).remove(pieceToRemove);
             return;
         }
         //if the AI cant make a move

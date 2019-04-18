@@ -43,10 +43,6 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
     private BlokusBoard surfaceView = null;
     private TextView messageBox = null;
 
-    private int playerColor;
-    private int piecesRemaining;
-    //TODO remove this variable?
-    private int playerID;
     //    private Piece currentPiece;
     private TextView redScore, blueScore, greenScore, yellowScore;
     private TextView redPR, bluePR, greenPR, yellowPR;
@@ -66,13 +62,9 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
      * constructor
      *
      * @param initName  the player's name
-     * @param initColor the player color
-     * @param initID    the index of the player to track turns
      */
-    public BlokusHumanPlayer(String initName, int initColor, int initID) {
+    public BlokusHumanPlayer(String initName) {
         super(initName);
-        playerColor = initColor;
-        playerID = initID;
     }
 
     @Override
@@ -84,7 +76,6 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
     public void setAsGui(GameMainActivity activity) {
         // remember the activity
         myActivity = activity;
-
         //TODO replace xml layout with layout id
         activity.setContentView(R.layout.red_player_gui);
         surfaceView = myActivity.findViewById(R.id.blokusBoard);
@@ -167,7 +158,7 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
         helpButton.setOnClickListener(this);
 
         this.state = new BlokusGameState();
-        currentInventory = state.getAllPieceInventory().get(playerID);
+        currentInventory = state.getAllPieceInventory().get(playerNum);
 
         placePieceButton.setEnabled(false);
     }
@@ -263,9 +254,9 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
             //checks to see if you can place a piece after you flipped the piece
             if (pp != null) {
                 pp.setPieceLayout(p.getPieceLayout());
-                if (pp.checkForValidMove(playerID)) {
+                if (pp.checkForValidMove(playerNum)) {
                     placePieceButton.setEnabled(true);
-                } else if (!pp.checkForValidMove(playerID)) {
+                } else if (!pp.checkForValidMove(playerNum)) {
                     placePieceButton.setEnabled(false);
                 }
             }
@@ -276,9 +267,9 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
             //checks to see if you can place a piece after you flipped the piece
             if (pp != null) {
                 pp.setPieceLayout(p.getPieceLayout());
-                if (pp.checkForValidMove(playerID)) {
+                if (pp.checkForValidMove(playerNum)) {
                     placePieceButton.setEnabled(true);
-                } else if (!pp.checkForValidMove(playerID)) {
+                } else if (!pp.checkForValidMove(playerNum)) {
                     placePieceButton.setEnabled(false);
                 }
             }
@@ -301,7 +292,7 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
             return;
         else {
             state = (BlokusGameState) info;
-            currentInventory = state.getAllPieceInventory().get(playerID);
+            currentInventory = state.getAllPieceInventory().get(playerNum);
             //TODO make setState method in Master GUI class
             surfaceView.setState(state);
             updatePlayerScores();
@@ -309,10 +300,6 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
             surfaceView.invalidate();
             Log.i("human player", "receiving");
         }
-    }
-
-    public int getPlayerColor() {
-        return playerColor;
     }
 
 
@@ -345,9 +332,9 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
                     surfaceView.getCurrentPiece().getYPosition(), surfaceView.getCurrentPiece());
             pp.setBoard(state.getBoard());
             //this checks to see of the current piece is a valid move
-            if (pp.checkForValidMove(playerID)) {
+            if (pp.checkForValidMove(playerNum)) {
                 placePieceButton.setEnabled(true);
-            } else if (!pp.checkForValidMove(playerID)) {
+            } else if (!pp.checkForValidMove(playerNum)) {
                 placePieceButton.setEnabled(false);
             }
             surfaceView.invalidate();
