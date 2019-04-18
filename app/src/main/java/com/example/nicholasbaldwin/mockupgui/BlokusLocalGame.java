@@ -86,7 +86,7 @@ public class BlokusLocalGame extends LocalGame {
             e.printStackTrace();
         }
 
-        //TODO possibly add skips for human players as well? 
+        //TODO possibly add skips for human players as well?
         //if there has been more than 3 skips by the AIs, end the game
         if(skipTurnCount > 3){
             for(int i = 0; i < players.length; i++){
@@ -97,7 +97,7 @@ public class BlokusLocalGame extends LocalGame {
             return playerNames[winner] + " is the winner.";
         }
 
-//        //TODO check who has the highest score if no one can move
+        //TODO check who has the highest score if no one can move
 //        //Look for all the empty tiles on the board
 //        PlacePiece unusedPieceChecker;
 //        int rotationCount = 3;
@@ -140,6 +140,7 @@ public class BlokusLocalGame extends LocalGame {
             skipTurnCount++;
             return true;
         }
+
         int y = pp.getY();
         int x = pp.getX();
         pp.setBoard(mainState.getBoard());

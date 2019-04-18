@@ -23,6 +23,7 @@ import android.widget.ImageButton;
 import com.example.nicholasbaldwin.mockupgui.game.BlokusNetworkPlayer;
 import com.example.nicholasbaldwin.mockupgui.game.config.GameConfig;
 import com.example.nicholasbaldwin.mockupgui.game.config.GamePlayerType;
+import com.example.nicholasbaldwin.mockupgui.game.infoMsg.BindGameInfo;
 import com.example.nicholasbaldwin.mockupgui.game.util.GameMainActivity;
 import com.example.nicholasbaldwin.mockupgui.game.util.GamePlayer;
 import com.example.nicholasbaldwin.mockupgui.game.util.LocalGame;

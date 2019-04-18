@@ -50,6 +50,10 @@ public class PlacePiece extends GameAction implements Serializable {
             return false;
         }
 
+        //if a tile in a pieces layout goes past the board
+        if (x + currentPiece.getPieceWidth() - 1 >= 20 || y + currentPiece.getPieceLength() -1 >= 20) {
+            return false;
+        }
 
         pieceLayout = currentPiece.getPieceLayout();
         boolean isCorner = false;
@@ -74,11 +78,6 @@ public class PlacePiece extends GameAction implements Serializable {
                 //Make sure there is no other tile already placed at this board position
                 //TODO check to see if piece can be placed even if anchor position is not empty
                 if (pieceLayout[xOffset][yOffset] != Piece.EMPTY ) {
-                    //if a tile in a pieces layout goes past the board
-                    if (x + currentPiece.getPieceWidth() - 1 >= 20 || y + currentPiece.getPieceLength() -1 >= 20) {
-                        return false;
-                    }
-
                     // special checks for the 4 corners of the board depending on the player
                     //top left corner
                     if (x + xOffset == 0 && y + yOffset == 0 && pID != 0) {
@@ -197,17 +196,17 @@ public class PlacePiece extends GameAction implements Serializable {
             //Checks the top right board corner
             case 1:
                 if (((x+currentPiece.getPieceWidth() - 1) == 19
-                        && (y+currentPiece.getPieceLength() - 1) == 0
+                        && pieceLayout[currentPiece.getPieceWidth()-1][0] == pID && y == 0
                         && boardCopy[19][0] == Piece.EMPTY)
-                        || (x == 19 && y == 0 && pieceLayout[0][0] == pID )) {
+                        || (x == 19 && y == 0 && pieceLayout[0][0] == pID)) {
                     isStartCorner = true;
                 }
                 break;
 
             //Checks the bottom left board corner
             case 2:
-                if (((x+currentPiece.getPieceWidth() - 1) == 0
-                        && (y+currentPiece.getPieceLength() - 1) == 19
+                if (((y+currentPiece.getPieceLength() - 1) == 19
+                        && pieceLayout[0][currentPiece.getPieceLength()-1] == pID && x == 0
                         && boardCopy[0][19] == Piece.EMPTY)
                         || (x == 0 && y == 19 && pieceLayout[0][0] == pID )) {
                     isStartCorner = true;
@@ -218,6 +217,7 @@ public class PlacePiece extends GameAction implements Serializable {
             case 3:
                 if ((x+currentPiece.getPieceWidth() - 1) == 19
                         && (y+currentPiece.getPieceLength() - 1) == 19
+                        && pieceLayout[currentPiece.getPieceWidth()-1][currentPiece.getPieceLength()-1] == pID
                         && boardCopy[19][19] == Piece.EMPTY) {
                     isStartCorner = true;
                 }

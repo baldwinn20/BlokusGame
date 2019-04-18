@@ -71,6 +71,7 @@ public class BlokusSmartAI extends GameComputerPlayer {
                 return;
             }
         }
+
         //this reverses the  order of the piece inventory so the smart AI places the biggest piece first
         Collections.reverse(localState.getAllPieceInventory().get(playerNum));
 
