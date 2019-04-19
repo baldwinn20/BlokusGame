@@ -1,6 +1,7 @@
 package com.example.nicholasbaldwin.mockupgui;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Point;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -61,7 +62,7 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
     /**
      * constructor
      *
-     * @param initName  the player's name
+     * @param initName the player's name
      */
     public BlokusHumanPlayer(String initName) {
         super(initName);
@@ -275,6 +276,16 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
             }
         } else if (v == helpButton) {
             //TODO someone needs to put the rules down here or something
+
+            /**
+             External Citation:
+             Date: 19 April 2019
+             Problem: Not sure how to make a new activity
+             Resource: https://www.youtube.com/watch?v=n21mXO1ASJM&t=62s
+             Solution: Used the code from this video.
+             */
+            myActivity.startActivity(new Intent(myActivity, HelpMenu.class));
+
         }
 
         //this draws a preview on the middle of the board
