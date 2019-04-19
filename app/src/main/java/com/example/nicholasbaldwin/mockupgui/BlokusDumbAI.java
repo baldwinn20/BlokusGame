@@ -9,8 +9,6 @@ public class BlokusDumbAI extends GameComputerPlayer {
     //All instance variables
     public BlokusGameState localState;
 
-    //private boolean[] onBoard
-
     public BlokusDumbAI(String initName) {
         super(initName);
     }
@@ -30,7 +28,7 @@ public class BlokusDumbAI extends GameComputerPlayer {
 
         PlacePiece unusedPieceChecker = null;
         Piece pieceToRemove = null;
-        int rotationCount = 3;
+        int rotationCount = 5;
         boolean letMeOut = false;
         //TODO there is a bug where if the AI cant move, the other players cannot make a move.
         for (Piece unusedPiece : localState.getAllPieceInventory().get(playerNum)) {
@@ -52,19 +50,19 @@ public class BlokusDumbAI extends GameComputerPlayer {
                             }
                         }
                     }
-                    if(letMeOut){
+                    if (letMeOut) {
                         break;
                     }
                 }
-                if(letMeOut){
+                if (letMeOut) {
                     break;
                 }
             }//for
-            if(letMeOut){
+            if (letMeOut) {
                 break;
             }
         }//for
-        if(pieceToRemove != null){
+        if (pieceToRemove != null) {
             localState.getAllPieceInventory().get(playerNum).remove(pieceToRemove);
             return;
         }

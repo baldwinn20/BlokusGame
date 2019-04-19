@@ -40,44 +40,15 @@ public class BlokusSmartAI extends GameComputerPlayer {
         // pick x and y positions at random (0-2)
         PlacePiece unusedPieceChecker = null;
         Piece pieceToRemove = null;
-        int rotationCount = 3;
+        int rotationCount = 5;
         boolean letMeOut = false;
-
-        //the first move will always be the one piece
-        if(findOnePiece(localState.getAllPieceInventory().get(playerNum))){
-            Piece p = localState.getAllPieceInventory().get(playerNum).get(0);
-            for (int j = 0; j < BlokusGameState.BOARD_LENGTH; j++) {
-                for (int k = 0; k < BlokusGameState.BOARD_LENGTH; k++) {
-                    if (localState.getBoard()[k][j] == Piece.EMPTY){
-                        unusedPieceChecker = new PlacePiece(this,k,j, p);
-                        unusedPieceChecker.setBoard(localState.getBoard());
-                        if(unusedPieceChecker.checkForValidMove(playerNum)){
-                            game.sendAction(unusedPieceChecker);
-                            pieceToRemove = p;
-                            letMeOut = true;
-                            break;
-                        }
-                    }
-                    if (letMeOut) {
-                        break;
-                    }
-                }
-                if (letMeOut) {
-                    break;
-                }
-            }
-            if (pieceToRemove != null) {
-                localState.getAllPieceInventory().get(playerNum).remove(pieceToRemove);
-                return;
-            }
-        }
 
         //this reverses the  order of the piece inventory so the smart AI places the biggest piece first
         Collections.reverse(localState.getAllPieceInventory().get(playerNum));
 
         //TODO there is a bug where if the AI cant move, the other players cannot make a move.
         for (Piece unusedPiece : localState.getAllPieceInventory().get(playerNum)) {
-            for (int j = 1; j < BlokusGameState.BOARD_LENGTH; j++) {
+            for (int j = 0; j < BlokusGameState.BOARD_LENGTH; j++) {
                 for (int k = 0; k < BlokusGameState.BOARD_LENGTH; k++) {
                     if (localState.getBoard()[k][j] == Piece.EMPTY &&
                             !unusedPiece.isOnBoard) {
@@ -117,9 +88,9 @@ public class BlokusSmartAI extends GameComputerPlayer {
         return;
     }
 
-    private boolean findOnePiece( ArrayList<Piece> pieceList){
-        for( Piece p : pieceList){
-            if(p.getName().equals("one")){
+    private boolean findOnePiece(ArrayList<Piece> pieceList) {
+        for (Piece p : pieceList) {
+            if (p.getName().equals("one")) {
                 return true;
             }
         }
