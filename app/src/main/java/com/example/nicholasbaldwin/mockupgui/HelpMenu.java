@@ -19,16 +19,16 @@ import java.io.Serializable;
 public class HelpMenu extends AppCompatActivity implements Serializable {
 
     private static long serialVersionUID = 1293786127936L;
-    private Button helpButton;
+    private Button returnButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.help_menu);
-        helpButton = findViewById(R.id.helpButton);
+        returnButton = findViewById(R.id.exitButton);
 
-        helpButton.setOnClickListener(new View.OnClickListener() {
+        returnButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
