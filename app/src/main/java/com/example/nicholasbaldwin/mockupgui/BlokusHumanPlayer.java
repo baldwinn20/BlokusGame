@@ -51,8 +51,8 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
     private ImageButton oneButton, twoButton, sButton, threeButton, smallTButton,
             fourButton, fourLButton, fiveButton, fiveLButton, nButton, yButton,
             v3Button, cubeButton, cButton, bButton, zButton, mButton, xButton,
-            fButton, bigTButton, cornerButton, imageButton;
-    private Button placePieceButton, rotateButton, flipButton, helpButton;
+            fButton, bigTButton, cornerButton;
+    private Button placePieceButton, rotateButton, flipButton, helpButton, quitButton;
     //TODO Remove instance var private ArrayList<Piece> piecesInventory;
     private PlacePiece pp = null;
     private ArrayList<Piece> currentInventory = null;
@@ -157,6 +157,8 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
         flipButton.setOnClickListener(this);
         helpButton = myActivity.findViewById(R.id.helpButton);
         helpButton.setOnClickListener(this);
+        quitButton = myActivity.findViewById(R.id.quitButton);
+        quitButton.setOnClickListener(this);
 
         this.state = new BlokusGameState();
         currentInventory = state.getAllPieceInventory().get(playerNum);
@@ -275,8 +277,6 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
                 }
             }
         } else if (v == helpButton) {
-            //TODO someone needs to put the rules down here or something
-
             /**
              External Citation:
              Date: 19 April 2019
@@ -286,6 +286,8 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
              */
             myActivity.startActivity(new Intent(myActivity, HelpMenu.class));
 
+        } else if (v == quitButton) {
+            myActivity.startActivity(new Intent(myActivity, QuitMenu.class));
         }
 
         //this draws a preview on the middle of the board
