@@ -12,6 +12,8 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.example.nicholasbaldwin.mockupgui.game.GameOverCheck;
+import com.example.nicholasbaldwin.mockupgui.game.GiveUp;
+import com.example.nicholasbaldwin.mockupgui.game.actionMsg.GameOverAckAction;
 import com.example.nicholasbaldwin.mockupgui.game.infoMsg.GameInfo;
 import com.example.nicholasbaldwin.mockupgui.game.infoMsg.IllegalMoveInfo;
 import com.example.nicholasbaldwin.mockupgui.game.infoMsg.NotYourTurnInfo;
@@ -51,8 +53,9 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
     private ImageButton oneButton, twoButton, sButton, threeButton, smallTButton,
             fourButton, fourLButton, fiveButton, fiveLButton, nButton, yButton,
             v3Button, cubeButton, cButton, bButton, zButton, mButton, xButton,
-            fButton, bigTButton, cornerButton, imageButton;
-    private Button placePieceButton, rotateButton, flipButton, helpButton;
+            fButton, bigTButton, cornerButton;
+    private Button placePieceButton, rotateButton, flipButton, helpButton,
+            quitButton;
     //TODO Remove instance var private ArrayList<Piece> piecesInventory;
     private PlacePiece pp = null;
     private ArrayList<Piece> currentInventory = null;
@@ -147,7 +150,7 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
         bigTButton.setOnClickListener(this);
         cornerButton = myActivity.findViewById(R.id.cornerButton);
         cornerButton.setOnClickListener(this);
-        //imageButton.setOnClickListener(this);
+
 
         placePieceButton = myActivity.findViewById((R.id.placePieceButton));
         placePieceButton.setOnClickListener(this);
@@ -157,6 +160,8 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
         flipButton.setOnClickListener(this);
         helpButton = myActivity.findViewById(R.id.helpButton);
         helpButton.setOnClickListener(this);
+        quitButton = myActivity.findViewById(R.id.quitButton);
+        quitButton.setOnClickListener(this);
 
         this.state = new BlokusGameState();
         currentInventory = state.getAllPieceInventory().get(playerNum);
@@ -166,6 +171,13 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
 
     @Override
     public void onClick(View v) {
+        if(state.getPlayerTurn() != playerNum){
+            return;
+        }
+        if( v == quitButton){
+            GiveUp gu = new GiveUp(this);
+            game.sendAction(gu);
+        }
         if (v == oneButton) {
             surfaceView.setCurrentPiece(this.findPiece("one"));
             currentPieceButton = oneButton;
@@ -241,9 +253,7 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
 
         if (v == placePieceButton) {
             //This makes the button disappear when pressed
-            //Starts a separate thread to determine whether or not the game can be ended after this turn
-            GameOverCheck gOverChecker = new GameOverCheck(game, pp);
-            gOverChecker.start();
+            game.sendAction(pp);
             currentPieceButton.setVisibility(View.GONE);
             surfaceView.setCurrentPiece(null);
             placePieceButton.setEnabled(false);
@@ -309,6 +319,11 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
             updatePlayerScores();
             updatePlayerPiecesRemaining();
             surfaceView.invalidate();
+            if(state.getAllPlayersGivenUp()[playerNum]){
+                GiveUp gu = new GiveUp(this);
+                game.sendAction(gu);
+                return;
+            }
             Log.i("human player", "receiving");
         }
     }

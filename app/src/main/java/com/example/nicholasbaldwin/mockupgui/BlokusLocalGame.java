@@ -1,12 +1,10 @@
 package com.example.nicholasbaldwin.mockupgui;
 
+import com.example.nicholasbaldwin.mockupgui.game.GiveUp;
 import com.example.nicholasbaldwin.mockupgui.game.actionMsg.GameAction;
 import com.example.nicholasbaldwin.mockupgui.game.util.GamePlayer;
 import com.example.nicholasbaldwin.mockupgui.game.util.LocalGame;
 
-import java.util.ArrayList;
-
-import static java.lang.Thread.sleep;
 
 /**
  * <!-- class BlokusLocalGame-->
@@ -80,17 +78,17 @@ public class BlokusLocalGame extends LocalGame {
             }
         }
 
-        try {
-            Thread.sleep(100);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
         //TODO possibly add skips for human players as well?
         //if there has been more than 3 skips by the AIs, end the game
-        if(skipTurnCount > 3){
-            for(int i = 0; i < players.length; i++){
-                if(mainState.getAllPlayerScores()[i] > mainState.getAllPlayerScores()[winner]){
+        for(boolean playerGivenUp : mainState.getAllPlayersGivenUp()) {
+            if(!playerGivenUp){
+                return null;
+            }
+        }
+
+        if (skipTurnCount == 4) {
+            for (int i = 0; i < players.length; i++) {
+                if (mainState.getAllPlayerScores()[i] > mainState.getAllPlayerScores()[winner]) {
                     winner = i;
                 }
             }
@@ -133,31 +131,41 @@ public class BlokusLocalGame extends LocalGame {
      */
     @Override
     protected boolean makeMove(GameAction action) {
-        PlacePiece pp = (PlacePiece) action;
-        //the AI cant make a move
-        if(pp.getCantMove()){
+        if(action instanceof PlacePiece) {
+            PlacePiece pp = (PlacePiece) action;
+
+            int y = pp.getY();
+            int x = pp.getX();
+            pp.setBoard(mainState.getBoard());
+
+
+            if (!pp.checkForValidMove(mainState.getPlayerTurn())) {
+                return false;
+            }
+
+
+
+            mainState.placePiece(x, y, pp.getCurrentPiece());
+            mainState.updatePiecesRemaining();
+            mainState.updatePlayerScores(pp.getCurrentPiece());
+            mainState.removePiece(pp.getCurrentPiece(),mainState.getPlayerTurn());
+
             mainState.setPlayerTurn(mainState.getPlayerTurn());
-            skipTurnCount++;
-            return true;
         }
-
-        int y = pp.getY();
-        int x = pp.getX();
-        pp.setBoard(mainState.getBoard());
-
-
-        if (!pp.checkForValidMove(mainState.getPlayerTurn())) {
-            return false;
+        else if(action instanceof GiveUp) {
+            //the player cant make a move and hasn't skipped a turn yet
+            if (!mainState.getAllPlayersGivenUp()[mainState.getPlayerTurn()]) {
+                mainState.setAllPlayersGivenUp(true, mainState.getPlayerTurn());
+                mainState.setPlayerTurn(mainState.getPlayerTurn());
+                skipTurnCount++;
+                return true;
+            }
+            //the current player has already given up once before, so skip to the next player's turn
+            else if(mainState.getAllPlayersGivenUp()[mainState.getPlayerTurn()]){
+                mainState.setPlayerTurn(mainState.getPlayerTurn());
+                return true;
+            }
         }
-
-
-
-        mainState.placePiece(x, y, pp.getCurrentPiece());
-        mainState.updatePiecesRemaining();
-        mainState.updatePlayerScores(pp.getCurrentPiece());
-        mainState.removePiece(pp.getCurrentPiece(),mainState.getPlayerTurn());
-
-        mainState.setPlayerTurn(mainState.getPlayerTurn());
 
         return true;
     }
