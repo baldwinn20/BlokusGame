@@ -7,21 +7,6 @@
     android:background="@color/grayBackground"
     tools:context=".BlokusMainActivity">
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="#62def8">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_margin="30dp"
-            android:text="Blokus rules go here"
-            android:textSize="22sp" />
-
-    </RelativeLayout>
-
     <LinearLayout
         android:id="@+id/mainLayout"
         android:layout_width="match_parent"
@@ -348,17 +333,16 @@
             <TextView
                 android:id="@+id/messageTV"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Messages"
+                android:layout_height="50dp"
+                android:layout_weight="0"
                 android:textAlignment="center"
-                android:textSize="18sp" />
+                android:textSize="18dp" />
 
             <com.example.nicholasbaldwin.mockupgui.BlokusBoard
                 android:id="@+id/blokusBoard"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="7" />
+                android:layout_weight="15" />
 
         </LinearLayout>
 
