@@ -54,8 +54,7 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
             fourButton, fourLButton, fiveButton, fiveLButton, nButton, yButton,
             v3Button, cubeButton, cButton, bButton, zButton, mButton, xButton,
             fButton, bigTButton, cornerButton;
-    private Button placePieceButton, rotateButton, flipButton, helpButton,
-            quitButton;
+    private Button placePieceButton, rotateButton, flipButton, helpButton, quitButton;
     //TODO Remove instance var private ArrayList<Piece> piecesInventory;
     private PlacePiece pp = null;
     private ArrayList<Piece> currentInventory = null;
@@ -296,6 +295,8 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
              */
             myActivity.startActivity(new Intent(myActivity, HelpMenu.class));
 
+        } else if (v == quitButton) {
+            myActivity.startActivity(new Intent(myActivity, QuitMenu.class));
         }
 
         //this draws a preview on the middle of the board
