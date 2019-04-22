@@ -1,5 +1,6 @@
 package com.example.nicholasbaldwin.mockupgui;
 
+import com.example.nicholasbaldwin.mockupgui.game.GiveUp;
 import com.example.nicholasbaldwin.mockupgui.game.infoMsg.GameInfo;
 import com.example.nicholasbaldwin.mockupgui.game.infoMsg.NotYourTurnInfo;
 import com.example.nicholasbaldwin.mockupgui.game.util.GameComputerPlayer;
@@ -67,8 +68,8 @@ public class BlokusDumbAI extends GameComputerPlayer {
             return;
         }
         //if the AI cant make a move
-        unusedPieceChecker.setCantMove(true);
-        game.sendAction(unusedPieceChecker);
+        GiveUp surrenderMessenger = new GiveUp(this);
+        game.sendAction(surrenderMessenger);
         return;
     }
 

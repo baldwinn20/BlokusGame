@@ -26,7 +26,7 @@ public class PlacePiece extends GameAction implements Serializable {
     private int y;
     private int x;
     private Piece currentPiece;
-    private boolean cantMove = false;
+
 
     /**
      * constructor for GameAction
@@ -248,13 +248,6 @@ public class PlacePiece extends GameAction implements Serializable {
         return x;
     }
 
-    public boolean getCantMove() {
-        return cantMove;
-    }
-
-    public void setCantMove(boolean init) {
-        this.cantMove = init;
-    }
 
     public void setX(int x) {
         this.x = x;

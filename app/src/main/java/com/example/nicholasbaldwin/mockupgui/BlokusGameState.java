@@ -29,9 +29,7 @@ public class BlokusGameState extends GameState implements Serializable {
     private int[] allPiecesRemaining = new int[4];
     private int[] allPlayerScores = new int[4];
     private int[] allPlayerTilesRemaining = new int[4];
-
-    //0 for placement stage, 1 for waiting stage (Will be used with Network/AI)
-    private int stage; //TODO Remove reduncant?
+    private boolean[] allPlayersGivenUp = new boolean[4];
 
     public static final int BOARD_LENGTH = 20;
     //An integer array will help differentiate whose pieces are on the board.
@@ -63,9 +61,9 @@ public class BlokusGameState extends GameState implements Serializable {
             allPiecesRemaining[i] = INITIAL_PLAYER_PIECE_COUNT;
             allPlayerScores[i] = 0;
             allPlayerTilesRemaining[i] = MAXIMUM_PLAYER_SCORE;
+            allPlayersGivenUp[i] = false;
         }
         //When the game starts, the first player will be able to place a piece on the board
-        stage = 0;
         playerToMove = 0;
     }
 
@@ -112,14 +110,13 @@ public class BlokusGameState extends GameState implements Serializable {
         for (int i = 0; i < 4; i++) {
             this.allPiecesRemaining[i] = bgs.allPiecesRemaining[i];
             this.allPlayerScores[i] = bgs.allPlayerScores[i];
-
+            this.allPlayersGivenUp[i] = bgs.allPlayersGivenUp[i];
         }
         for (int k = 0; k < bgs.board.length; k++) {
             for (int j = 0; j < bgs.board.length; j++) {
                 this.board[k][j] = bgs.board[k][j];
             }
         }
-        this.stage = 0;
         this.playerToMove = bgs.playerToMove;
 
     }
@@ -329,6 +326,12 @@ public class BlokusGameState extends GameState implements Serializable {
 
     public int[] getAllPlayerTilesRemaining() {
         return this.allPlayerTilesRemaining;
+    }
+    public boolean[] getAllPlayersGivenUp() {
+        return this.allPlayersGivenUp;
+    }
+    public void setAllPlayersGivenUp(boolean init, int pID){
+        this.allPlayersGivenUp[pID] = init;
     }
 
     //TODO check to see if deepy copy is needed

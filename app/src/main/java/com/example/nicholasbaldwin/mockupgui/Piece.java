@@ -299,7 +299,7 @@ public class Piece implements Serializable {
         for (int i = 0; i < pieceLayout.length; i++) {
             for (int j = 0; j < pieceLayout.length; j++) {
                 if (pieceLayout[i][j] != -1 && j >= length) {
-                    length++;
+                    length = j + 1;// +1 since it starts at zero
                 }
             }
         }
@@ -311,7 +311,7 @@ public class Piece implements Serializable {
         for (int i = 0; i < pieceLayout.length; i++) {
             for (int j = 0; j < pieceLayout.length; j++) {
                 if (pieceLayout[i][j] != -1 && i >= width) {
-                    width++;
+                    width = i + 1;// +1 since it starts at zero
                 }
             }
         }
