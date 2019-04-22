@@ -42,11 +42,13 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
     // the game's state
     BlokusGameState state = null;
 
-    //TODO Insert Master GUI object here
+    //Drawing surface for the board
     private BlokusBoard surfaceView = null;
+
+    //Widgets that correspond to the message box, player scores,
+    //player inventories & pieces, and action buttons
     private TextView messageBox = null;
 
-    //    private Piece currentPiece;
     private TextView redScore, blueScore, greenScore, yellowScore;
     private TextView redPR, bluePR, greenPR, yellowPR;
     private ScrollView scrollView;
@@ -55,9 +57,12 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
             v3Button, cubeButton, cButton, bButton, zButton, mButton, xButton,
             fButton, bigTButton, cornerButton;
     private Button placePieceButton, rotateButton, flipButton, helpButton, quitButton;
-    //TODO Remove instance var private ArrayList<Piece> piecesInventory;
+
+    //Game action that will be sent when the player tries to flip, rotate or place a piece
     private PlacePiece pp = null;
+    //The player's piece inventory after the game state has changed
     private ArrayList<Piece> currentInventory = null;
+    //Represents the currently selected piece from the scroll view
     ImageButton currentPieceButton = null;
 
 
@@ -328,7 +333,7 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
             //TODO place holder for handling
             return;
         } else if (!(info instanceof BlokusGameState))
-            // if we do not have a TTTState, ignore
+            // if we do not have a BlokusGameState, ignore
             return;
         else {
             state = (BlokusGameState) info;
@@ -338,6 +343,7 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
             updatePlayerScores();
             updatePlayerPiecesRemaining();
             surfaceView.invalidate();
+            //If the human player has given up in the past, skip their turn
             if(state.getAllPlayersGivenUp()[playerNum]){
                 GiveUp gu = new GiveUp(this);
                 game.sendAction(gu);
