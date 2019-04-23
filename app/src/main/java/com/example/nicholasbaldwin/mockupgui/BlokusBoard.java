@@ -6,10 +6,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Point;
 import android.util.AttributeSet;
-import android.util.Log;
-import android.view.MotionEvent;
 import android.view.SurfaceView;
-import android.view.View;
 
 /**
  * <!-- class BlokusBoard -->
@@ -32,37 +29,57 @@ public class BlokusBoard extends SurfaceView {
     private final float DIVIDER_PERCENT = .5f;//thickness of the dividers
     private final float TILE_TOTAL_PERCENT = TILE_SIZE_PERCENT
             + DIVIDER_PERCENT;
-    private final float LEFT_BOARDER_PERCENT = 0.5f;
+    private final float LEFT_BORDER_PERCENT = 0.5f;
     private int boardWidth, boardHeight;
-    private boolean hasPlacedPiece = false;
     private Piece currentPiece = null;
+
+    //All pieces previewed on the board are positioned near the center
     private int xCurPiece = 9, yCurPiece = 9;
     /*  instance variables that are used to create the board
      */
     protected BlokusGameState state; // the current games state
+
     //the offset from the left and top to the beginning of the board
     protected float hBase, vBase;
     protected float fullSquare; // the size of the surfaceView
+
+    /**
+     * Constructor for the BlokusBoard class.
+     *
+     * @param context - a reference to the activity this animation is run under
+     */
 
     public BlokusBoard(Context context) {
         super(context);
         init();
     }
 
+    /**
+     * An alternate constructor for use when a subclass is directly specified
+     * in the layout.
+     *
+     * @param context - a reference to the activity this animation is run under
+     * @param attrs   - set of attributes passed from system
+     */
     public BlokusBoard(Context context, AttributeSet attrs) {
         super(context, attrs);
         init();
     }
 
-    public BlokusBoard(Context context, AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
-        init();
-    }
-
+    /**
+     * Helper-method for the constructors
+     * Sets the background color of the board to dark gray
+     */
     private void init() {
         setBackgroundColor(Color.DKGRAY);
     }
 
+    /**
+     * update the instance variables that relate to the drawing surface
+     *
+     * @param canvas
+     * 		an object that references the drawing surface
+     */
     private void updateDimensions(Canvas canvas) {
         boardWidth = canvas.getWidth();
         boardHeight = canvas.getHeight();
@@ -81,19 +98,31 @@ public class BlokusBoard extends SurfaceView {
         }
     }
 
-
+    /**
+     * callback method, called whenever it's time to redraw
+     * frame
+     *
+     * @param canvas
+     * 		the canvas to draw on
+     *
+     * @return true if the listener has consumed the event, false otherwise.
+     */
     @Override
     protected void onDraw(Canvas canvas) {
         //this allows the message widget to have more space
         this.getHolder().setFixedSize(canvas.getWidth(), 100);
 
+        // update the variables that relate
+        // to the dimensions of the animation surface
         updateDimensions(canvas);
+
+        // paint the Blokus board's horizontal and vertical lines
         Paint dividerColor = new Paint();
         dividerColor.setColor(Color.BLACK);
 
         //this draws the starting points for each respective color
         Paint startingColor = new Paint();
-        float sLeft = LEFT_BOARDER_PERCENT - 0.5f;
+        float sLeft = LEFT_BORDER_PERCENT - 0.5f;
         float sRight = 99.5f;
         float sTop = DIVIDER_PERCENT - 0.5f;
         float sBottom = 99.5f;
@@ -115,7 +144,7 @@ public class BlokusBoard extends SurfaceView {
                 vLocation(sBottom - 1.4f), startingColor);
 
 
-        //this is the very left most vertical boarder
+        //draws the very left most vertical boarder
         canvas.drawRect(hLocation(0), vLocation(0), hLocation(0.2f)
                 , vLocation(100), dividerColor);
 
@@ -188,7 +217,7 @@ public class BlokusBoard extends SurfaceView {
         }
 
         //draw one tile based on the location
-        float left = LEFT_BOARDER_PERCENT - 0.5f + (xPosition * TILE_TOTAL_PERCENT);
+        float left = LEFT_BORDER_PERCENT - 0.5f + (xPosition * TILE_TOTAL_PERCENT);
         float right = 99.5f - ((19 - xPosition) * TILE_TOTAL_PERCENT);
         float top = DIVIDER_PERCENT - 0.5f + (yPosition * TILE_TOTAL_PERCENT);
         float bottom = 99.5f - ((19 - yPosition) * TILE_TOTAL_PERCENT);
@@ -201,7 +230,7 @@ public class BlokusBoard extends SurfaceView {
         for (int i = 0; i < BOARD_LENGTH; i++) {
             for (int j = 0; j < BOARD_LENGTH; j++) {
                 //the dime of the tile based on its position
-                float left = hLocation(LEFT_BOARDER_PERCENT - 0.5f + (i * TILE_TOTAL_PERCENT));
+                float left = hLocation(LEFT_BORDER_PERCENT - 0.5f + (i * TILE_TOTAL_PERCENT));
                 float right = hLocation(DIVIDER_PERCENT + TILE_SIZE_PERCENT + (i * TILE_TOTAL_PERCENT));
                 float top = vLocation(DIVIDER_PERCENT - 0.5f + (j * TILE_TOTAL_PERCENT));
                 float bottom = vLocation(DIVIDER_PERCENT + TILE_SIZE_PERCENT + (j * TILE_TOTAL_PERCENT));
@@ -232,11 +261,6 @@ public class BlokusBoard extends SurfaceView {
     }
 
 
-    public void setHasPlacedPiece(boolean init) {
-        this.hasPlacedPiece = init;
-    }
-
-
     //getters
     public void setCurrentPiece(Piece currentPiece) {
         this.currentPiece = currentPiece;
@@ -246,33 +270,6 @@ public class BlokusBoard extends SurfaceView {
         return this.currentPiece;
     }
 
-    public int getBoardHeight() {
-        return boardHeight;
-    }
-
-    public int getBoardWidth() {
-        return boardWidth;
-    }
-
-    public float getLEFT_BOARDER_PERCENT() {
-        return LEFT_BOARDER_PERCENT;
-    }
-
-    public float getDIVIDER_PERCENT() {
-        return DIVIDER_PERCENT;
-    }
-
-    public float getTILE_SIZE_PERCENT() {
-        return TILE_SIZE_PERCENT;
-    }
-
-    public float getTILE_TOTAL_PERCENT() {
-        return TILE_TOTAL_PERCENT;
-    }
-
-    public float getFullSquare() {
-        return fullSquare;
-    }
 
 
 }
