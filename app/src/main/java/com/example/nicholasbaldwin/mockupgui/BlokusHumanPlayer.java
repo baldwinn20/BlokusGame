@@ -120,9 +120,9 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
         greenPR.setText("21");
         yellowPR.setText("21");
         redName = myActivity.findViewById(R.id.redName);
-        redName.setText(this.name + ":");
-
-
+        blueName = myActivity.findViewById(R.id.blueName);
+        greenName = myActivity.findViewById(R.id.greenName);
+        yellowName = myActivity.findViewById(R.id.yellowName);
 
         surfaceView.setOnTouchListener(this);
 
@@ -382,6 +382,14 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
             return;
         else {
             state = (BlokusGameState) info;
+
+            //sets the names based on hte info given
+            redName.setText(allPlayerNames[Piece.RED]);
+            blueName.setText(allPlayerNames[Piece.BLUE]);
+            greenName.setText(allPlayerNames[Piece.GREEN]);
+            yellowName.setText(allPlayerNames[Piece.YELLOW]);
+            
+            //set the new inventory
             currentInventory = state.getAllPieceInventory().get(playerNum);
             //TODO make setState method in Master GUI class
             surfaceView.setState(state);
