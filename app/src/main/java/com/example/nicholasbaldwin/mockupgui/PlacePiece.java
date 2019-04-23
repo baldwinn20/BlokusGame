@@ -41,9 +41,18 @@ public class PlacePiece extends GameAction implements Serializable {
         pieceLayout = curPiece.getPieceLayout();
     }
 
-
-    //TODO if a player tries to tap on a opponent's empty starting corner
-    //TODO if player flips/rotate, needs to check if starting corner is valid
+    /**
+     * The key method that makes sure a piece that is
+     * being played does not touch any adjacent sides
+     * of the same color piece. Only the corners should
+     * be touching.
+     *
+     * @param pID - used to determine what color piece
+     *            is being played or who is playing
+     *
+     * @return  false if the piece is no a valid move
+     *          true otherwise.
+     */
     public boolean checkForValidMove(int pID) {
 
         if (currentPiece.isOnBoard) {
@@ -76,7 +85,6 @@ public class PlacePiece extends GameAction implements Serializable {
 
                 //Check inside a piece's array to see if its individual tiles can be placed on the board
                 //Make sure there is no other tile already placed at this board position
-                //TODO check to see if piece can be placed even if anchor position is not empty
                 if (pieceLayout[xOffset][yOffset] != Piece.EMPTY ) {
                     // special checks for the 4 corners of the board depending on the player
                     //top left corner
@@ -178,8 +186,18 @@ public class PlacePiece extends GameAction implements Serializable {
 
         return isCorner;
     }
-
-    //TODO placing pieces from the starting corners
+    /**
+     * A Special method that helps players place their
+     * first piece on their first turn. Each player has
+     * been already assigned one of the 4 corners of the
+     * board to place their first piece.
+     *
+     * @param pID - used to determine what color piece
+     *            is being played or who is playing
+     *
+     * @return  false if the piece is not on a valid
+     *          corner, true otherwise.
+     */
     private boolean checkStartingCorner(int pID) {
         boolean isStartCorner = false;
         switch (pID) {

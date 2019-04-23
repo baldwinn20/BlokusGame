@@ -433,127 +433,127 @@
                             android:id="@+id/oneButton"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:src="@drawable/one_red" />
+                            android:src="@drawable/one_grey" />
 
                         <ImageButton
                             android:id="@+id/twoButton"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:src="@drawable/two_red" />
+                            android:src="@drawable/two_grey" />
 
                         <ImageButton
                             android:id="@+id/sButton"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:src="@drawable/s_red" />
+                            android:src="@drawable/s_grey" />
 
                         <ImageButton
                             android:id="@+id/threeButton"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:src="@drawable/three_red" />
+                            android:src="@drawable/three_grey" />
 
                         <ImageButton
                             android:id="@+id/smallTButton"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:src="@drawable/small_t_red" />
+                            android:src="@drawable/small_t_grey" />
 
                         <ImageButton
                             android:id="@+id/fourButton"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:src="@drawable/four_red" />
+                            android:src="@drawable/four_grey" />
 
                         <ImageButton
                             android:id="@+id/fourLButton"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:src="@drawable/four_l_red" />
+                            android:src="@drawable/four_l_grey" />
 
                         <ImageButton
                             android:id="@+id/fiveButton"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:src="@drawable/five_red" />
+                            android:src="@drawable/five_grey" />
 
                         <ImageButton
                             android:id="@+id/fiveLButton"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:src="@drawable/five_l_red" />
+                            android:src="@drawable/five_l_grey" />
 
                         <ImageButton
                             android:id="@+id/nButton"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:src="@drawable/n_red" />
+                            android:src="@drawable/n_grey" />
 
                         <ImageButton
                             android:id="@+id/yButton"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:src="@drawable/y_red" />
+                            android:src="@drawable/y_grey" />
 
                         <ImageButton
                             android:id="@+id/v3Button"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:src="@drawable/v_3_red" />
+                            android:src="@drawable/v_three_grey" />
 
                         <ImageButton
                             android:id="@+id/cubeButton"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:src="@drawable/cubered" />
+                            android:src="@drawable/cubegrey" />
 
                         <ImageButton
                             android:id="@+id/cButton"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:src="@drawable/c_red" />
+                            android:src="@drawable/c_grey" />
 
                         <ImageButton
                             android:id="@+id/bButton"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:src="@drawable/b_red" />
+                            android:src="@drawable/b_grey" />
 
                         <ImageButton
                             android:id="@+id/zButton"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:src="@drawable/z_red" />
+                            android:src="@drawable/z_grey" />
 
                         <ImageButton
                             android:id="@+id/mButton"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:src="@drawable/m_red" />
+                            android:src="@drawable/m_grey" />
 
                         <ImageButton
                             android:id="@+id/xButton"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:src="@drawable/x_red" />
+                            android:src="@drawable/x_grey" />
 
                         <ImageButton
                             android:id="@+id/fButton"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:src="@drawable/f_red" />
+                            android:src="@drawable/f_grey" />
 
                         <ImageButton
                             android:id="@+id/bigTButton"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:src="@drawable/big_t_red" />
+                            android:src="@drawable/big_t_grey" />
 
                         <ImageButton
                             android:id="@+id/cornerButton"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:src="@drawable/cornerred" />
+                            android:src="@drawable/cornergrey" />
 
                     </LinearLayout>
                 </ScrollView>

@@ -83,13 +83,19 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
     public View getTopView() {
         return null;
     }
-
+    /**
+     * Sets up all the initial components for the
+     * Human Player's GUI. things like text views,
+     * buttons, and even the sound.
+     * @param activity - gets the activity from the
+     *                  BlokusLocalGame
+     */
     @Override
     public void setAsGui(GameMainActivity activity) {
         // remember the activity
         myActivity = activity;
         //TODO replace xml layout with layout id
-        activity.setContentView(R.layout.red_player_gui);
+        activity.setContentView(R.layout.default_player_gui);
         surfaceView = myActivity.findViewById(R.id.blokusBoard);
         messageBox = myActivity.findViewById(R.id.messageTV);
 
@@ -186,7 +192,12 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
          Source: https://www.youtube.com/watch?v=9oj4f8721LM
          */
     }
-
+    /**
+     * An onclick listener method that handles all the
+     * actions that comes with each button on the GUI
+     *
+     * @param v - the view that was pressed by the user
+     */
     @Override
     public void onClick(View v) {
         if(state.getPlayerTurn() != playerNum){
@@ -217,6 +228,7 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
                     myActivity);
 
         }
+        //all the individual piece buttons
         if (v == oneButton) {
             surfaceView.setCurrentPiece(this.findPiece("one"));
             currentPieceButton = oneButton;
@@ -282,22 +294,27 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
             currentPieceButton = cornerButton;
         }
 
-
         //Updates GUI to reflect user choosing new piece or
         //user rotating or flipping a piece
         if (surfaceView.getCurrentPiece() != null) {
             surfaceView.invalidate();
         }
+        /**
+         External Citation:
+         Date: 8 April 2019
+         Problem: I didn't know how to make buttons disappear when used
+         Source:https://stackoverflow.com/questions/14868349/how-to-disappear-button-in-android
+         */
 
         if (v == placePieceButton) {
             buttonSound.start();
-            //This makes the button disappear when pressed
             game.sendAction(pp);
+            //This makes the piece button disappear when pressed
+            //so that the user can't use that piece again
             currentPieceButton.setVisibility(View.GONE);
             surfaceView.setCurrentPiece(null);
             placePieceButton.setEnabled(false);
         }
-        //TODO there is still a minor bug where it doesn't check if it is a valid move when pressing rotate or flip
         else if (v == flipButton && surfaceView.getCurrentPiece() != null) {
             buttonSound.start();
             Piece p = surfaceView.getCurrentPiece();
@@ -339,7 +356,12 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
             myActivity.startActivity(new Intent(myActivity, HelpMenu.class));
         }
     }
-
+    /**
+     * Receives the updated BlokusGameState and updates the
+     * GUI accordingly.
+     *
+     * @param info - the new updated BlokusGameState
+     */
     @Override
     public void receiveInfo(GameInfo info) {
         if (surfaceView == null) return;
@@ -368,7 +390,17 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
         }
     }
 
-
+    /**
+     * The on touch method for the BlokusBoard surface view
+     * class.Determines if a move is valid or not based on
+     * where the user is touching. Uses the drag motion to
+     * move pieces on the board
+     *
+     * @param v - the surface view that is being touched
+     * @param event - either a touch or a drag that d
+     *              determines how a piece should be
+     *              moving on the board
+     */
     @Override
     public boolean onTouch(View v, MotionEvent event) {
 
@@ -392,11 +424,18 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
             //if the player makes a dragging motion the board will draw the piece
             // were the persons finger is
             messageBox.setText("Moving Piece\n");
+
+            //also sets the pieces x & y position based on where the piece is on the
+            //board
             surfaceView.getCurrentPiece().setxPosition(p.x);
             surfaceView.getCurrentPiece().setyPosition(p.y);
+
+            //create a new place piece object in order to constantly check to see if a
+            //piece can be placed
             pp = new PlacePiece(this, surfaceView.getCurrentPiece().getXPosition(),
                     surfaceView.getCurrentPiece().getYPosition(), surfaceView.getCurrentPiece());
             pp.setBoard(state.getBoard());
+
             //this checks to see of the current piece is a valid move
             if (pp.checkForValidMove(playerNum)) {
                 placePieceButton.setEnabled(true);
@@ -408,7 +447,12 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
         }
     }
 
-    //finds the piece in the the inventory based on name
+    /**
+     * A helper method that finds a piece based on it's name
+     * @param pieceName - the name of the piece being searched
+     *                  for
+     * @return returns the piece if it is found, null otherwise
+     */
     public Piece findPiece(String pieceName) {
         if (currentInventory != null) {
             for (Piece p : currentInventory) {
@@ -420,7 +464,10 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
         return null;
     }
 
-
+    /**
+     * Methods that update the text view that display the scores
+     * and piece remaining for each player
+     */
     private void updatePlayerScores() {
         redScore.setText(state.getAllPlayerScores()[0] + "");
         blueScore.setText(state.getAllPlayerScores()[1] + "");
@@ -434,11 +481,5 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
         greenPR.setText(state.getAllPiecesRemaining()[2] + "");
         yellowPR.setText(state.getAllPiecesRemaining()[3] + "");
     }
-    /**
-     External Citation:
-     Date: 8 April 2019
-     Problem: I didn't know how to make buttons disappear when used
-     Source:https://stackoverflow.com/questions/14868349/how-to-disappear-button-in-android
-     */
 
 }

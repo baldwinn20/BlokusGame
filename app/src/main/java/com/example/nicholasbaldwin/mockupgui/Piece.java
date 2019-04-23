@@ -18,7 +18,10 @@ import java.io.Serializable;
 public class Piece implements Serializable {
     public static final int PIECE_LAYOUT_SIZE = 5;
     public static final int EMPTY = -1;
-
+    public static final int RED = 0;
+    public static final int BLUE = 1;
+    public static final int GREEN = 2;
+    public static final int YELLOW = 3;
     //This will be used to identify the type of piece created
     //for this instance
     private String pieceName;
@@ -61,17 +64,15 @@ public class Piece implements Serializable {
             }
         }
 
-        //todo make a switch for color to replace the zeros
         if (pieceColor == Color.RED) {
-            colorNum = 0;
+            colorNum = RED;
         } else if (pieceColor == Color.BLUE) {
-            colorNum = 1;
+            colorNum = BLUE;
         } else if (pieceColor == Color.GREEN) {
-            colorNum = 2;
+            colorNum = GREEN;
         } else if (pieceColor == Color.YELLOW) {
-            colorNum = 3;
+            colorNum = YELLOW;
         }
-
 
         //the setups for each piece
         if (pieceName.equals("one")) {
@@ -188,7 +189,13 @@ public class Piece implements Serializable {
 
     }
 
-    //method that flips the piece's layout horizontally
+    /**
+     * method that horizontally flips a pieces
+     * int array and makes sure that the
+     * anchor is at the top left
+     *
+     * @return the pieces new int array
+     */
     public int[][] flip() {
         //checks to see if this can be flipped. if not return original
         if (!this.canBeFlipped()) {
@@ -231,8 +238,21 @@ public class Piece implements Serializable {
         }
         return currentLayout;
     }
-
+    /**
+     * method that rotates a pieces int array
+     * by 90 degrees and makes sure that the
+     * anchor is at the top left
+     *
+     * @return the pieces new int array
+     */
     public int[][] rotate90() {
+        /**
+         * External Citation:
+         * Date: 30 March 2019
+         * Problem: I didn't know the algorythm for rotating things in
+         * a 2D array
+         * Source:https://stackoverflow.com/questions/53110374/how-to-rotate-2-d-array-in-java
+         */
         int[][] currentLayout = this.getPieceLayout();
         int[][] newLayout = new int[PIECE_LAYOUT_SIZE][PIECE_LAYOUT_SIZE];
         int xOffset = 5;
@@ -282,7 +302,13 @@ public class Piece implements Serializable {
         return newLayout;
     }
 
-    //helper method to see if this piece can be flipped
+    /**
+     * method that checks to see if a piece can
+     * be flipped or not based on the name
+     *
+     * @return false if it is a special piece that
+     * cannot be flipped
+     */
     public boolean canBeFlipped() {
         String pName = this.getName();
         if (pName.equals("one") || pName.equals("two") || pName.equals("three")
@@ -293,11 +319,19 @@ public class Piece implements Serializable {
         return true;
     }
 
-    //getters for the length and widths or each piece
+    /**
+     * special getter methods for the lengths and
+     * width used to help draw the pieces in the
+     * BlokusBoard class.
+     *
+     * @return the lengths and widths respectively
+     */
     public int getPieceLength() {
         int length = 1;
         for (int i = 0; i < pieceLayout.length; i++) {
             for (int j = 0; j < pieceLayout.length; j++) {
+                //makes sure its not an empty part of the
+                //piece layout
                 if (pieceLayout[i][j] != -1 && j >= length) {
                     length = j + 1;// +1 since it starts at zero
                 }
@@ -310,6 +344,8 @@ public class Piece implements Serializable {
         int width = 1;
         for (int i = 0; i < pieceLayout.length; i++) {
             for (int j = 0; j < pieceLayout.length; j++) {
+                //makes sure its not an empty part of the
+                //piece layout
                 if (pieceLayout[i][j] != -1 && i >= width) {
                     width = i + 1;// +1 since it starts at zero
                 }
@@ -384,10 +420,4 @@ public class Piece implements Serializable {
         this.orientationVal = val;
     }
 }
-/**
- * External Citation:
- * Date: 30 March 2019
- * Problem: I didn't know the algorythm for rotating things in
- * a 2D array
- * Source:https://stackoverflow.com/questions/53110374/how-to-rotate-2-d-array-in-java
- */
+

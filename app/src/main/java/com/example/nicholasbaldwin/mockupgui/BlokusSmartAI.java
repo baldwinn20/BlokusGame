@@ -22,12 +22,22 @@ import java.util.Collections;
 public class BlokusSmartAI extends GameComputerPlayer {
     //All instance variables
     public BlokusGameState localState;
-
+    /**
+     * constructor for the SmartAI
+     * @param initName - sets the name for this player
+     */
     public BlokusSmartAI(String initName) {
         super(initName);
     }
 
-
+    /**
+     * the main method of the Smart AI that decides how to move
+     * based on the state of the game. Unlike the dumb Ai, this
+     * AI rearranges its list to start at the bigger pieces first.
+     *
+     * @param info -the info of the game sent by the BlokusLocalGame
+     *
+     */
     @Override
     protected void receiveInfo(GameInfo info) {
 // if it was a "not your turn" message, just ignore it
@@ -46,13 +56,21 @@ public class BlokusSmartAI extends GameComputerPlayer {
 
         //this reverses the  order of the piece inventory so the smart AI places the biggest piece first
         Collections.reverse(localState.getAllPieceInventory().get(playerNum));
+        /**
+         * External Citation:
+         * Date: 15 April 2019
+         * Problem: I wanted to know of a way to reverse the order of an array list
+         * Source:https: https://stackoverflow.com/questions/580269/reverse-iteration-through-arraylist-gives-indexoutofboundsexception
+         */
 
-        //TODO there is a bug where if the AI cant move, the other players cannot make a move.
+        //goes through the entire list of pieces and checks every single coordinate on the board
+        //to see if it can place a piece
         for (Piece unusedPiece : localState.getAllPieceInventory().get(playerNum)) {
             for (int j = 0; j < BlokusGameState.BOARD_LENGTH; j++) {
                 for (int k = 0; k < BlokusGameState.BOARD_LENGTH; k++) {
                     if (localState.getBoard()[k][j] == Piece.EMPTY &&
                             !unusedPiece.isOnBoard) {
+                        //checks every orientation by rotation
                         for (int l = 0; l < rotationCount; l++) {
                             unusedPiece.setPieceLayout(unusedPiece.rotate90());
                             unusedPiece.setxPosition(k);
@@ -89,19 +107,5 @@ public class BlokusSmartAI extends GameComputerPlayer {
         return;
     }
 
-    private boolean findOnePiece(ArrayList<Piece> pieceList) {
-        for (Piece p : pieceList) {
-            if (p.getName().equals("one")) {
-                return true;
-            }
-        }
-        return false;
-    }
 
 }
-/**
- * External Citation:
- * Date: 15 April 2019
- * Problem: I wanted to know of a way to reverse the order of an array list
- * Source:https: https://stackoverflow.com/questions/580269/reverse-iteration-through-arraylist-gives-indexoutofboundsexception
- */

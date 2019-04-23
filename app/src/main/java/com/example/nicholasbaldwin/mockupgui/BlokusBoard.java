@@ -105,7 +105,6 @@ public class BlokusBoard extends SurfaceView {
      * @param canvas
      * 		the canvas to draw on
      *
-     * @return true if the listener has consumed the event, false otherwise.
      */
     @Override
     protected void onDraw(Canvas canvas) {
@@ -116,11 +115,13 @@ public class BlokusBoard extends SurfaceView {
         // to the dimensions of the animation surface
         updateDimensions(canvas);
 
-        // paint the Blokus board's horizontal and vertical lines
+        //paint the Blokus board's horizontal and vertical lines
         Paint dividerColor = new Paint();
         dividerColor.setColor(Color.BLACK);
 
         //this draws the starting points for each respective color
+        //the literal floats basically make sure the board is
+        //aligned
         Paint startingColor = new Paint();
         float sLeft = LEFT_BORDER_PERCENT - 0.5f;
         float sRight = 99.5f;
@@ -179,10 +180,9 @@ public class BlokusBoard extends SurfaceView {
         if (currentPiece != null) {
             xCurPiece = currentPiece.getXPosition();
             yCurPiece = currentPiece.getYPosition();
-            //TODO constants for edges
             //This ensures that the preview piece doesn't go out of the bounds
             //There is no need for a check on the left and top of the board because
-            //TODO explain why
+            //the pieces cant be placed less than 0.
             if (xCurPiece > state.getBoard().length - 1 && yCurPiece > state.getBoard().length - 1) {
                 return;
             }
@@ -200,10 +200,19 @@ public class BlokusBoard extends SurfaceView {
 
 
     }
-
+    /**
+     * method used to draw the tiles of a piece based on
+     * the x & y coordinates on the board
+     *
+     * @param xPosition -x coordinate on the board
+     * @param yPosition -y coordinate on the board
+     * @param playerID -the id of the player that determines
+     *                 the color of the tile
+     * @param canvas - the canvas to draw on
+     *
+     */
     protected void drawTile(int xPosition, int yPosition, int playerID, Canvas canvas) {
         Paint tilePaint = new Paint();
-
 
         //chooses the color based on the playersID
         if (playerID == 0) {
@@ -225,7 +234,16 @@ public class BlokusBoard extends SurfaceView {
         canvas.drawRect(hLocation(left), vLocation(top), hLocation(right)
                 , vLocation(bottom), tilePaint);
     }
-
+    /**
+     * method that take a pixel on a canvas and turns it into an
+     * x,y coordinate point
+     *
+     * @param x -the x value of the pixel that was touched
+     * @param y -the y value of the pixel that was touched
+     *
+     * @returns a point if the pixel is on the board, null
+     * if otherwise
+     */
     public Point mapPixelToTile(int x, int y) {
         for (int i = 0; i < BOARD_LENGTH; i++) {
             for (int j = 0; j < BOARD_LENGTH; j++) {
@@ -256,12 +274,11 @@ public class BlokusBoard extends SurfaceView {
         return vBase + percent * fullSquare / 100;
     }
 
+    //setters & getters
     public void setState(BlokusGameState bgs) {
         state = bgs;
     }
 
-
-    //getters
     public void setCurrentPiece(Piece currentPiece) {
         this.currentPiece = currentPiece;
     }
