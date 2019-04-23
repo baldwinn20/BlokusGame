@@ -1,5 +1,6 @@
 package com.example.nicholasbaldwin.mockupgui;
 
+
 import com.example.nicholasbaldwin.mockupgui.game.GiveUp;
 import com.example.nicholasbaldwin.mockupgui.game.actionMsg.GameAction;
 import com.example.nicholasbaldwin.mockupgui.game.util.GamePlayer;
@@ -20,7 +21,6 @@ public class BlokusLocalGame extends LocalGame {
 
     // the game's state
     private BlokusGameState mainState;
-
     private int skipTurnCount = 0;
     /**
      * Constructor for the BlokusLocalGame.
@@ -149,7 +149,6 @@ public class BlokusLocalGame extends LocalGame {
             mainState.updatePiecesRemaining();
             mainState.updatePlayerScores(pp.getCurrentPiece());
             mainState.removePiece(pp.getCurrentPiece(),mainState.getPlayerTurn());
-
             mainState.setPlayerTurn(mainState.getPlayerTurn());
         }
         else if(action instanceof GiveUp) {

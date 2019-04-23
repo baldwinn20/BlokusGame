@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Point;
+import android.media.MediaPlayer;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -59,6 +60,9 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
     private PlacePiece pp = null;
     private ArrayList<Piece> currentInventory = null;
     ImageButton currentPieceButton = null;
+
+    //used for sound effects
+    MediaPlayer buttonSound;
 
 
     /**
@@ -166,6 +170,16 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
         currentInventory = state.getAllPieceInventory().get(playerNum);
 
         placePieceButton.setEnabled(false);
+
+        //sets up all the sounds
+        buttonSound = MediaPlayer.create(myActivity.getApplicationContext(),R.raw.button_sound);
+        buttonSound.setLooping(false);
+        /**
+         External Citation:
+         Date: 22 April 2019
+         Problem: I wanted to know how to play sounds
+         Source: https://www.youtube.com/watch?v=9oj4f8721LM
+         */
     }
 
     @Override
@@ -181,6 +195,7 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
          Source: https://stackoverflow.com/questions/5530256/java-class-this
          */
         if( v == quitButton){
+            buttonSound.start();
             String quitQuestion =
                     "Do you really want to give up?";
             String posLabel =
@@ -269,8 +284,8 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
             surfaceView.invalidate();
         }
 
-
         if (v == placePieceButton) {
+            buttonSound.start();
             //This makes the button disappear when pressed
             game.sendAction(pp);
             currentPieceButton.setVisibility(View.GONE);
@@ -279,6 +294,7 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
         }
         //TODO there is still a minor bug where it doesn't check if it is a valid move when pressing rotate or flip
         else if (v == flipButton && surfaceView.getCurrentPiece() != null) {
+            buttonSound.start();
             Piece p = surfaceView.getCurrentPiece();
             p.setPieceLayout(p.flip());
             //checks to see if you can place a piece after you flipped the piece
@@ -292,6 +308,7 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
             }
 
         } else if (v == rotateButton && surfaceView.getCurrentPiece() != null) {
+            buttonSound.start();
             Piece p = surfaceView.getCurrentPiece();
             p.setPieceLayout(p.rotate90());
             //checks to see if you can place a piece after you flipped the piece
@@ -303,9 +320,10 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
                     placePieceButton.setEnabled(false);
                 }
             }
-        } else if (v == helpButton) {
-            //TODO someone needs to put the rules down here or something
 
+        } else if (v == helpButton) {
+            buttonSound.start();
+            //TODO someone needs to put the rules down here or something
             /**
              External Citation:
              Date: 19 April 2019
@@ -314,10 +332,7 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
              Solution: Used the code from this video.
              */
             myActivity.startActivity(new Intent(myActivity, HelpMenu.class));
-
         }
-
-        //this draws a preview on the middle of the board
     }
 
     @Override
