@@ -51,7 +51,8 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
     private TextView messageBox = null;
 
     private TextView redScore, blueScore, greenScore, yellowScore;
-    private TextView redPR, bluePR, greenPR, yellowPR;
+    private TextView redPR, bluePR, greenPR, yellowPR, redName, blueName, greenName,
+            yellowName;
     private ScrollView scrollView;
     private ImageButton oneButton, twoButton, sButton, threeButton, smallTButton,
             fourButton, fourLButton, fiveButton, fiveLButton, nButton, yButton,
@@ -92,6 +93,8 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
      */
     @Override
     public void setAsGui(GameMainActivity activity) {
+
+
         // remember the activity
         myActivity = activity;
         //TODO replace xml layout with layout id
@@ -116,6 +119,10 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
         bluePR.setText("21");
         greenPR.setText("21");
         yellowPR.setText("21");
+        redName = myActivity.findViewById(R.id.redName);
+        redName.setText(this.name + ":");
+
+
 
         surfaceView.setOnTouchListener(this);
 
@@ -183,7 +190,7 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
         placePieceButton.setEnabled(false);
 
         //sets up all the sounds
-        buttonSound = MediaPlayer.create(myActivity.getApplicationContext(),R.raw.button_sound);
+        buttonSound = MediaPlayer.create(myActivity.getApplicationContext(), R.raw.button_sound);
         buttonSound.setLooping(false);
         /**
          External Citation:
@@ -200,7 +207,7 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
      */
     @Override
     public void onClick(View v) {
-        if(state.getPlayerTurn() != playerNum){
+        if (state.getPlayerTurn() != playerNum) {
             return;
         }
         /**
@@ -210,7 +217,7 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
          Solution: Used the example code from the post
          Source: https://stackoverflow.com/questions/5530256/java-class-this
          */
-        if( v == quitButton){
+        if (v == quitButton) {
             buttonSound.start();
             String quitQuestion =
                     "Do you really want to give up?";
@@ -219,11 +226,12 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
             String negLabel =
                     "No";
             MessageBox.popUpChoice(quitQuestion, posLabel, negLabel,
-                    new DialogInterface.OnClickListener(){
+                    new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface di, int val) {
                             GiveUp gu = new GiveUp(BlokusHumanPlayer.this);
                             game.sendAction(gu);
-                        }},
+                        }
+                    },
                     null,
                     myActivity);
 
@@ -381,7 +389,7 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
             updatePlayerPiecesRemaining();
             surfaceView.invalidate();
             //If the human player has given up in the past, skip their turn
-            if(state.getAllPlayersGivenUp()[playerNum]){
+            if (state.getAllPlayersGivenUp()[playerNum]) {
                 GiveUp gu = new GiveUp(this);
                 game.sendAction(gu);
                 return;

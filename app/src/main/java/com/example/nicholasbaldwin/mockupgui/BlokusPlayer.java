@@ -1,5 +1,7 @@
 package com.example.nicholasbaldwin.mockupgui;
 
+import android.widget.TextView;
+
 import java.util.ArrayList;
 
 /**
@@ -33,17 +35,17 @@ public class BlokusPlayer {
 
     /**
      * Constructor for the BlokusPlayer class
-     *
+     * <p>
      * Initializes a player with default values and passed in
      * parameters, those of which will be chosen by the player
      * in the Game config GUI.
      *
-     * @param  initName Name of the player
-     * @param  initColor Chosen color of a player
+     * @param initName       Name of the player
+     * @param initColor      Chosen color of a player
      * @param initPlayerType Type of player (Human, AI, or Network)
-     * @param initID ID used to determine the turn order
+     * @param initID         ID used to determine the turn order
      */
-    public BlokusPlayer(String initName,int initColor, int initPlayerType,
+    public BlokusPlayer(String initName, int initColor, int initPlayerType,
                         int initID) {
         //Store passed in parameters and current class constants into
         //instance variable to be modified throughout the game.
@@ -53,24 +55,59 @@ public class BlokusPlayer {
         playerType = initPlayerType;
         playerScore = INITIAL_SCORE;
         playerID = initID;
-
-
-
     }
 
     //Setters and Getters
-    public String getPlayerName(){ return playerName;}
-    public void setPlayerName(String name){this.playerName = name;}
-    public int getPiecesRemaining(){ return piecesRemaining;}
-    public void setPiecesRemaining(int piecesVal){this.piecesRemaining = piecesVal;}
-    public int getPlayerColor(){return playerColor;}
-    public void setPlayerColor(int colorVal){this.playerColor = colorVal;}
-    public int getPlayerType(){return playerType;}
-    public void setPlayerType(int playerType) { this.playerType = playerType;}
-    public int getPlayerScore(){return  playerScore;}
-    public void setPlayerScore(int scoreVal){this.playerScore = scoreVal;}
-    public int getPlayerID(){return playerID;}
-    public void setPlayerID(int id){playerID = id;}
-    public ArrayList<Piece> getPiecesInventory(){return piecesInventory;}
+    public String getPlayerName() {
+        return playerName;
+    }
+
+    public void setPlayerName(String name) {
+        this.playerName = name;
+    }
+
+    public int getPiecesRemaining() {
+        return piecesRemaining;
+    }
+
+    public void setPiecesRemaining(int piecesVal) {
+        this.piecesRemaining = piecesVal;
+    }
+
+    public int getPlayerColor() {
+        return playerColor;
+    }
+
+    public void setPlayerColor(int colorVal) {
+        this.playerColor = colorVal;
+    }
+
+    public int getPlayerType() {
+        return playerType;
+    }
+
+    public void setPlayerType(int playerType) {
+        this.playerType = playerType;
+    }
+
+    public int getPlayerScore() {
+        return playerScore;
+    }
+
+    public void setPlayerScore(int scoreVal) {
+        this.playerScore = scoreVal;
+    }
+
+    public int getPlayerID() {
+        return playerID;
+    }
+
+    public void setPlayerID(int id) {
+        playerID = id;
+    }
+
+    public ArrayList<Piece> getPiecesInventory() {
+        return piecesInventory;
+    }
 
 }
