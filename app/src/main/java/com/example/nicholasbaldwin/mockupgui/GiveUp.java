@@ -1,4 +1,4 @@
-package com.example.nicholasbaldwin.mockupgui.game;
+package com.example.nicholasbaldwin.mockupgui;
 
 import com.example.nicholasbaldwin.mockupgui.game.actionMsg.GameAction;
 import com.example.nicholasbaldwin.mockupgui.game.util.GamePlayer;

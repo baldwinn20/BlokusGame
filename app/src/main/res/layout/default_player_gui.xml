@@ -354,6 +354,7 @@
             android:orientation="vertical">
 
             <LinearLayout
+                android:id="@+id/actionButtonsLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="2">
@@ -362,7 +363,7 @@
                     android:id="@+id/placePieceLayout"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
+                    android:layout_weight="1.5"
                     android:orientation="horizontal">
 
                     <Button
@@ -377,18 +378,18 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/quitButtonLayout"
+                    android:id="@+id/giveUpButtonLayout"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="2"
                     android:orientation="horizontal">
 
                     <Button
-                        android:id="@+id/quitButton"
+                        android:id="@+id/giveUpButton"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:text="Quit" />
+                        android:text="Give Up" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -409,6 +410,23 @@
                         android:textSize="12sp"
                         android:textStyle="bold" />
                 </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/quitButtonLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/quitButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:backgroundTint="@color/red"
+                        android:text="Quit" />
+                </LinearLayout>
+
             </LinearLayout>
 
             <LinearLayout

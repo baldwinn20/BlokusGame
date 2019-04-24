@@ -12,7 +12,6 @@ import android.widget.ImageButton;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-import com.example.nicholasbaldwin.mockupgui.game.GiveUp;
 import com.example.nicholasbaldwin.mockupgui.game.infoMsg.GameInfo;
 import com.example.nicholasbaldwin.mockupgui.game.infoMsg.IllegalMoveInfo;
 import com.example.nicholasbaldwin.mockupgui.game.infoMsg.NotYourTurnInfo;
@@ -57,7 +56,7 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
             fourButton, fourLButton, fiveButton, fiveLButton, nButton, yButton,
             v3Button, cubeButton, cButton, bButton, zButton, mButton, xButton,
             fButton, bigTButton, cornerButton;
-    private Button placePieceButton, rotateButton, flipButton, helpButton, quitButton;
+    private Button placePieceButton, rotateButton, flipButton, helpButton, giveUpButton, quitButton;
 
     //Game action that will be sent when the player tries to flip, rotate or place a piece
     private PlacePiece pp = null;
@@ -175,6 +174,8 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
         flipButton.setOnClickListener(this);
         helpButton = myActivity.findViewById(R.id.helpButton);
         helpButton.setOnClickListener(this);
+        giveUpButton = myActivity.findViewById(R.id.giveUpButton);
+        giveUpButton.setOnClickListener(this);
         quitButton = myActivity.findViewById(R.id.quitButton);
         quitButton.setOnClickListener(this);
 
@@ -201,7 +202,7 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
          Solution: Used the example code from the post
          Source: https://stackoverflow.com/questions/5530256/java-class-this
          */
-        if (v == quitButton) {
+        if (v == giveUpButton) {
             String quitQuestion =
                     "Do you really want to give up?";
             String posLabel =
@@ -218,6 +219,9 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
                     null,
                     myActivity);
 
+        }
+        if (v == quitButton) {
+            myActivity.startActivity(new Intent(myActivity, QuitMenu.class));
         }
         //all the individual piece buttons
         if (v == oneButton) {
@@ -332,7 +336,6 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
             }
 
         } else if (v == helpButton) {
-            //TODO someone needs to put the rules down here or something
             /**
              External Citation:
              Date: 19 April 2019
@@ -476,4 +479,15 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
         yellowPR.setText(state.getAllPiecesRemaining()[3] + "");
     }
 
+    public void test(){
+        BlokusGameState bgs = new BlokusGameState();
+        this.state = bgs;
+
+        Piece testPiece = state.getAllPieceInventory().get(0).get(0);
+        PlacePiece tpp = new PlacePiece(this, 0, 0, testPiece);
+        tpp.setBoard(state.getBoard());
+        assert tpp.checkForValidMove(0);
+
+
+    }
 }

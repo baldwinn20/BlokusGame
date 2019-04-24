@@ -76,7 +76,7 @@ public class BlokusGameState extends GameState implements Serializable {
      * @param bgs the game state object that contains information
      *            during a certain state of the game
      */
-    public BlokusGameState(BlokusGameState bgs, int playerID) { //Deep copy constructor
+    public BlokusGameState(BlokusGameState bgs) { //Deep copy constructor
         /**
          External Citation
          Date: 26 February 2019
@@ -92,9 +92,6 @@ public class BlokusGameState extends GameState implements Serializable {
 
         for (int i = 0; i < 4; i++) {
             this.allPieceInventory.add(new ArrayList<Piece>());
-//            if (playerID >= 0 && playerID != i) {
-//                continue;
-//            }
             for (int j = 0; j < bgs.allPieceInventory.get(i).size(); j++) {
                 Piece src = bgs.allPieceInventory.get(i).get(j);
                 Piece newPiece = new Piece(src.getName(),
@@ -119,48 +116,6 @@ public class BlokusGameState extends GameState implements Serializable {
         }
         this.playerToMove = bgs.playerToMove;
 
-    }
-
-
-    /**
-     * rotate90
-     * <p>
-     * Changes a player's orientation for a specific piece by 90 degrees
-     *
-     * @return true if it is that specific player's turn and false otherwise
-     */
-    public boolean rotate90(Piece pc) {
-        if (pc.getOrientationVal() == 0) {
-            pc.setOrientationVal(1);
-        } else if (pc.getOrientationVal() == 1) {
-            pc.setOrientationVal(2);
-        } else if (pc.getOrientationVal() == 2) {
-            pc.setOrientationVal(3);
-        } else {
-            pc.setOrientationVal(0);
-        }
-        return true;
-    }
-
-    /**
-     * flip
-     * <p>
-     * reflects the piece over a horizontal line to change its orientation
-     *
-     * @return true if it is that specific player's turn and false otherwise
-     */
-    public boolean flip(Piece pc) {
-        //For testing purposes, the player's X piece will be flipped;
-        if (pc.getOrientationVal() == 0) {
-            pc.setOrientationVal(2);
-        } else if (pc.getOrientationVal() == 1) {
-            pc.setOrientationVal(3);
-        } else if (pc.getOrientationVal() == 2) {
-            pc.setOrientationVal(0);
-        } else {
-            pc.setOrientationVal(1);
-        }
-        return true;
     }
 
     /**
@@ -334,7 +289,6 @@ public class BlokusGameState extends GameState implements Serializable {
         this.allPlayersGivenUp[pID] = init;
     }
 
-    //TODO check to see if deepy copy is needed
     public int[] getAllPlayerScores() {
         return this.allPlayerScores;
     }

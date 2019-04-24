@@ -1,6 +1,5 @@
 package com.example.nicholasbaldwin.mockupgui;
 
-import com.example.nicholasbaldwin.mockupgui.game.GiveUp;
 import com.example.nicholasbaldwin.mockupgui.game.infoMsg.GameInfo;
 import com.example.nicholasbaldwin.mockupgui.game.infoMsg.NotYourTurnInfo;
 import com.example.nicholasbaldwin.mockupgui.game.util.GameComputerPlayer;
@@ -41,7 +40,7 @@ public class BlokusDumbAI extends GameComputerPlayer {
         //to see if it can place a piece
         PlacePiece unusedPieceChecker = null;
         Piece pieceToRemove = null;
-        int rotationCount = 5;
+        int rotationCount = 4;
         boolean letMeOut = false;
         for (Piece unusedPiece : localState.getAllPieceInventory().get(playerNum)) {
             for (int j = 0; j < BlokusGameState.BOARD_LENGTH; j++) {

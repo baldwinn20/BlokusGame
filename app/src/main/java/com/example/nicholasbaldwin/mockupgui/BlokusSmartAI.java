@@ -1,11 +1,9 @@
 package com.example.nicholasbaldwin.mockupgui;
 
-import com.example.nicholasbaldwin.mockupgui.game.GiveUp;
 import com.example.nicholasbaldwin.mockupgui.game.infoMsg.GameInfo;
 import com.example.nicholasbaldwin.mockupgui.game.infoMsg.NotYourTurnInfo;
 import com.example.nicholasbaldwin.mockupgui.game.util.GameComputerPlayer;
 
-import java.util.ArrayList;
 import java.util.Collections;
 
 /**
@@ -51,7 +49,8 @@ public class BlokusSmartAI extends GameComputerPlayer {
         // pick x and y positions at random (0-2)
         PlacePiece unusedPieceChecker = null;
         Piece pieceToRemove = null;
-        int rotationCount = 5;
+        int rotationCount = 4;
+        int flipCount = 2;
         boolean letMeOut = false;
 
         //this reverses the  order of the piece inventory so the smart AI places the biggest piece first
@@ -71,17 +70,19 @@ public class BlokusSmartAI extends GameComputerPlayer {
                     if (localState.getBoard()[k][j] == Piece.EMPTY &&
                             !unusedPiece.isOnBoard) {
                         //checks every orientation by rotation
-                        for (int l = 0; l < rotationCount; l++) {
-                            unusedPiece.setPieceLayout(unusedPiece.rotate90());
-                            unusedPiece.setxPosition(k);
-                            unusedPiece.setyPosition(j);
-                            unusedPieceChecker = new PlacePiece(this, k, j, unusedPiece);
-                            unusedPieceChecker.setBoard(localState.getBoard());
-                            if (unusedPieceChecker.checkForValidMove(playerNum)) {
-                                game.sendAction(unusedPieceChecker);
-                                pieceToRemove = unusedPiece;
-                                letMeOut = true;
-                                break;
+                        for (int i = 0; i < flipCount; i++) {
+                            for (int l = 0; l < rotationCount; l++) {
+                                unusedPiece.setPieceLayout(unusedPiece.rotate90());
+                                unusedPiece.setxPosition(k);
+                                unusedPiece.setyPosition(j);
+                                unusedPieceChecker = new PlacePiece(this, k, j, unusedPiece);
+                                unusedPieceChecker.setBoard(localState.getBoard());
+                                if (unusedPieceChecker.checkForValidMove(playerNum)) {
+                                    game.sendAction(unusedPieceChecker);
+                                    pieceToRemove = unusedPiece;
+                                    letMeOut = true;
+                                    break;
+                                }
                             }
                         }
                     }

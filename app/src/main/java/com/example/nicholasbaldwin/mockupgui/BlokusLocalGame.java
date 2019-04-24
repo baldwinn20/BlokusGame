@@ -1,7 +1,6 @@
 package com.example.nicholasbaldwin.mockupgui;
 
 
-import com.example.nicholasbaldwin.mockupgui.game.GiveUp;
 import com.example.nicholasbaldwin.mockupgui.game.actionMsg.GameAction;
 import com.example.nicholasbaldwin.mockupgui.game.util.GamePlayer;
 import com.example.nicholasbaldwin.mockupgui.game.util.LocalGame;
@@ -44,7 +43,7 @@ public class BlokusLocalGame extends LocalGame {
     @Override
     protected void sendUpdatedStateTo(GamePlayer p) {
         // make a copy of the state, and send it to the player
-        p.sendInfo(new BlokusGameState(mainState, mainState.getPlayerTurn()));
+        p.sendInfo(new BlokusGameState(mainState));
     }
 
     /**
