@@ -67,9 +67,11 @@ public class BlokusLocalGame extends LocalGame {
      */
     @Override
     protected String checkIfGameOver() {
-        //TODO check who has pieceRemaining = 0 and win the game
 
         int winner = 0;
+
+        //if there is anyone who got rid of all their pieces
+        //they win
         for (int i = 0; i < players.length; i++) {
             if (mainState.getAllPiecesRemaining()[i] == 0) {
                 winner = i;
@@ -77,14 +79,15 @@ public class BlokusLocalGame extends LocalGame {
             }
         }
 
-        //TODO possibly add skips for human players as well?
-        //if there has been more than 3 skips by the AIs, end the game
+        //if there has been more than 3 skips by players, end the game
         for(boolean playerGivenUp : mainState.getAllPlayersGivenUp()) {
             if(!playerGivenUp){
                 return null;
             }
         }
 
+        //after everyone has skipped, check to see who has the highest score
+        //that player will win
         if (skipTurnCount == 4) {
             for (int i = 0; i < players.length; i++) {
                 if (mainState.getAllPlayerScores()[i] > mainState.getAllPlayerScores()[winner]) {
@@ -108,6 +111,7 @@ public class BlokusLocalGame extends LocalGame {
         if(action instanceof PlacePiece) {
             PlacePiece pp = (PlacePiece) action;
 
+            //gets the x and y, in order to place the piece
             int y = pp.getY();
             int x = pp.getX();
             pp.setBoard(mainState.getBoard());
@@ -118,7 +122,8 @@ public class BlokusLocalGame extends LocalGame {
             }
 
 
-
+            //places the piece and updates the other aspects of the
+            //game state
             mainState.placePiece(x, y, pp.getCurrentPiece());
             mainState.updatePiecesRemaining();
             mainState.updatePlayerScores(pp.getCurrentPiece());

@@ -88,7 +88,7 @@ public class PlacePiece extends GameAction implements Serializable {
                 if (pieceLayout[xOffset][yOffset] != Piece.EMPTY ) {
                     // special checks for the 4 corners of the board depending on the player
                     //top left corner
-                    if (x + xOffset == 0 && y + yOffset == 0 && pID != 0) {
+                    if (x + xOffset == 0 && y + yOffset == 0 && pID != Piece.RED) {
                         return false;
                     }
                     //there is overlap with other already placed pieces
@@ -96,15 +96,15 @@ public class PlacePiece extends GameAction implements Serializable {
                         return false;
                     }
                     //top right corner
-                    else if (x + xOffset >= 19 && y + yOffset == 0 && pID != 1) {
+                    else if (x + xOffset >= 19 && y + yOffset == 0 && pID != Piece.BLUE) {
                         return false;
                     }
                     //bottom left
-                    else if (x + xOffset == 0 && y + yOffset == 19 && pID != 2) {
+                    else if (x + xOffset == 0 && y + yOffset == 19 && pID != Piece.GREEN) {
                         return false;
                     }
                     //bottom right corner
-                    else if (x + xOffset == 19 && y + yOffset == 19 && pID != 3) {
+                    else if (x + xOffset == 19 && y + yOffset == 19 && pID != Piece.YELLOW) {
                         return false;
                     }
 
@@ -203,7 +203,7 @@ public class PlacePiece extends GameAction implements Serializable {
         switch (pID) {
             //checks to see if your anchor is on a corner or one of the other tiles is
             //Checks the top left board corner
-            case 0:
+            case Piece.RED:
                 if (((x+currentPiece.getPieceWidth() - 1) == 0
                         && (y+currentPiece.getPieceLength() - 1) == 0
                         && boardCopy[0][0] == Piece.EMPTY)
@@ -212,7 +212,7 @@ public class PlacePiece extends GameAction implements Serializable {
                 }
                 break;
             //Checks the top right board corner
-            case 1:
+            case Piece.BLUE:
                 if (((x+currentPiece.getPieceWidth() - 1) == 19
                         && pieceLayout[currentPiece.getPieceWidth()-1][0] == pID && y == 0
                         && boardCopy[19][0] == Piece.EMPTY)
@@ -222,7 +222,7 @@ public class PlacePiece extends GameAction implements Serializable {
                 break;
 
             //Checks the bottom left board corner
-            case 2:
+            case Piece.GREEN:
                 if (((y+currentPiece.getPieceLength() - 1) == 19
                         && pieceLayout[0][currentPiece.getPieceLength()-1] == pID && x == 0
                         && boardCopy[0][19] == Piece.EMPTY)
@@ -232,7 +232,7 @@ public class PlacePiece extends GameAction implements Serializable {
                 break;
 
             //Checks the bottom right board corner
-            case 3:
+            case Piece.YELLOW:
                 if ((x+currentPiece.getPieceWidth() - 1) == 19
                         && (y+currentPiece.getPieceLength() - 1) == 19
                         && pieceLayout[currentPiece.getPieceWidth()-1][currentPiece.getPieceLength()-1] == pID

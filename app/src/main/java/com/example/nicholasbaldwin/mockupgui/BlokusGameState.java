@@ -267,7 +267,6 @@ public class BlokusGameState extends GameState implements Serializable {
 
     } // What if AI player can't move
 
-    //TODO check to see if deepy copy is needed
     public int[] getAllPiecesRemaining() {
         return this.allPiecesRemaining;
     }

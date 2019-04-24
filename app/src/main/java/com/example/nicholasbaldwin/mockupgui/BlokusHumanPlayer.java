@@ -47,7 +47,6 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
     //Widgets that correspond to the message box, player scores,
     //player inventories & pieces, and action buttons
     private TextView messageBox = null;
-
     private TextView redScore, blueScore, greenScore, yellowScore;
     private TextView redPR, bluePR, greenPR, yellowPR, redName, blueName, greenName,
             yellowName;
@@ -90,12 +89,11 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
         // remember the activity
         myActivity = activity;
 
-        //TODO replace xml layout with layout id
         activity.setContentView(R.layout.default_player_gui);
         surfaceView = myActivity.findViewById(R.id.blokusBoard);
         messageBox = myActivity.findViewById(R.id.messageTV);
 
-        //all the scores and pieces remaining
+        //all the scores, pieces remaining, and text views
         redScore = myActivity.findViewById(R.id.redScoreTV);
         redScore.setText("0");
         blueScore = myActivity.findViewById(R.id.blueScoreTV);
@@ -117,11 +115,14 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
         greenName = myActivity.findViewById(R.id.greenName);
         yellowName = myActivity.findViewById(R.id.yellowName);
 
+        //the board
         surfaceView.setOnTouchListener(this);
 
+        //the inventory list of pieces
         scrollView = myActivity.findViewById(R.id.piecesScrollView);
         scrollView.setOnClickListener(this);
 
+        //each individual piece button in the scroll view
         oneButton = myActivity.findViewById(R.id.oneButton);
         oneButton.setOnClickListener(this);
         twoButton = myActivity.findViewById(R.id.twoButton);
@@ -165,7 +166,7 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
         cornerButton = myActivity.findViewById(R.id.cornerButton);
         cornerButton.setOnClickListener(this);
 
-
+        //all the action buttons
         placePieceButton = myActivity.findViewById((R.id.placePieceButton));
         placePieceButton.setOnClickListener(this);
         rotateButton = myActivity.findViewById(R.id.rotateButton);
@@ -179,9 +180,11 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
         quitButton = myActivity.findViewById(R.id.quitButton);
         quitButton.setOnClickListener(this);
 
+        //sets the current inventory based on the current state
         this.state = new BlokusGameState();
         currentInventory = state.getAllPieceInventory().get(playerNum);
 
+        //makes sure no one can place a piece on start up
         placePieceButton.setEnabled(false);
     }
     /**
@@ -339,7 +342,7 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
         } else if (v == rotateButton && surfaceView.getCurrentPiece() != null) {
             Piece p = surfaceView.getCurrentPiece();
             p.setPieceLayout(p.rotate90());
-            //checks to see if you can place a piece after you flipped the piece
+            //checks to see if you can place a piece after you rotated the piece
             if (pp != null) {
                 pp.setPieceLayout(p.getPieceLayout());
                 if (pp.checkForValidMove(playerNum)) {
@@ -370,6 +373,7 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
         else {
             state = (BlokusGameState) info;
 
+            //tells the player whose turn it in the message box
             messageBox.setText(allPlayerNames[state.getPlayerTurn()] + "'s turn");
 
             //sets the names based on hte info given
@@ -380,10 +384,10 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
 
             //set the new inventory
             currentInventory = state.getAllPieceInventory().get(playerNum);
-            //TODO make setState method in Master GUI class
             surfaceView.setState(state);
             updatePlayerScores();
             updatePlayerPiecesRemaining();
+            //redraws the board based on what it looks like now
             surfaceView.invalidate();
             //If the human player has given up in the past, skip their turn
             if (state.getAllPlayersGivenUp()[playerNum]) {
@@ -486,7 +490,10 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
         greenPR.setText(state.getAllPiecesRemaining()[2] + "");
         yellowPR.setText(state.getAllPiecesRemaining()[3] + "");
     }
-
+    /**
+     * A JUnit test that tests the functionality of the place piece
+     * action.
+     */
     public void test(){
         BlokusGameState bgs = new BlokusGameState();
         this.state = bgs;
@@ -495,7 +502,5 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
         PlacePiece tpp = new PlacePiece(this, 0, 0, testPiece);
         tpp.setBoard(state.getBoard());
         assert tpp.checkForValidMove(0);
-
-
     }
 }

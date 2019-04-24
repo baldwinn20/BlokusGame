@@ -62,17 +62,9 @@ public class BlokusMainActivity extends GameMainActivity {
             }
         });
 
-        // network player
-//        playerTypes.add(new GamePlayerType("Computer Player (dumb)") {
-//            public GamePlayer createPlayer(String name) {
-//                return new BlokusNetworkPlayer(name);
-//            }
-//        });
-
         // Create a game configuration class for Tic-tac-toe
         GameConfig defaultConfig = new GameConfig(playerTypes, 4, 4, "Blokus", PORT_NUMBER);
 
-        //TODO for some reason the type index messes with the AI's turns
         // Add the default players
         defaultConfig.addPlayer("Human", 0); // yellow-on-blue GUI
         defaultConfig.addPlayer("Dumb 1", 1); // dumb computer player

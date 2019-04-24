@@ -3,7 +3,16 @@ package com.example.nicholasbaldwin.mockupgui;
 import com.example.nicholasbaldwin.mockupgui.game.infoMsg.GameInfo;
 import com.example.nicholasbaldwin.mockupgui.game.infoMsg.NotYourTurnInfo;
 import com.example.nicholasbaldwin.mockupgui.game.util.GameComputerPlayer;
-
+/**
+ * <!-- class BlokusDumbAI -->
+ * <p>
+ * This class implements the "dumb" computer player.
+ * It picks the first piece of the inventory then goes
+ * down the line trying to place a piece.
+ *
+ * @author <Nicholas Baldwin, Justin Cao, Dylan Pascua>
+ * @version <Spring 2019>
+ */
 
 public class BlokusDumbAI extends GameComputerPlayer {
     //All instance variables

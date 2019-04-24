@@ -28,15 +28,14 @@ public class BlokusBoard extends SurfaceView {
     private final float TILE_SIZE_PERCENT = 4.5f;// size of each of the tiles
     private final float DIVIDER_PERCENT = .5f;//thickness of the dividers
     private final float TILE_TOTAL_PERCENT = TILE_SIZE_PERCENT
-            + DIVIDER_PERCENT;
-    private final float LEFT_BORDER_PERCENT = 0.5f;
+            + DIVIDER_PERCENT; // the total size of a tile including the dividers
+    private final float LEFT_BORDER_PERCENT = 0.5f;//special left boarder thickness
     private int boardWidth, boardHeight;
     private Piece currentPiece = null;
 
     //All pieces previewed on the board are positioned near the center
     private int xCurPiece = 9, yCurPiece = 9;
-    /*  instance variables that are used to create the board
-     */
+
     protected BlokusGameState state; // the current games state
 
     //the offset from the left and top to the beginning of the board
@@ -215,13 +214,13 @@ public class BlokusBoard extends SurfaceView {
         Paint tilePaint = new Paint();
 
         //chooses the color based on the playersID
-        if (playerID == 0) {
+        if (playerID == Piece.RED) {
             tilePaint.setColor(Color.RED);
-        } else if (playerID == 1) {
+        } else if (playerID == Piece.BLUE) {
             tilePaint.setColor(Color.BLUE);
-        } else if (playerID == 2) {
+        } else if (playerID == Piece.GREEN) {
             tilePaint.setColor(Color.GREEN);
-        } else if (playerID == 3) {
+        } else if (playerID == Piece.YELLOW) {
             tilePaint.setColor(Color.YELLOW);
         }
 

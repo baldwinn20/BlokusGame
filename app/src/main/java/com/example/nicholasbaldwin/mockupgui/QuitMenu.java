@@ -8,7 +8,7 @@ import android.widget.Button;
 import java.io.Serializable;
 
 /**
- * <!-- class HelpMenu-->
+ * <!-- class QuitMenu-->
  * <p>
  * This class implements a popup menu when the quit button
  * is pushed

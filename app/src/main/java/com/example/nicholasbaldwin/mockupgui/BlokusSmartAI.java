@@ -32,6 +32,8 @@ public class BlokusSmartAI extends GameComputerPlayer {
      * the main method of the Smart AI that decides how to move
      * based on the state of the game. Unlike the dumb Ai, this
      * AI rearranges its list to start at the bigger pieces first.
+     * It can also flip a piece horizontally, another functionality
+     * that was omitted for the Dumb AI
      *
      * @param info -the info of the game sent by the BlokusLocalGame
      *

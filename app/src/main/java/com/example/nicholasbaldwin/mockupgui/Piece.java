@@ -64,6 +64,7 @@ public class Piece implements Serializable {
             }
         }
 
+        //sets the pieces color
         if (pieceColor == Color.RED) {
             colorNum = RED;
         } else if (pieceColor == Color.BLUE) {
