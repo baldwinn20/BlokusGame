@@ -32,6 +32,7 @@ public class QuitMenu extends AppCompatActivity implements Serializable {
         yesButton = findViewById(R.id.yesButton);
         noButton = findViewById(R.id.noButton);
 
+        //closes activity when "no" button is touched
         noButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -39,6 +40,8 @@ public class QuitMenu extends AppCompatActivity implements Serializable {
             }
         });
 
+        /*ends game when "yes" button is pressed
+        and returns user to starting menu*/
         yesButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
