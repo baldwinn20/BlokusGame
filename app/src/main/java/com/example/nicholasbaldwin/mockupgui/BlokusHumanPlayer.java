@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Point;
-import android.media.MediaPlayer;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -67,10 +66,6 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
     //Represents the currently selected piece from the scroll view
     ImageButton currentPieceButton = null;
 
-    //used for sound effects
-    MediaPlayer buttonSound;
-
-
     /**
      * constructor
      *
@@ -93,10 +88,9 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
      */
     @Override
     public void setAsGui(GameMainActivity activity) {
-
-
         // remember the activity
         myActivity = activity;
+
         //TODO replace xml layout with layout id
         activity.setContentView(R.layout.default_player_gui);
         surfaceView = myActivity.findViewById(R.id.blokusBoard);
@@ -188,16 +182,6 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
         currentInventory = state.getAllPieceInventory().get(playerNum);
 
         placePieceButton.setEnabled(false);
-
-        //sets up all the sounds
-        buttonSound = MediaPlayer.create(myActivity.getApplicationContext(), R.raw.button_sound);
-        buttonSound.setLooping(false);
-        /**
-         External Citation:
-         Date: 22 April 2019
-         Problem: I wanted to know how to play sounds
-         Source: https://www.youtube.com/watch?v=9oj4f8721LM
-         */
     }
     /**
      * An onclick listener method that handles all the
@@ -218,7 +202,6 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
          Source: https://stackoverflow.com/questions/5530256/java-class-this
          */
         if (v == quitButton) {
-            buttonSound.start();
             String quitQuestion =
                     "Do you really want to give up?";
             String posLabel =
@@ -315,7 +298,6 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
          */
 
         if (v == placePieceButton) {
-            buttonSound.start();
             game.sendAction(pp);
             //This makes the piece button disappear when pressed
             //so that the user can't use that piece again
@@ -324,7 +306,6 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
             placePieceButton.setEnabled(false);
         }
         else if (v == flipButton && surfaceView.getCurrentPiece() != null) {
-            buttonSound.start();
             Piece p = surfaceView.getCurrentPiece();
             p.setPieceLayout(p.flip());
             //checks to see if you can place a piece after you flipped the piece
@@ -338,7 +319,6 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
             }
 
         } else if (v == rotateButton && surfaceView.getCurrentPiece() != null) {
-            buttonSound.start();
             Piece p = surfaceView.getCurrentPiece();
             p.setPieceLayout(p.rotate90());
             //checks to see if you can place a piece after you flipped the piece
@@ -352,7 +332,6 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
             }
 
         } else if (v == helpButton) {
-            buttonSound.start();
             //TODO someone needs to put the rules down here or something
             /**
              External Citation:
@@ -382,13 +361,12 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
             return;
         else {
             state = (BlokusGameState) info;
-
             //sets the names based on hte info given
             redName.setText(allPlayerNames[Piece.RED]);
             blueName.setText(allPlayerNames[Piece.BLUE]);
             greenName.setText(allPlayerNames[Piece.GREEN]);
             yellowName.setText(allPlayerNames[Piece.YELLOW]);
-            
+
             //set the new inventory
             currentInventory = state.getAllPieceInventory().get(playerNum);
             //TODO make setState method in Master GUI class
