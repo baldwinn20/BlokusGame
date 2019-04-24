@@ -336,7 +336,7 @@
                 android:layout_height="50dp"
                 android:layout_weight="0"
                 android:textAlignment="center"
-                android:textSize="18dp" />
+                android:textSize="24dp" />
 
             <com.example.nicholasbaldwin.mockupgui.BlokusBoard
                 android:id="@+id/blokusBoard"

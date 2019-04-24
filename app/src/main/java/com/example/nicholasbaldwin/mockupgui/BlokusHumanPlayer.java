@@ -192,6 +192,22 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
      */
     @Override
     public void onClick(View v) {
+
+         if (v == helpButton) {
+            /**
+             External Citation:
+             Date: 19 April 2019
+             Problem: Not sure how to make a new activity
+             Resource: https://www.youtube.com/watch?v=n21mXO1ASJM&t=62s
+             Solution: Used the code from this video.
+             */
+            myActivity.startActivity(new Intent(myActivity, HelpMenu.class));
+        }
+
+        if (v == quitButton) {
+            myActivity.startActivity(new Intent(myActivity, QuitMenu.class));
+        }
+
         if (state.getPlayerTurn() != playerNum) {
             return;
         }
@@ -220,9 +236,7 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
                     myActivity);
 
         }
-        if (v == quitButton) {
-            myActivity.startActivity(new Intent(myActivity, QuitMenu.class));
-        }
+
         //all the individual piece buttons
         if (v == oneButton) {
             surfaceView.setCurrentPiece(this.findPiece("one"));
@@ -335,15 +349,6 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
                 }
             }
 
-        } else if (v == helpButton) {
-            /**
-             External Citation:
-             Date: 19 April 2019
-             Problem: Not sure how to make a new activity
-             Resource: https://www.youtube.com/watch?v=n21mXO1ASJM&t=62s
-             Solution: Used the code from this video.
-             */
-            myActivity.startActivity(new Intent(myActivity, HelpMenu.class));
         }
     }
     /**
@@ -364,6 +369,9 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
             return;
         else {
             state = (BlokusGameState) info;
+
+            messageBox.setText(allPlayerNames[state.getPlayerTurn()] + "'s turn");
+
             //sets the names based on hte info given
             redName.setText(allPlayerNames[Piece.RED]);
             blueName.setText(allPlayerNames[Piece.BLUE]);
