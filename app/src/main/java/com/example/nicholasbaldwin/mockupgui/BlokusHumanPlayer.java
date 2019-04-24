@@ -196,6 +196,7 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
     @Override
     public void onClick(View v) {
 
+        //Opens a separate screen to explain the rules
          if (v == helpButton) {
             /**
              External Citation:
@@ -207,10 +208,12 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
             myActivity.startActivity(new Intent(myActivity, HelpMenu.class));
         }
 
+        //Players can quit back to the config screen
         if (v == quitButton) {
             myActivity.startActivity(new Intent(myActivity, QuitMenu.class));
         }
 
+        //Ensures it's the player's turn, otherwise disable the buttons
         if (state.getPlayerTurn() != playerNum) {
             return;
         }
@@ -221,6 +224,7 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
          Solution: Used the example code from the post
          Source: https://stackoverflow.com/questions/5530256/java-class-this
          */
+        //If players decide to give up, they skip their turn for the rest of the game
         if (v == giveUpButton) {
             String quitQuestion =
                     "Do you really want to give up?";
@@ -318,14 +322,16 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
          Source:https://stackoverflow.com/questions/14868349/how-to-disappear-button-in-android
          */
 
+        //This makes the piece button disappear when pressed
+        //so that the user can't use that piece again
         if (v == placePieceButton) {
             game.sendAction(pp);
-            //This makes the piece button disappear when pressed
-            //so that the user can't use that piece again
             currentPieceButton.setVisibility(View.GONE);
             surfaceView.setCurrentPiece(null);
             placePieceButton.setEnabled(false);
         }
+
+        //Flips currently selected piece's orientation
         else if (v == flipButton && surfaceView.getCurrentPiece() != null) {
             Piece p = surfaceView.getCurrentPiece();
             p.setPieceLayout(p.flip());
@@ -339,6 +345,7 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
                 }
             }
 
+            //Rotates currently selected piece's orientation
         } else if (v == rotateButton && surfaceView.getCurrentPiece() != null) {
             Piece p = surfaceView.getCurrentPiece();
             p.setPieceLayout(p.rotate90());
@@ -362,10 +369,10 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
      */
     @Override
     public void receiveInfo(GameInfo info) {
+        //If the board surface hasn't been initialized yet, don't do anything
         if (surfaceView == null) return;
 
         if (info instanceof IllegalMoveInfo || info instanceof NotYourTurnInfo) {
-            //TODO place holder for handling
             return;
         } else if (!(info instanceof BlokusGameState))
             // if we do not have a BlokusGameState, ignore
@@ -382,7 +389,7 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
             greenName.setText(allPlayerNames[Piece.GREEN]);
             yellowName.setText(allPlayerNames[Piece.YELLOW]);
 
-            //set the new inventory
+            //set the new inventory and updates the text views for scores and pieces remaining
             currentInventory = state.getAllPieceInventory().get(playerNum);
             surfaceView.setState(state);
             updatePlayerScores();
@@ -413,13 +420,14 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
     @Override
     public boolean onTouch(View v, MotionEvent event) {
 
+        //Encourage players to select a piece from their inventory
         if (surfaceView.getCurrentPiece() == null) {
             messageBox.setText("Invalid Move: Select a Piece.");
             return false;
         }
         // get the x and y coordinates of the touch-location;
         // convert them to square coordinates (where both
-        // values are in the range 0..2)
+        // values are in the range 0..19)
         int x = (int) event.getX();
         int y = (int) event.getY();
 
@@ -431,7 +439,7 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
             return false;
         } else {
             //if the player makes a dragging motion the board will draw the piece
-            // were the persons finger is
+            // where the persons finger is
             messageBox.setText("Moving Piece\n");
 
             //also sets the pieces x & y position based on where the piece is on the
@@ -445,7 +453,8 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
                     surfaceView.getCurrentPiece().getYPosition(), surfaceView.getCurrentPiece());
             pp.setBoard(state.getBoard());
 
-            //this checks to see of the current piece is a valid move
+            //this checks to see of the current piece is a valid move and updates the board to show the piece
+            // being dragged
             if (pp.checkForValidMove(playerNum)) {
                 placePieceButton.setEnabled(true);
             } else if (!pp.checkForValidMove(playerNum)) {
@@ -457,7 +466,7 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
     }
 
     /**
-     * A helper method that finds a piece based on it's name
+     * A helper method that finds a piece based on its name
      * @param pieceName - the name of the piece being searched
      *                  for
      * @return returns the piece if it is found, null otherwise
@@ -495,6 +504,13 @@ public class BlokusHumanPlayer extends GameHumanPlayer implements
      * action.
      */
     public void test(){
+        /**
+         External Citation:
+         Date: 23 April 2019
+         Problem: We didn't know how to unit test our GUI players
+         Source:https://stackoverflow.com/questions/14868349/how-to-disappear-button-in-android
+         Solution: We looked at another team (Amazing Labyrinth) for how they unit tested their computer players. (Thank you!)
+         */
         BlokusGameState bgs = new BlokusGameState();
         this.state = bgs;
 

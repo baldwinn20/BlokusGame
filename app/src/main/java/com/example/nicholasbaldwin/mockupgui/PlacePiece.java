@@ -1,9 +1,5 @@
 package com.example.nicholasbaldwin.mockupgui;
 
-import android.media.MediaPlayer;
-import android.util.Log;
-import android.widget.TextView;
-
 import com.example.nicholasbaldwin.mockupgui.game.actionMsg.GameAction;
 import com.example.nicholasbaldwin.mockupgui.game.util.GamePlayer;
 
@@ -22,7 +18,7 @@ import java.io.Serializable;
 
 public class PlacePiece extends GameAction implements Serializable {
     //instance variables
-    private int[][] boardCopy = new int[20][20];
+    private int[][] boardCopy = new int[BlokusGameState.BOARD_LENGTH][BlokusGameState.BOARD_LENGTH];
     private int[][] pieceLayout;
     private int y;
     private int x;
@@ -60,7 +56,8 @@ public class PlacePiece extends GameAction implements Serializable {
         }
 
         //if a tile in a pieces layout goes past the board
-        if (x + currentPiece.getPieceWidth() - 1 >= 20 || y + currentPiece.getPieceLength() -1 >= 20) {
+        if (x + currentPiece.getPieceWidth() - 1 >= BlokusGameState.BOARD_LENGTH
+                || y + currentPiece.getPieceLength() -1 >= BlokusGameState.BOARD_LENGTH) {
             return false;
         }
 

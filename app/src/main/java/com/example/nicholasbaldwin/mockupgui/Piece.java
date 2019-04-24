@@ -1,8 +1,6 @@
 package com.example.nicholasbaldwin.mockupgui;
 
 import android.graphics.Color;
-import android.util.Log;
-
 import java.io.Serializable;
 
 /**
@@ -16,7 +14,10 @@ import java.io.Serializable;
  * @version <Spring 2019>
  */
 public class Piece implements Serializable {
+
     public static final int PIECE_LAYOUT_SIZE = 5;
+
+    //Constants that represent the player index
     public static final int EMPTY = -1;
     public static final int RED = 0;
     public static final int BLUE = 1;
@@ -30,16 +31,11 @@ public class Piece implements Serializable {
     private int pieceValue, pieceColor, colorNum;
     protected int xPosition = 9, yPosition = 9;
 
-    //0,1,2,3 are different orientation displays
-    protected int orientationVal = 0;
-
     //how the pieces are arranged in terms of ints
     protected int[][] pieceLayout = new int[PIECE_LAYOUT_SIZE][PIECE_LAYOUT_SIZE];
 
     //if true, remove from a player's inventory user interface
     protected boolean isOnBoard = false;
-    //An array of this width will be used to contain each piece
-    protected final int pieceWidth = 5;
 
     /**
      * Constructor for the Piece class
@@ -55,12 +51,11 @@ public class Piece implements Serializable {
         pieceName = initName;
         pieceValue = initScore;
         pieceColor = initColor;
-        orientationVal = 0;
 
         //setting up a blank piece layout
         for (int i = 0; i < pieceLayout.length; i++) {
             for (int j = 0; j < pieceLayout.length; j++) {
-                pieceLayout[i][j] = -1;
+                pieceLayout[i][j] = Piece.EMPTY;
             }
         }
 
@@ -333,7 +328,7 @@ public class Piece implements Serializable {
             for (int j = 0; j < pieceLayout.length; j++) {
                 //makes sure its not an empty part of the
                 //piece layout
-                if (pieceLayout[i][j] != -1 && j >= length) {
+                if (pieceLayout[i][j] != Piece.EMPTY && j >= length) {
                     length = j + 1;// +1 since it starts at zero
                 }
             }
@@ -347,7 +342,7 @@ public class Piece implements Serializable {
             for (int j = 0; j < pieceLayout.length; j++) {
                 //makes sure its not an empty part of the
                 //piece layout
-                if (pieceLayout[i][j] != -1 && i >= width) {
+                if (pieceLayout[i][j] != Piece.EMPTY && i >= width) {
                     width = i + 1;// +1 since it starts at zero
                 }
             }
@@ -373,10 +368,6 @@ public class Piece implements Serializable {
         return pieceColor;
     }
 
-    public int getColorNum() {
-        return colorNum;
-    }
-
     public int getXPosition() {
         return xPosition;
     }
@@ -389,20 +380,12 @@ public class Piece implements Serializable {
         this.pieceLayout = layout;
     }
 
-    public boolean getIsOnBoard() {
-        return isOnBoard;
-    }
-
     public void setxPosition(int xPosition) {
         this.xPosition = xPosition;
     }
 
     public void setyPosition(int yPosition) {
         this.yPosition = yPosition;
-    }
-
-    public void setPieceColor(int initColor) {
-        this.pieceColor = initColor;
     }
 
     public void setOnBoard(boolean init) {
@@ -413,12 +396,5 @@ public class Piece implements Serializable {
         return yPosition;
     }
 
-    public int getOrientationVal() {
-        return orientationVal;
-    }
-
-    public void setOrientationVal(int val) {
-        this.orientationVal = val;
-    }
 }
 

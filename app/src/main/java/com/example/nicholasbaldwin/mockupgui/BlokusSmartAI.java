@@ -18,8 +18,8 @@ import java.util.Collections;
  */
 
 public class BlokusSmartAI extends GameComputerPlayer {
-    //All instance variables
-    public BlokusGameState localState;
+    //Local state of the game
+    private BlokusGameState localState;
     /**
      * constructor for the SmartAI
      * @param initName - sets the name for this player
@@ -46,13 +46,19 @@ public class BlokusSmartAI extends GameComputerPlayer {
         // cast it
         if (!(info instanceof BlokusGameState)) return;
         localState = (BlokusGameState) info;
+
+        //Make sure it's the AI's turn
         if (localState.getPlayerTurn() != playerNum) return;
 
         // pick x and y positions at random (0-2)
         PlacePiece unusedPieceChecker = null;
         Piece pieceToRemove = null;
+
+        //How many times each piece in the inventory is needed to rotate and flip to check for possible moves
         int rotationCount = 4;
         int flipCount = 2;
+
+        //Used to break out of the enclosed loops when the AI can place a piece
         boolean letMeOut = false;
 
         //this reverses the  order of the piece inventory so the smart AI places the biggest piece first
@@ -100,6 +106,7 @@ public class BlokusSmartAI extends GameComputerPlayer {
                 break;
             }
         }//for
+        //Remove the piece from the inventory so the AI can't try to place it again
         if (pieceToRemove != null) {
             localState.getAllPieceInventory().get(playerNum).remove(pieceToRemove);
             return;

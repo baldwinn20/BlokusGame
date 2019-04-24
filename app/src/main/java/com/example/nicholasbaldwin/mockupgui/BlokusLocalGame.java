@@ -133,7 +133,7 @@ public class BlokusLocalGame extends LocalGame {
         else if(action instanceof GiveUp) {
             //the player cant make a move and hasn't skipped a turn yet
             if (!mainState.getAllPlayersGivenUp()[mainState.getPlayerTurn()]) {
-                mainState.setAllPlayersGivenUp(true, mainState.getPlayerTurn());
+                mainState.setAllPlayersGivenUp(mainState.getPlayerTurn());
                 mainState.setPlayerTurn(mainState.getPlayerTurn());
                 skipTurnCount++;
                 return true;

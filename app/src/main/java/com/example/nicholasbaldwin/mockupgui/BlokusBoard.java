@@ -144,7 +144,7 @@ public class BlokusBoard extends SurfaceView {
                 vLocation(sBottom - 1.4f), startingColor);
 
 
-        //draws the very left most vertical boarder
+        //draws the very left most vertical border
         canvas.drawRect(hLocation(0), vLocation(0), hLocation(0.2f)
                 , vLocation(100), dividerColor);
 
@@ -161,7 +161,7 @@ public class BlokusBoard extends SurfaceView {
 
         }
 
-        // if we don't have any state, there's nothing more to draw, so return
+        // if we don't have any state, there's nothing more to draw, so do nothing
         if (state == null) {
             return;
         }
@@ -169,13 +169,13 @@ public class BlokusBoard extends SurfaceView {
         //this draws the new board once a new piece has been placed
         for (int i = 0; i < BOARD_LENGTH; i++) {
             for (int j = 0; j < BOARD_LENGTH; j++) {
-                if (state.getBoard()[i][j] != -1) {
+                if (state.getBoard()[i][j] != Piece.EMPTY) {
                     drawTile(i, j, state.getBoard()[i][j], canvas);
                 }
             }
         }
 
-        //Draw the current piece on top of the board
+        //Draw the current piece on top of the board (Preview of Piece)
         if (currentPiece != null) {
             xCurPiece = currentPiece.getXPosition();
             yCurPiece = currentPiece.getYPosition();
@@ -246,7 +246,7 @@ public class BlokusBoard extends SurfaceView {
     public Point mapPixelToTile(int x, int y) {
         for (int i = 0; i < BOARD_LENGTH; i++) {
             for (int j = 0; j < BOARD_LENGTH; j++) {
-                //the dime of the tile based on its position
+                //the dimensions of the tile based on its position
                 float left = hLocation(LEFT_BORDER_PERCENT - 0.5f + (i * TILE_TOTAL_PERCENT));
                 float right = hLocation(DIVIDER_PERCENT + TILE_SIZE_PERCENT + (i * TILE_TOTAL_PERCENT));
                 float top = vLocation(DIVIDER_PERCENT - 0.5f + (j * TILE_TOTAL_PERCENT));

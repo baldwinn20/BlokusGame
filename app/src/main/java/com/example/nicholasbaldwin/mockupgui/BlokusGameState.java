@@ -1,10 +1,7 @@
 package com.example.nicholasbaldwin.mockupgui;
 
 import android.graphics.Color;
-import android.util.Log;
-
 import com.example.nicholasbaldwin.mockupgui.game.infoMsg.GameState;
-import com.example.nicholasbaldwin.mockupgui.game.util.GamePlayer;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -26,16 +23,18 @@ public class BlokusGameState extends GameState implements Serializable {
     //for easier access to specific player pieces
     private ArrayList<ArrayList<Piece>> allPieceInventory = new ArrayList<>();
 
-    private int[] allPiecesRemaining = new int[4];
-    private int[] allPlayerScores = new int[4];
-    private int[] allPlayerTilesRemaining = new int[4];
-    private boolean[] allPlayersGivenUp = new boolean[4];
-
+    private final static int MAXIMUM_PLAYER_SCORE = 89;
+    private static final int INITIAL_PLAYER_PIECE_COUNT = 21;
     public static final int BOARD_LENGTH = 20;
+    private static final int PLAYER_COUNT = 4;
+
+    //Attributes that each player has
+    private int[] allPiecesRemaining = new int[PLAYER_COUNT];
+    private int[] allPlayerScores = new int[PLAYER_COUNT];
+    private boolean[] allPlayersGivenUp = new boolean[PLAYER_COUNT];
+
     //An integer array will help differentiate whose pieces are on the board.
     private int[][] board = new int[BOARD_LENGTH][BOARD_LENGTH];
-    public final static int MAXIMUM_PLAYER_SCORE = 89;
-    private static final int INITIAL_PLAYER_PIECE_COUNT = 21;
     private int playerToMove;
 
     /**
@@ -56,11 +55,10 @@ public class BlokusGameState extends GameState implements Serializable {
         }
 
 
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < PLAYER_COUNT; i++) {
             allPieceInventory.add(initializeInventories(i));
             allPiecesRemaining[i] = INITIAL_PLAYER_PIECE_COUNT;
             allPlayerScores[i] = 0;
-            allPlayerTilesRemaining[i] = MAXIMUM_PLAYER_SCORE;
             allPlayersGivenUp[i] = false;
         }
         //When the game starts, the first player will be able to place a piece on the board
@@ -90,21 +88,20 @@ public class BlokusGameState extends GameState implements Serializable {
         //This will allow players to see modified versions of the game state
         //and prevent cheating
 
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < PLAYER_COUNT; i++) {
             this.allPieceInventory.add(new ArrayList<Piece>());
             for (int j = 0; j < bgs.allPieceInventory.get(i).size(); j++) {
                 Piece src = bgs.allPieceInventory.get(i).get(j);
                 Piece newPiece = new Piece(src.getName(),
                         src.getPieceValue(), src.getPieceColor());
                 newPiece.isOnBoard = src.isOnBoard;
-                newPiece.orientationVal = src.orientationVal;
                 newPiece.xPosition = src.xPosition;
                 newPiece.yPosition = src.yPosition;
                 this.allPieceInventory.get(i).add(newPiece);
             }
         }
 
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < PLAYER_COUNT; i++) {
             this.allPiecesRemaining[i] = bgs.allPiecesRemaining[i];
             this.allPlayerScores[i] = bgs.allPlayerScores[i];
             this.allPlayersGivenUp[i] = bgs.allPlayersGivenUp[i];
@@ -121,7 +118,6 @@ public class BlokusGameState extends GameState implements Serializable {
     /**
      * placePiece
      * <p>
-     * CAVEAT:      Method not fully implemented for GameState assignment.
      * Board will be set as one big array, and each piece
      * will be a smaller array. Small arrays will be inserted
      * into board array, provided there are no pieces of like
@@ -138,15 +134,14 @@ public class BlokusGameState extends GameState implements Serializable {
             for (int j = y; j < y + pc.getPieceLength(); j++) {
                 int xOffset = i - x;
                 int yOffset = j - y;
-                if (pieceArray[xOffset][yOffset] != -1) {
-                    if (xOffset + x <= 19 && yOffset + y <= 19) {
+                if (pieceArray[xOffset][yOffset] != Piece.EMPTY) {
+                    if (xOffset + x <= BOARD_LENGTH-1 && yOffset + y <= BOARD_LENGTH-1) {
                         this.board[x + xOffset][y + yOffset] = pieceArray[xOffset][yOffset];
                     }
                 }
             }
         }
         pc.setOnBoard(true);
-        this.allPlayerTilesRemaining[playerToMove] -= pc.getPieceValue();
         return true;
     }
 
@@ -157,7 +152,7 @@ public class BlokusGameState extends GameState implements Serializable {
         ArrayList<Piece> inv = new ArrayList<>();
 
         switch (pIndex) {
-            case 0:
+            case Piece.RED:
                 inv.add(new Piece("one", 1, Color.RED));
                 inv.add(new Piece("two", 2, Color.RED));
                 inv.add(new Piece("S", 4, Color.RED));
@@ -180,7 +175,7 @@ public class BlokusGameState extends GameState implements Serializable {
                 inv.add(new Piece("bigT", 5, Color.RED));
                 inv.add(new Piece("corner", 5, Color.RED));
                 break;
-            case 1:
+            case Piece.BLUE:
                 inv.add(new Piece("one", 1, Color.BLUE));
                 inv.add(new Piece("two", 2, Color.BLUE));
                 inv.add(new Piece("S", 4, Color.BLUE));
@@ -203,7 +198,7 @@ public class BlokusGameState extends GameState implements Serializable {
                 inv.add(new Piece("bigT", 5, Color.BLUE));
                 inv.add(new Piece("corner", 5, Color.BLUE));
                 break;
-            case 2:
+            case Piece.GREEN:
                 inv.add(new Piece("one", 1, Color.GREEN));
                 inv.add(new Piece("two", 2, Color.GREEN));
                 inv.add(new Piece("S", 4, Color.GREEN));
@@ -226,7 +221,7 @@ public class BlokusGameState extends GameState implements Serializable {
                 inv.add(new Piece("bigT", 5, Color.GREEN));
                 inv.add(new Piece("corner", 5, Color.GREEN));
                 break;
-            case 3:
+            case Piece.YELLOW:
                 inv.add(new Piece("one", 1, Color.YELLOW));
                 inv.add(new Piece("two", 2, Color.YELLOW));
                 inv.add(new Piece("S", 4, Color.YELLOW));
@@ -278,14 +273,11 @@ public class BlokusGameState extends GameState implements Serializable {
 
     }
 
-    public int[] getAllPlayerTilesRemaining() {
-        return this.allPlayerTilesRemaining;
-    }
     public boolean[] getAllPlayersGivenUp() {
         return this.allPlayersGivenUp;
     }
-    public void setAllPlayersGivenUp(boolean init, int pID){
-        this.allPlayersGivenUp[pID] = init;
+    public void setAllPlayersGivenUp(int pID){
+        this.allPlayersGivenUp[pID] = true;
     }
 
     public int[] getAllPlayerScores() {
@@ -294,17 +286,17 @@ public class BlokusGameState extends GameState implements Serializable {
 
     public void setPlayerTurn(int curTurn) {
         switch (curTurn) {
-            case 0:
-                this.playerToMove = 1;
+            case Piece.RED:
+                this.playerToMove = Piece.BLUE;
                 break;
-            case 1:
-                this.playerToMove = 2;
+            case Piece.BLUE:
+                this.playerToMove = Piece.GREEN;
                 break;
-            case 2:
-                this.playerToMove = 3;
+            case Piece.GREEN:
+                this.playerToMove = Piece.YELLOW;
                 break;
-            case 3:
-                this.playerToMove = 0;
+            case Piece.YELLOW:
+                this.playerToMove = Piece.RED;
                 break;
             default:
                 break;
@@ -317,10 +309,6 @@ public class BlokusGameState extends GameState implements Serializable {
 
     public int[][] getBoard() {
         return this.board;
-    }
-
-    public void setBoard(int[][] board) {
-        this.board = board;
     }
 
     public void removePiece(Piece currentPiece, int playerTurn) {
